@@ -112,7 +112,7 @@
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
     background: var(--accent-line, var(--accent));
   }
-  .kpi-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .kpi-label { font-size: 11px; color: #cccccc; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
   .kpi-value { font-family: 'DM Mono', monospace; font-size: 30px; font-weight: 500; line-height: 1; }
   .kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
 
@@ -187,7 +187,7 @@
     border-radius: 12px; padding: 11px 12px;
     display: flex; flex-direction: column; gap: 3px;
   }
-  .d-metric-label { font-size: 9px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; }
+  .d-metric-label { font-size: 9px; color: #cccccc; letter-spacing: 0.5px; text-transform: uppercase; }
   .d-metric-val {
     font-family: 'DM Mono', monospace;
     font-size: 18px; font-weight: 500; line-height: 1;
@@ -216,7 +216,7 @@
     padding: 8px 10px;
     display: flex; flex-direction: column; gap: 2px;
   }
-  .d-trend-month { font-size: 9px; color: var(--text-dim); text-transform: uppercase; }
+  .d-trend-month { font-size: 9px; color: #cccccc; text-transform: uppercase; }
   .d-trend-val {
     font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 500;
   }
@@ -227,7 +227,7 @@
 
   /* ── PHOTO BOX ── */
   .d-photo {
-    width: 56px; height: 56px; border-radius: 50%;
+    width: 84px; height: 84px; border-radius: 50%;
     flex-shrink: 0;
     background: var(--surface3);
     border: 2px solid var(--border);
@@ -241,7 +241,7 @@
     gap: 2px;
   }
   .d-photo-placeholder span:first-child {
-    font-size: 20px; line-height: 1;
+    font-size: 28px; line-height: 1;
   }
   .d-photo-placeholder span:last-child {
     font-size: 8px; color: var(--text-dim); letter-spacing: 0.3px;
@@ -408,6 +408,135 @@
 
   .hidden { display: none !important; }
 
+  /* ── CARD BRIGHTNESS UP ~20% ── */
+  .d-card { background: #222638; }
+  .d-metric { background: #2a2f4a; }
+  .d-trend-item { background: #2a2f4a; }
+
+  /* ── POPUP OVERLAY ── */
+  .popup-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .popup-overlay.open { display: flex; }
+  .popup-box {
+    background: #1c2030; border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 24px; width: 100%; max-width: 680px;
+    max-height: 88vh; overflow-y: auto;
+    animation: popIn 0.25s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes popIn {
+    from { opacity:0; transform: scale(0.92) translateY(16px); }
+    to   { opacity:1; transform: scale(1) translateY(0); }
+  }
+  .popup-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 24px 16px; border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; background: #1c2030; border-radius: 24px 24px 0 0; z-index: 1;
+  }
+  .popup-header-left { display: flex; align-items: center; gap: 14px; }
+  .popup-photo {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--surface3); border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; flex-shrink: 0;
+  }
+  .popup-photo img { width:100%; height:100%; object-fit:cover; }
+  .popup-photo-init { font-size:16px; color: var(--text-muted); }
+  .popup-title { font-size: 20px; font-weight: 700; }
+  .popup-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .popup-close {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--surface3); border: none; cursor: pointer;
+    color: var(--text-muted); font-size: 16px; display: flex;
+    align-items: center; justify-content: center; transition: background 0.15s;
+  }
+  .popup-close:hover { background: var(--surface2); color: var(--text); }
+  .popup-body { padding: 20px 24px 24px; }
+  .popup-kpi-row {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px;
+  }
+  .popup-kpi {
+    background: #242840; border-radius: 14px; padding: 14px 16px;
+  }
+  .popup-kpi-label {
+    font-size: 10px; color: #cccccc; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 700;
+  }
+  .popup-kpi-total {
+    font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 500; line-height: 1;
+    margin-bottom: 10px;
+  }
+  .popup-kpi-months {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;
+  }
+  .popup-kpi-month {
+    display: flex; flex-direction: column; gap: 2px; align-items: center;
+  }
+  .popup-kpi-month-label {
+    font-size: 9px; color: #cccccc; letter-spacing: 0.3px;
+  }
+  .popup-kpi-month-val {
+    font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
+  }
+  .popup-kpi-sub { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+  .popup-section-title {
+    font-size: 11px; font-weight: 700; color: var(--text-dim);
+    text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 10px;
+  }
+  .popup-chart-wrap { position: relative; height: 180px; margin-bottom: 4px; }
+  .popup-sat-dist {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 4px;
+  }
+  .popup-sat-item {
+    background: #242840; border-radius: 10px; padding: 8px;
+    text-align: center; display: flex; flex-direction: column; gap: 3px;
+  }
+  .popup-sat-label { font-size: 9px; color: var(--text-dim); }
+  .popup-sat-val { font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500; }
+  .popup-sat-pct { font-size: 10px; color: var(--text-muted); }
+
+  /* ── SERVICE TYPE SECTION ── */
+  .service-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px; margin-bottom: 20px;
+    animation: fadeUp 0.5s 0.28s ease both;
+  }
+  .service-chart-wrap { position: relative; height: 280px; }
+
+  /* ── REVIEW SECTION ── */
+  .review-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px; margin-bottom: 20px;
+    animation: fadeUp 0.5s 0.45s ease both;
+  }
+  .review-tabs {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; margin-top: 14px;
+  }
+  .review-tab {
+    padding: 4px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted); font-size: 12px;
+    cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s;
+  }
+  .review-tab.active { color: white; border-color: transparent; }
+  .review-list { display: flex; flex-direction: column; gap: 10px; }
+  .review-item {
+    background: var(--surface2); border-radius: 14px; padding: 14px 16px;
+    border-left: 3px solid transparent;
+  }
+  .review-item-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px;
+  }
+  .review-designer { font-size: 11px; font-weight: 600; }
+  .review-badge {
+    font-size: 10px; padding: 2px 8px; border-radius: 10px;
+    font-weight: 600; letter-spacing: 0.3px;
+  }
+  .review-text { font-size: 13px; color: var(--text); line-height: 1.6; }
+  .review-empty { font-size: 13px; color: var(--text-dim); text-align: center; padding: 24px; }
+
   @media (max-width: 900px) {
     .kpi-row { grid-template-columns: repeat(3, 1fr); }
     .charts-grid { grid-template-columns: 1fr; }
@@ -453,7 +582,7 @@
     <div class="kpi-card" style="--accent-line: var(--arc)">
       <div class="kpi-label">총 고객수</div>
       <div class="kpi-value" id="kpi-customers">5,007</div>
-      <div class="kpi-sub">유니크 고객</div>
+      <div class="kpi-sub">총 고객수</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--gold)">
       <div class="kpi-label">평균 만족도</div>
@@ -479,7 +608,15 @@
   </div>
   <div class="designer-grid" id="designer-grid"></div>
 
-  <!-- CHARTS ROW -->
+  <!-- SERVICE TYPE SECTION -->
+  <div class="section-header">
+    <span class="section-title">시술 유형 비율</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="service-section">
+    <div style="font-size:13px;color:var(--text-muted)">전 지점 합산 · 3개월 총 시술 건수 기준</div>
+    <div class="service-chart-wrap" style="margin-top:20px"><canvas id="chartService"></canvas></div>
+  </div>
   <div class="section-header">
     <span class="section-title">지표 비교</span>
     <div class="section-line"></div>
@@ -527,6 +664,48 @@
     <div class="trend-grid" id="trend-grid"></div>
   </div>
 
+  <!-- REVIEW SECTION -->
+  <div class="section-header">
+    <span class="section-title">고객 리뷰</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="review-section">
+    <div style="font-size:13px;color:var(--text-muted)">만족도 응답 중 텍스트 리뷰 모음</div>
+    <div class="review-tabs" id="review-tabs">
+      <button class="review-tab active" onclick="filterReview(5,this)" style="background:#27ae60">⭐⭐⭐⭐⭐ 매우 만족</button>
+      <button class="review-tab" onclick="filterReview(4,this)">⭐⭐⭐⭐ 만족</button>
+      <button class="review-tab" onclick="filterReview(3,this)">⭐⭐⭐ 보통</button>
+      <button class="review-tab" onclick="filterReview(2,this)">⭐⭐ 불만족</button>
+      <button class="review-tab" onclick="filterReview(1,this)">⭐ 매우 불만족</button>
+    </div>
+    <div class="review-list" id="review-list"></div>
+  </div>
+
+  <!-- POPUP OVERLAY -->
+  <div class="popup-overlay" id="popup-overlay" onclick="closePopup(event)">
+    <div class="popup-box" id="popup-box">
+      <div class="popup-header">
+        <div class="popup-header-left">
+          <div class="popup-photo" id="popup-photo">
+            <span class="popup-photo-init" id="popup-init"></span>
+          </div>
+          <div>
+            <div class="popup-title" id="popup-name"></div>
+            <div class="popup-subtitle" id="popup-branch"></div>
+          </div>
+        </div>
+        <button class="popup-close" onclick="document.getElementById('popup-overlay').classList.remove('open')">✕</button>
+      </div>
+      <div class="popup-body">
+        <div class="popup-kpi-row" id="popup-kpis"></div>
+        <div class="popup-section-title">만족도 분포</div>
+        <div class="popup-sat-dist" id="popup-sat"></div>
+        <div class="popup-section-title">시술 유형 비율</div>
+        <div class="popup-chart-wrap"><canvas id="popup-service-chart"></canvas></div>
+      </div>
+    </div>
+  </div>
+
   <footer>© 2026 Designer Dashboard · Data Period: 2026.01–03 · Generated by Claude</footer>
 </div>
 
@@ -538,86 +717,98 @@ const DESIGNERS = [
   { id:'아크 김도희', name:'김도희', branch:'아크', branchFull:'아크점',
     sat:4.85, satResp:102, m1Sat:4.96, m2Sat:4.86, m3Sat:4.77,
     m1Resp:27, m2Resp:36, m3Resp:39,
-    bookRate:0.827, revRate:0.406, totalVisits:546,
-    m1Visits:189, m2Visits:169, m3Visits:188,
-    totalCust:415,
+    bookRate:0.827, m1Book:0.904, m2Book:0.768, m3Book:0.814,
+    revRate:0.406, m1Rev:0.317, m2Rev:0.438, m3Rev:0.468,
+    totalVisits:546, m1Visits:189, m2Visits:169, m3Visits:188,
+    totalCust:415, m1Cust:181, m2Cust:160, m3Cust:173,
     dist:{s5:88,s4:13,s3:1,neg:0} },
   { id:'아크 김지애', name:'김지애', branch:'아크', branchFull:'아크점',
     sat:4.89, satResp:91, m1Sat:4.92, m2Sat:5.00, m3Sat:4.79,
     m1Resp:25, m2Resp:27, m3Resp:39,
-    bookRate:0.823, revRate:0.448, totalVisits:543,
-    m1Visits:208, m2Visits:166, m3Visits:169,
-    totalCust:398,
+    bookRate:0.823, m1Book:0.995, m2Book:0.755, m3Book:0.732,
+    revRate:0.448, m1Rev:0.413, m2Rev:0.488, m3Rev:0.450,
+    totalVisits:543, m1Visits:208, m2Visits:166, m3Visits:169,
+    totalCust:398, m1Cust:192, m2Cust:156, m3Cust:156,
     dist:{s5:82,s4:8,s3:1,neg:0} },
   { id:'아크 오주예', name:'오주예', branch:'아크', branchFull:'아크점',
     sat:4.86, satResp:142, m1Sat:4.91, m2Sat:4.91, m3Sat:4.76,
     m1Resp:47, m2Resp:44, m3Resp:51,
-    bookRate:0.810, revRate:0.441, totalVisits:583,
-    m1Visits:212, m2Visits:174, m3Visits:197,
-    totalCust:427,
+    bookRate:0.810, m1Book:0.930, m2Book:0.725, m3Book:0.782,
+    revRate:0.441, m1Rev:0.335, m2Rev:0.500, m3Rev:0.503,
+    totalVisits:583, m1Visits:212, m2Visits:174, m3Visits:197,
+    totalCust:427, m1Cust:200, m2Cust:160, m3Cust:174,
     dist:{s5:128,s4:12,s3:0,neg:2} },
   { id:'아크 선태준', name:'선태준', branch:'아크', branchFull:'아크점',
     sat:4.95, satResp:133, m1Sat:4.98, m2Sat:4.95, m3Sat:4.91,
     m1Resp:50, m2Resp:39, m3Resp:44,
-    bookRate:0.844, revRate:0.627, totalVisits:608,
-    m1Visits:203, m2Visits:175, m3Visits:230,
-    totalCust:367,
+    bookRate:0.844, m1Book:0.890, m2Book:0.729, m3Book:0.913,
+    revRate:0.627, m1Rev:0.557, m2Rev:0.657, m3Rev:0.665,
+    totalVisits:608, m1Visits:203, m2Visits:175, m3Visits:230,
+    totalCust:367, m1Cust:184, m2Cust:159, m3Cust:189,
     dist:{s5:126,s4:7,s3:0,neg:0} },
   { id:'신논현 김상희', name:'김상희', branch:'신논현', branchFull:'신논현점',
     sat:4.98, satResp:121, m1Sat:5.00, m2Sat:5.00, m3Sat:4.92,
     m1Resp:36, m2Resp:45, m3Resp:40,
-    bookRate:0.664, revRate:0.619, totalVisits:573,
-    m1Visits:219, m2Visits:156, m3Visits:198,
-    totalCust:410,
+    bookRate:0.664, m1Book:0.887, m2Book:0.600, m3Book:0.725,
+    revRate:0.619, m1Rev:0.269, m2Rev:0.628, m3Rev:0.611,
+    totalVisits:573, m1Visits:219, m2Visits:156, m3Visits:198,
+    totalCust:410, m1Cust:188, m2Cust:132, m3Cust:160,
     dist:{s5:118,s4:3,s3:0,neg:0} },
   { id:'신논현 이나연', name:'이나연', branch:'신논현', branchFull:'신논현점',
     sat:4.91, satResp:139, m1Sat:4.95, m2Sat:4.88, m3Sat:4.90,
     m1Resp:37, m2Resp:42, m3Resp:60,
-    bookRate:0.776, revRate:0.481, totalVisits:592,
-    m1Visits:210, m2Visits:171, m3Visits:211,
-    totalCust:476,
+    bookRate:0.776, m1Book:1.000, m2Book:0.713, m3Book:0.837,
+    revRate:0.481, m1Rev:0.119, m2Rev:0.520, m3Rev:0.450,
+    totalVisits:592, m1Visits:210, m2Visits:171, m3Visits:211,
+    totalCust:476, m1Cust:197, m2Cust:156, m3Cust:191,
     dist:{s5:128,s4:10,s3:0,neg:1} },
   { id:'신논현 송영호', name:'송영호', branch:'신논현', branchFull:'신논현점',
     sat:4.79, satResp:95, m1Sat:4.70, m2Sat:4.74, m3Sat:4.89,
     m1Resp:20, m2Resp:39, m3Resp:36,
-    bookRate:0.803, revRate:0.433, totalVisits:595,
-    m1Visits:200, m2Visits:175, m3Visits:220,
-    totalCust:496,
+    bookRate:0.803, m1Book:0.957, m2Book:0.729, m3Book:0.873,
+    revRate:0.433, m1Rev:0.070, m2Rev:0.463, m3Rev:0.409,
+    totalVisits:595, m1Visits:200, m2Visits:175, m3Visits:220,
+    totalCust:496, m1Cust:193, m2Cust:161, m3Cust:201,
     dist:{s5:79,s4:13,s3:2,neg:1} },
   { id:'한타 김수빈', name:'김수빈', branch:'한타', branchFull:'한타점 (휴업)',
     sat:4.93, satResp:136, m1Sat:4.92, m2Sat:4.95, m3Sat:4.93,
     m1Resp:38, m2Resp:39, m3Resp:59,
-    bookRate:0.824, revRate:0.717, totalVisits:643,
-    m1Visits:237, m2Visits:169, m3Visits:237,
-    totalCust:327,
+    bookRate:0.824, m1Book:0.960, m2Book:0.650, m3Book:0.868,
+    revRate:0.717, m1Rev:0.684, m2Rev:0.787, m3Rev:0.700,
+    totalVisits:643, m1Visits:237, m2Visits:169, m3Visits:237,
+    totalCust:327, m1Cust:190, m2Cust:138, m3Cust:196,
     dist:{s5:127,s4:9,s3:0,neg:0} },
   { id:'한타 남민정', name:'남민정', branch:'한타', branchFull:'한타점 (휴업)',
     sat:4.86, satResp:98, m1Sat:4.97, m2Sat:4.91, m3Sat:4.72,
     m1Resp:30, m2Resp:32, m3Resp:36,
-    bookRate:0.824, revRate:0.420, totalVisits:593,
-    m1Visits:211, m2Visits:176, m3Visits:206,
-    totalCust:442,
+    bookRate:0.824, m1Book:0.925, m2Book:0.733, m3Book:0.817,
+    revRate:0.420, m1Rev:0.393, m2Rev:0.438, m3Rev:0.432,
+    totalVisits:593, m1Visits:211, m2Visits:176, m3Visits:206,
+    totalCust:442, m1Cust:194, m2Cust:163, m3Cust:185,
     dist:{s5:87,s4:10,s3:0,neg:1} },
   { id:'한타 박희선', name:'박희선', branch:'한타', branchFull:'한타점 (휴업)',
     sat:4.77, satResp:104, m1Sat:4.64, m2Sat:4.85, m3Sat:4.79,
     m1Resp:28, m2Resp:33, m3Resp:43,
-    bookRate:0.721, revRate:0.443, totalVisits:519,
-    m1Visits:191, m2Visits:144, m3Visits:184,
-    totalCust:384,
+    bookRate:0.721, m1Book:0.838, m2Book:0.600, m3Book:0.730,
+    revRate:0.443, m1Rev:0.408, m2Rev:0.458, m3Rev:0.467,
+    totalVisits:519, m1Visits:191, m2Visits:144, m3Visits:184,
+    totalCust:384, m1Cust:179, m2Cust:134, m3Cust:169,
     dist:{s5:90,s4:8,s3:3,neg:3} },
   { id:'한타 배연희', name:'배연희', branch:'한타', branchFull:'한타점 (휴업)',
     sat:4.90, satResp:89, m1Sat:4.86, m2Sat:4.92, m3Sat:4.91,
     m1Resp:29, m2Resp:25, m3Resp:35,
-    bookRate:0.877, revRate:0.465, totalVisits:579,
-    m1Visits:211, m2Visits:170, m3Visits:198,
-    totalCust:423,
+    bookRate:0.877, m1Book:1.000, m2Book:0.773, m3Book:0.857,
+    revRate:0.465, m1Rev:0.427, m2Rev:0.494, m3Rev:0.480,
+    totalVisits:579, m1Visits:211, m2Visits:170, m3Visits:198,
+    totalCust:423, m1Cust:200, m2Cust:161, m3Cust:185,
     dist:{s5:81,s4:7,s3:1,neg:0} },
   { id:'한타 송다예', name:'송다예', branch:'한타', branchFull:'한타점 (휴업)',
     sat:4.83, satResp:88, m1Sat:4.97, m2Sat:4.67, m3Sat:4.88,
     m1Resp:29, m2Resp:33, m3Resp:26,
-    bookRate:0.822, revRate:0.438, totalVisits:592,
-    m1Visits:206, m2Visits:172, m3Visits:214,
-    totalCust:442,
+    bookRate:0.822, m1Book:0.904, m2Book:0.717, m3Book:0.849,
+    revRate:0.438, m1Rev:0.388, m2Rev:0.477, m3Rev:0.453,
+    totalVisits:592, m1Visits:206, m2Visits:172, m3Visits:214,
+    totalCust:442, m1Cust:194, m2Cust:161, m3Cust:196,
     dist:{s5:75,s4:11,s3:2,neg:0} },
 ];
 
@@ -788,6 +979,8 @@ function renderCards() {
         </div>
       </div>
     `;
+    card.style.cursor = 'pointer';
+    card.onclick = () => openPopup(d);
     grid.appendChild(card);
   });
 
@@ -1000,13 +1193,282 @@ function renderCharts() {
 }
 
 // ═══════════════════════════════════════════
-// INIT
+// SERVICE TYPE DATA
 // ═══════════════════════════════════════════
+const SERVICE_TOTAL = {
+  '커트': 2778, '커트+펌': 1258, '클리닉': 1091,
+  '샴푸/세팅드라이': 812, '커트+염색': 519, '염색': 329, '펌': 174, '기타': 5
+};
+const SERVICE_COLORS = ['#4fa3e0','#50c878','#f5c842','#e07b4f','#a78bfa','#e05252','#52c48a','#6b7094'];
+
+const SERVICE_BY_DESIGNER = {
+  '아크 김도희':   {'커트':166,'커트+펌':113,'클리닉':93,'샴푸/세팅드라이':81,'커트+염색':43,'염색':30,'펌':20,'기타':0},
+  '아크 김지애':   {'커트':162,'커트+펌':112,'클리닉':121,'샴푸/세팅드라이':76,'커트+염색':33,'염색':24,'펌':15,'기타':0},
+  '아크 오주예':   {'커트':221,'커트+펌':93,'클리닉':98,'샴푸/세팅드라이':85,'커트+염색':38,'염색':30,'펌':18,'기타':0},
+  '아크 선태준':   {'커트':262,'커트+펌':117,'클리닉':91,'샴푸/세팅드라이':67,'커트+염색':42,'염색':17,'펌':12,'기타':0},
+  '신논현 김상희': {'커트':256,'커트+펌':104,'클리닉':64,'샴푸/세팅드라이':47,'커트+염색':59,'염색':25,'펌':13,'기타':5},
+  '신논현 이나연': {'커트':258,'커트+펌':116,'클리닉':73,'샴푸/세팅드라이':66,'커트+염색':45,'염색':26,'펌':8,'기타':0},
+  '신논현 송영호': {'커트':239,'커트+펌':98,'클리닉':105,'샴푸/세팅드라이':64,'커트+염색':40,'염색':31,'펌':18,'기타':0},
+  '한타 김수빈':   {'커트':332,'커트+펌':115,'클리닉':71,'샴푸/세팅드라이':51,'커트+염색':60,'염색':10,'펌':4,'기타':0},
+  '한타 남민정':   {'커트':258,'커트+펌':100,'클리닉':91,'샴푸/세팅드라이':64,'커트+염색':28,'염색':35,'펌':17,'기타':0},
+  '한타 박희선':   {'커트':191,'커트+펌':94,'클리닉':91,'샴푸/세팅드라이':75,'커트+염색':28,'염색':29,'펌':11,'기타':0},
+  '한타 배연희':   {'커트':196,'커트+펌':96,'클리닉':106,'샴푸/세팅드라이':76,'커트+염색':48,'염색':40,'펌':17,'기타':0},
+  '한타 송다예':   {'커트':237,'커트+펌':100,'클리닉':87,'샴푸/세팅드라이':60,'커트+염색':55,'염색':32,'펌':21,'기타':0},
+};
+
+// ═══════════════════════════════════════════
+// REVIEW DATA
+// ═══════════════════════════════════════════
+const REVIEWS = {
+  5: [
+    {designer:'선태준', text:'한 시간 안에 모든 시술을 다 해주시고 싶은 마음이 전해졌어요. 꼼꼼하게 해주셔서 감사해요.'},
+    {designer:'김상희', text:'항상 밝은 미소로 맞이해주시고 시술도 잘해주셔서 감사드립니다.'},
+    {designer:'김수빈', text:'임신 중인데 클리닉 제품 성분도 꼼꼼히 확인해주시고 자세 불편 등 여러 가지를 섬세하게 살펴봐주셔서 편안하게 시술 잘 받았습니다!'},
+    {designer:'이나연', text:'친절하고 따뜻하게 배려해주셔서 늘 기분 좋은 시간을 보내고 옵니다. 한정된 시간 내 제게 필요한 내용으로 알차게 진행되어 만족스러워요.'},
+    {designer:'선태준', text:'구석구석 꼼꼼히 신경써 주셔서 리프레시 됩니다~'},
+    {designer:'김도희', text:'섬세하게 챙겨주셔서 감사합니다. 작은 부분까지 세심하게 챙겨주시는 점에서 진심이 느껴졌어요.'},
+    {designer:'남민정', text:'항상 감사드립니다. 머리도 너무 마음에 들고 또 친절하셔서 감사드립니다.'},
+    {designer:'배연희', text:'꼼꼼하고 친절하게 잘해주셔서 감사합니다. 앞머리도 예쁘게 정리해주셔서 감사합니당!'},
+  ],
+  4: [
+    {designer:'선태준', text:'30분 샴푸에서도 간단 클리닉이 가능했으면 좋겠어요. 남은 30분을 쓰기 애매해서 항상 샴푸를 받는데 사실 머리가 상해서 약식이라도 함께 진행해주셨으면 좋겠습니다.'},
+    {designer:'이나연', text:'두피 마사지는 엄청 시원하고 친절하셔서 짱짱 좋았는데 머리 말릴 때 살짝 스타일링을 더 해주셨으면 더 좋았을 듯해요.'},
+    {designer:'김지애', text:'샴푸는 만족스럽습니다! 다만 드라이 스타일링이 항상 조금 아쉬워요.'},
+    {designer:'김상희', text:'샴푸와 머리 말리는 것을 꼼꼼히 해주셨습니다. 개인적으로는 두피를 좀 더 시원하게 세게 하는 것을 좋아합니다.'},
+  ],
+  3: [
+    {designer:'김도희', text:'시술 후에 머리카락이 너무 많이 남아서 업무 보는 데 머리와 상체가 너무 간지러웠어요. 이 부분이 개선되면 좋을 것 같아요!'},
+    {designer:'김지애', text:'샴푸는 만족스럽습니다! 다만 머리 말려주시면서 스타일링이 항상 조금 아쉬워요.'},
+    {designer:'송영호', text:'전반적으로 괜찮았지만 조금 더 꼼꼼하게 봐주셨으면 했어요.'},
+  ],
+  2: [
+    {designer:'이나연', text:'커트의 퀄리티가 많이 아쉬워요. 사진을 보여주면서 스타일을 이야기했는데, 머리카락도 더 짧고 좌우 대칭이 맞지 않게 해주셨어요.'},
+    {designer:'송영호', text:'시술이 빠르게 끝난 것 같아서 아쉬웠어요.'},
+    {designer:'박희선', text:'기대했던 것과 결과가 달라서 아쉬움이 남았어요.'},
+  ],
+  1: [
+    {designer:'오주예', text:'다운펌이 하나도 되지 않았어요. 체감상 시술 시간이 너무 짧았고 저녁에 집에 와서 보니 옆머리가 너무 떠있네요.'},
+    {designer:'오주예', text:'앞머리 펌이 너무 과하게 되어서 일단 내리고 다닐 수가 없어요. 시술 전 좀 더 꼼꼼한 상담이 있었으면 좋았을 것 같아요.'},
+  ],
+};
+
+// ═══════════════════════════════════════════
+// POPUP
+// ═══════════════════════════════════════════
+let popupServiceChart = null;
+
+function openPopup(d) {
+  const bc = BRANCH_COLOR[d.branch] || '#888';
+  const sc = scoreColor(d.sat);
+
+  // header
+  document.getElementById('popup-name').textContent = d.name;
+  document.getElementById('popup-branch').textContent = d.branchFull;
+  document.getElementById('popup-init').textContent = d.name.slice(1);
+
+  // photo
+  const photoEl = document.getElementById('popup-photo');
+  photoEl.style.borderColor = bc;
+  const imgEl = photoEl.querySelector('img');
+  if (imgEl) imgEl.remove();
+  const newImg = document.createElement('img');
+  newImg.src = `${d.id}.jpg`;
+  newImg.alt = d.name;
+  newImg.onerror = function(){ this.style.display='none'; document.getElementById('popup-init').style.display=''; };
+  document.getElementById('popup-init').style.display = 'none';
+  photoEl.insertBefore(newImg, photoEl.firstChild);
+  newImg.onerror = function(){ this.style.display='none'; document.getElementById('popup-init').style.display='block'; };
+
+  // KPIs with monthly breakdown
+  const total = d.dist.s5+d.dist.s4+d.dist.s3+d.dist.neg;
+
+  function mVal(v) { return v != null && v > 0 ? num(v) : '-'; }
+  function mPct(v) { return v != null && v > 0 ? pct(v) : '-'; }
+  function mSat(v) { return v != null ? fmt(v,2) : '-'; }
+
+  function monthBreakdown(vals, colorFn) {
+    return `<div class="popup-kpi-months">
+      ${['1월','2월','3월'].map((m,i) => {
+        const v = vals[i];
+        const col = (v != null && v !== '-') ? (colorFn ? colorFn(v) : 'var(--text-muted)') : '#3d4166';
+        return `<div class="popup-kpi-month">
+          <span class="popup-kpi-month-label">${m}</span>
+          <span class="popup-kpi-month-val" style="color:${col}">${v ?? '-'}</span>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  document.getElementById('popup-kpis').innerHTML = `
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">총 방문수</div>
+      <div class="popup-kpi-total" style="color:${bc}">${num(d.totalVisits)}<span style="font-size:12px;color:#555;margin-left:4px">회</span></div>
+      ${monthBreakdown([mVal(d.m1Visits), mVal(d.m2Visits), mVal(d.m3Visits)], null)}
+    </div>
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">고객수</div>
+      <div class="popup-kpi-total">${num(d.totalCust)}<span style="font-size:12px;color:#555;margin-left:4px">명</span></div>
+      ${monthBreakdown([mVal(d.m1Cust), mVal(d.m2Cust), mVal(d.m3Cust)], null)}
+    </div>
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">예약율</div>
+      <div class="popup-kpi-total" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}</div>
+      ${monthBreakdown([mPct(d.m1Book), mPct(d.m2Book), mPct(d.m3Book)], v => pctColor(parseFloat(v)/100))}
+    </div>
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">재방률</div>
+      <div class="popup-kpi-total" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}</div>
+      ${monthBreakdown([mPct(d.m1Rev), mPct(d.m2Rev), mPct(d.m3Rev)], v => pctColor(parseFloat(v)/100))}
+    </div>
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">만족도</div>
+      <div class="popup-kpi-total" style="color:${sc}">${fmt(d.sat,2)}<span style="font-size:12px;color:#555;margin-left:4px">점</span></div>
+      ${monthBreakdown([mSat(d.m1Sat), mSat(d.m2Sat), mSat(d.m3Sat)], v => scoreColor(parseFloat(v)))}
+    </div>
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">만족도이상</div>
+      <div class="popup-kpi-total" style="color:#27ae60">${total?Math.round((d.dist.s5+d.dist.s4)/total*100):'0'}<span style="font-size:12px;color:#555;margin-left:1px">%</span></div>
+      <div style="font-size:10px;color:#555;margin-top:8px">4점 이상 응답 비율 · 총 ${total}건</div>
+    </div>`;
+
+  // Satisfaction dist
+  const satLabels = [['매우만족','#27ae60'],['만족','#4fa3e0'],['보통','#f5c842'],['불만족','#e07b4f'],['매우불만족','#e05252']];
+  const satVals = [d.dist.s5, d.dist.s4, d.dist.s3, Math.max(0, d.dist.neg-0), 0];
+  // rough split neg
+  document.getElementById('popup-sat').innerHTML = satLabels.map(([label,color],i) => {
+    const v = i===3 ? d.dist.neg : (i===4 ? 0 : satVals[i]);
+    const p = total ? Math.round(v/total*100) : 0;
+    return `<div class="popup-sat-item">
+      <div class="popup-sat-label">${label}</div>
+      <div class="popup-sat-val" style="color:${color}">${v}</div>
+      <div class="popup-sat-pct">${p}%</div>
+    </div>`;
+  }).join('');
+
+  // Service chart
+  if (popupServiceChart) popupServiceChart.destroy();
+  const svc = SERVICE_BY_DESIGNER[d.id] || {};
+  const svcLabels = Object.keys(SERVICE_TOTAL);
+  const svcData = svcLabels.map(k => svc[k] || 0);
+  const svcTotal = svcData.reduce((a,b)=>a+b,0);
+  const ctx = document.getElementById('popup-service-chart').getContext('2d');
+  popupServiceChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: svcLabels,
+      datasets: [{ data: svcData, backgroundColor: SERVICE_COLORS, borderWidth: 2, borderColor: '#1c2030' }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { position:'right', labels: { color:'#8b8fb8', font:{size:11}, padding:10, boxWidth:12 } },
+        tooltip: {
+          backgroundColor:'#1a1d28', borderColor:'#2c2f45', borderWidth:1,
+          titleColor:'#e8eaf2', bodyColor:'#8b8fb8',
+          callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}건 (${svcTotal?Math.round(ctx.raw/svcTotal*100):0}%)` }
+        }
+      }
+    }
+  });
+
+  document.getElementById('popup-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePopup(e) {
+  if (e.target === document.getElementById('popup-overlay')) {
+    document.getElementById('popup-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// ═══════════════════════════════════════════
+// SERVICE CHART (전체)
+// ═══════════════════════════════════════════
+function renderServiceChart() {
+  const labels = Object.keys(SERVICE_TOTAL);
+  const data = Object.values(SERVICE_TOTAL);
+  const total = data.reduce((a,b)=>a+b,0);
+  new Chart(document.getElementById('chartService'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: '시술 건수',
+        data,
+        backgroundColor: SERVICE_COLORS.map(c => c+'cc'),
+        borderColor: SERVICE_COLORS,
+        borderWidth: 1.5, borderRadius: 8,
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor:'#1a1d28', borderColor:'#2c2f45', borderWidth:1,
+          titleColor:'#e8eaf2', bodyColor:'#8b8fb8',
+          callbacks: { label: ctx => ` ${ctx.raw.toLocaleString()}건 (${Math.round(ctx.raw/total*100)}%)` }
+        }
+      },
+      scales: {
+        x: { grid:{color:'rgba(255,255,255,0.05)'}, ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'}} },
+        y: { grid:{display:false}, ticks:{color:'#e8eaf2',font:{size:12,family:'Noto Sans KR'},padding:8} }
+      }
+    }
+  });
+}
+
+// ═══════════════════════════════════════════
+// REVIEWS
+// ═══════════════════════════════════════════
+let currentReviewScore = 5;
+const REVIEW_BADGE = {
+  5: {label:'매우 만족', color:'#27ae60', bg:'rgba(39,174,96,0.12)'},
+  4: {label:'만족',     color:'#4fa3e0', bg:'rgba(79,163,224,0.12)'},
+  3: {label:'보통',     color:'#f5c842', bg:'rgba(245,200,66,0.12)'},
+  2: {label:'불만족',   color:'#e07b4f', bg:'rgba(224,123,79,0.12)'},
+  1: {label:'매우불만족',color:'#e05252', bg:'rgba(224,82,82,0.12)'},
+};
+
+function filterReview(score, btn) {
+  currentReviewScore = score;
+  document.querySelectorAll('.review-tab').forEach(b => {
+    b.classList.remove('active');
+    b.style.background = '';
+  });
+  btn.classList.add('active');
+  btn.style.background = REVIEW_BADGE[score].color;
+  renderReviews();
+}
+
+function renderReviews() {
+  const list = document.getElementById('review-list');
+  const items = REVIEWS[currentReviewScore] || [];
+  const badge = REVIEW_BADGE[currentReviewScore];
+  if (!items.length) {
+    list.innerHTML = `<div class="review-empty">해당 만족도 리뷰가 없습니다.</div>`;
+    return;
+  }
+  list.innerHTML = items.map(r => {
+    const d = DESIGNERS.find(d => d.name === r.designer);
+    const bc = d ? BRANCH_COLOR[d.branch]||'#888' : '#888';
+    return `<div class="review-item" style="border-left-color:${badge.color};background:${badge.bg}">
+      <div class="review-item-header">
+        <span class="review-designer" style="color:${bc}">${r.designer}</span>
+        <span class="review-badge" style="color:${badge.color};background:rgba(0,0,0,0.2)">${badge.label}</span>
+      </div>
+      <div class="review-text">${r.text}</div>
+    </div>`;
+  }).join('');
+}
 renderCards();
 updateKPI();
 renderRanking();
 renderTrend();
 renderCharts();
+renderServiceChart();
+renderReviews();
 </script>
 </body>
 </html>
