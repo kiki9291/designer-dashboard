@@ -577,27 +577,27 @@
     <div class="kpi-card" style="--accent-line: var(--accent)">
       <div class="kpi-label">총 방문수</div>
       <div class="kpi-value" id="kpi-visits">6,966</div>
-      <div class="kpi-sub">3개월 누적</div>
+      <div class="kpi-sub">최근 3개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--arc)">
       <div class="kpi-label">총 고객수</div>
       <div class="kpi-value" id="kpi-customers">5,007</div>
-      <div class="kpi-sub">총 고객수</div>
+      <div class="kpi-sub">최근 3개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--gold)">
       <div class="kpi-label">평균 만족도</div>
       <div class="kpi-value" id="kpi-sat" style="color: var(--gold)">4.88</div>
-      <div class="kpi-sub">/ 5.00점</div>
+      <div class="kpi-sub">최근 3개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--success)">
       <div class="kpi-label">평균 예약율</div>
       <div class="kpi-value" id="kpi-book" style="color: var(--success)">82%</div>
-      <div class="kpi-sub">슬롯 활용률</div>
+      <div class="kpi-sub">최근 3개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--warn)">
       <div class="kpi-label">평균 재방률</div>
       <div class="kpi-value" id="kpi-rev" style="color: var(--warn)">34%</div>
-      <div class="kpi-sub">재방문 비율</div>
+      <div class="kpi-sub">최근 3개월간</div>
     </div>
   </div>
 
@@ -936,12 +936,12 @@ function renderCards() {
         <div class="d-metric">
           <div class="d-metric-label">예약율</div>
           <div class="d-metric-val" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}</div>
-          <div class="d-metric-sub">슬롯 활용률</div>
+          <div class="d-metric-sub"></div>
         </div>
         <div class="d-metric">
           <div class="d-metric-label">재방률</div>
           <div class="d-metric-val" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}</div>
-          <div class="d-metric-sub">재방문 비율</div>
+          <div class="d-metric-sub"></div>
         </div>
       </div>
 
