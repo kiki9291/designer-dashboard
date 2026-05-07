@@ -999,19 +999,38 @@ function renderTrend() {
   ];
   grid.innerHTML='';
   months.forEach(m => {
-    const sorted=[...DESIGNERS].filter(d=>d[m.vKey]>0).sort((a,b)=>b[m.vKey]-a[m.vKey]);
-    const html=sorted.map(d=>{
-      const bc=BRANCH_COLOR[d.branch]||'#888';
-      const sc=d[m.sKey]?scoreColor(d[m.sKey]):'var(--text-dim)';
+    // 별점 높은 순 정렬, 방문수 0인 디자이너 제외
+    const sorted = [...DESIGNERS]
+      .filter(d => d[m.vKey] > 0)
+      .sort((a, b) => (b[m.sKey] ?? 0) - (a[m.sKey] ?? 0));
+
+    const html = sorted.map((d, idx) => {
+      const bc = BRANCH_COLOR[d.branch] || '#888';
+      const sc = d[m.sKey] ? scoreColor(d[m.sKey]) : 'var(--text-dim)';
+      const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '';
+      const respCount = d[m.rKey] ?? 0;
+
       return `<div class="trend-row">
-        <div class="trend-row-name" style="color:${bc}">${d.name}</div>
+        <div class="trend-row-name" style="color:${bc}">
+          ${medal ? `<span style="margin-right:3px;font-size:11px">${medal}</span>` : ''}
+          ${d.name}
+        </div>
         <div class="trend-row-vals">
-          <span class="trend-visits">${num(d[m.vKey])}회</span>
-          <span class="trend-score" style="color:${sc}">${d[m.sKey]?fmt(d[m.sKey],2):'-'}</span>
+          <span class="trend-score" style="color:${sc}">
+            ${d[m.sKey] ? fmt(d[m.sKey], 2) : '-'}
+          </span>
+          <span style="font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace">
+            (${respCount}건)
+          </span>
         </div>
       </div>`;
     }).join('');
-    grid.innerHTML+=`<div class="trend-month-col"><div class="trend-month-title">${m.label}</div>${html}</div>`;
+
+    grid.innerHTML += `<div class="trend-month-col">
+      <div class="trend-month-title">${m.label}</div>
+      <div class="trend-month-subtitle" style="font-size:9px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">★ 별점 높은 순</div>
+      ${html}
+    </div>`;
   });
 }
 
