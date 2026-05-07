@@ -19,9 +19,6 @@
     --text-muted: #6b7094;
     --text-dim: #3d4166;
     --arc: #4fa3e0;
-    --arc-merged: #1e6fbf;
-    --han: #e07b4f;
-    --han-merged: #c04a1c;
     --sin: #50c878;
     --accent: #7c6af7;
     --gold: #f5c842;
@@ -40,7 +37,6 @@
     overflow-x: hidden;
   }
 
-  /* ── GRID NOISE BACKGROUND ── */
   body::before {
     content: '';
     position: fixed; inset: 0; pointer-events: none; z-index: 0;
@@ -52,7 +48,6 @@
 
   .wrapper { position: relative; z-index: 1; max-width: 1600px; margin: 0 auto; padding: 32px 24px 80px; }
 
-  /* ── HEADER ── */
   header {
     display: flex; align-items: flex-end; justify-content: space-between;
     margin-bottom: 40px; padding-bottom: 28px;
@@ -71,32 +66,13 @@
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 11px; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase;
   }
-  .header-meta {
-    display: flex; gap: 24px; align-items: center;
-  }
+  .header-meta { display: flex; gap: 24px; align-items: center; }
   .period-badge {
     background: var(--surface2); border: 1px solid var(--border);
     border-radius: 20px; padding: 6px 16px;
     font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted);
   }
 
-  /* ── BRANCH LEGEND ── */
-  .branch-legend {
-    display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px;
-    animation: fadeDown 0.6s 0.1s ease both;
-  }
-  .bl-item {
-    display: flex; align-items: center; gap: 7px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 5px 14px;
-    font-size: 12px; font-weight: 500; cursor: pointer;
-    transition: all 0.2s;
-  }
-  .bl-item:hover { border-color: var(--accent); }
-  .bl-item.active { border-color: currentColor; }
-  .bl-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-  /* ── KPI ROW ── */
   .kpi-row {
     display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
     margin-bottom: 32px;
@@ -118,7 +94,6 @@
   .kpi-value { font-family: 'DM Mono', monospace; font-size: 30px; font-weight: 500; line-height: 1; }
   .kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
 
-  /* ── SECTION HEADERS ── */
   .section-header {
     display: flex; align-items: center; gap: 12px;
     margin-bottom: 16px; margin-top: 36px;
@@ -129,7 +104,38 @@
   }
   .section-line { flex: 1; height: 1px; background: var(--border); }
 
-  /* ── DESIGNER CARDS GRID ── */
+  .filter-bar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(12,14,20,0.85); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    margin: 0 -24px 28px; padding: 12px 24px;
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    animation: fadeDown 0.4s ease both;
+  }
+  .filter-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
+  .filter-btn {
+    padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted); font-size: 12px; font-weight: 500;
+    cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .coming-badge {
+    display: inline-block; font-size: 9px; font-weight: 700;
+    padding: 1px 6px; border-radius: 6px; margin-left: 4px;
+    background: rgba(167,139,250,0.25); color: #a78bfa;
+    vertical-align: middle; letter-spacing: 0.3px;
+  }
+  .filter-btn-pinnacle {
+    border-color: rgba(167,139,250,0.3) !important;
+    color: #a78bfa !important;
+  }
+  .filter-btn-pinnacle:hover, .filter-btn-pinnacle.active {
+    background: rgba(167,139,250,0.15) !important;
+    border-color: #a78bfa !important;
+  }
+
   .designer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -137,13 +143,14 @@
   }
 
   .d-card {
-    background: var(--surface);
+    background: #222638;
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 22px;
     position: relative; overflow: hidden;
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     animation: fadeUp 0.5s ease both;
+    cursor: pointer;
   }
   .d-card:hover {
     transform: translateY(-3px);
@@ -179,13 +186,12 @@
   .d-stars { font-size: 13px; color: var(--gold); margin-top: 2px; }
   .d-resp { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
 
-  /* ── METRICS ROW ── */
   .d-metrics {
     display: grid; grid-template-columns: 1fr 1fr 1fr;
     gap: 8px; margin-bottom: 16px;
   }
   .d-metric {
-    background: var(--surface2);
+    background: #2a2f4a;
     border-radius: 12px; padding: 11px 12px;
     display: flex; flex-direction: column; gap: 3px;
   }
@@ -196,10 +202,7 @@
   }
   .d-metric-sub { font-size: 10px; color: var(--text-muted); }
 
-  /* ── SCORE DIST BAR ── */
-  .d-dist-row {
-    margin-bottom: 14px;
-  }
+  .d-dist-row { margin-bottom: 14px; }
   .d-dist-label { font-size: 10px; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px; }
   .d-dist-bar {
     height: 6px; border-radius: 4px; overflow: hidden;
@@ -208,26 +211,24 @@
   }
   .d-dist-seg { height: 100%; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
 
-  /* ── MINI TREND ── */
   .d-trend-row {
-    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 6px;
   }
   .d-trend-item {
-    background: var(--surface2); border-radius: 10px;
+    background: #2a2f4a; border-radius: 10px;
     padding: 8px 10px;
     display: flex; flex-direction: column; gap: 2px;
   }
   .d-trend-month { font-size: 9px; color: #cccccc; text-transform: uppercase; }
   .d-trend-val {
-    font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 500;
+    font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500;
   }
   .d-trend-chg { font-size: 10px; font-weight: 600; }
   .up { color: var(--success); }
   .down { color: var(--danger); }
   .flat { color: var(--text-muted); }
 
-  /* ── DELTA BADGE ── */
   .delta-badge {
     display: inline-flex; align-items: center; gap: 2px;
     font-size: 10px; font-weight: 700; padding: 1px 6px;
@@ -237,30 +238,6 @@
   .delta-down { background: rgba(224,82,82,0.15);  color: #e05252; }
   .delta-flat { background: rgba(107,112,148,0.15); color: #6b7094; }
 
-  /* ── HISTOGRAM SECTION ── */
-  .histogram-section {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 24px; margin-bottom: 20px;
-    animation: fadeUp 0.5s 0.42s ease both;
-  }
-  .histogram-wrap { position: relative; height: 320px; margin-top: 20px; }
-
-  /* ── SPARKLINE ── */
-  .d-sparkline-wrap {
-    display: flex; flex-direction: column; gap: 2px; margin-top: 4px;
-  }
-  .d-sparkline-row {
-    display: flex; align-items: center; gap: 8px;
-  }
-  .d-sparkline-label {
-    font-size: 9px; color: #cccccc; text-transform: uppercase;
-    letter-spacing: 0.4px; width: 32px; flex-shrink: 0;
-  }
-  .d-sparkline-svg { flex: 1; height: 28px; }
-  .d-sparkline-val {
-    font-family: 'DM Mono', monospace; font-size: 10px;
-    color: #cccccc; width: 36px; text-align: right; flex-shrink: 0;
-  }
   .d-photo {
     width: 84px; height: 84px; border-radius: 50%;
     flex-shrink: 0;
@@ -269,62 +246,22 @@
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; position: relative;
   }
-  .d-photo svg { opacity: 0.35; }
+  .d-photo img { width: 100%; height: 100%; object-fit: cover; }
   .d-photo-placeholder {
     position: absolute; inset: 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 2px;
   }
-  .d-photo-placeholder span:first-child {
-    font-size: 28px; line-height: 1;
-  }
-  .d-photo-placeholder span:last-child {
-    font-size: 8px; color: var(--text-dim); letter-spacing: 0.3px;
-  }
-  .d-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .d-photo-placeholder span:first-child { font-size: 28px; line-height: 1; }
+  .d-photo-placeholder span:last-child { font-size: 8px; color: var(--text-dim); letter-spacing: 0.3px; }
 
-  /* ── BADGES ── */
-  .closed-badge, .coming-badge {
-    display: inline-block; font-size: 9px; font-weight: 700;
-    padding: 1px 6px; border-radius: 6px; margin-left: 4px;
-    vertical-align: middle; letter-spacing: 0.3px;
+  .histogram-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px; margin-bottom: 20px;
+    animation: fadeUp 0.5s 0.42s ease both;
   }
-  .closed-badge { background: rgba(224,123,79,0.25); color: #e07b4f; }
-  .coming-badge { background: rgba(167,139,250,0.25); color: #a78bfa; }
+  .histogram-wrap { position: relative; height: 300px; margin-top: 20px; }
 
-  /* ── PINNACLE BUTTON ── */
-  .filter-btn-pinnacle {
-    border-color: rgba(167,139,250,0.3) !important;
-    color: #a78bfa !important;
-  }
-  .filter-btn-pinnacle:hover, .filter-btn-pinnacle.active {
-    background: rgba(167,139,250,0.15) !important;
-    border-color: #a78bfa !important;
-  }
-  .filter-btn-closed {
-    opacity: 0.7;
-  }
-
-  /* ── PINNACLE CARD ── */
-  .pinnacle-placeholder-card {
-    background: var(--surface);
-    border: 1px dashed rgba(167,139,250,0.3);
-    border-radius: 20px; padding: 32px 24px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 12px; min-height: 180px;
-    animation: fadeUp 0.5s ease both;
-  }
-  .pinnacle-placeholder-card .pp-icon {
-    font-size: 36px; opacity: 0.5;
-  }
-  .pinnacle-placeholder-card .pp-title {
-    font-size: 15px; font-weight: 700; color: #a78bfa;
-  }
-  .pinnacle-placeholder-card .pp-sub {
-    font-size: 12px; color: var(--text-dim); text-align: center;
-  }
-
-  /* ── COMPARISON CHARTS SECTION ── */
   .charts-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px;
   }
@@ -339,7 +276,6 @@
   }
   .chart-wrap { position: relative; height: 260px; }
 
-  /* ── RANKING TABLE ── */
   .ranking-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 20px; padding: 24px; margin-bottom: 20px;
@@ -351,11 +287,8 @@
     text-transform: uppercase; letter-spacing: 1px;
     padding: 0 12px 12px; text-align: left; border-bottom: 1px solid var(--border);
   }
-  .ranking-table th:not(:first-child):not(.col-highlight) { text-align: center; }
-  .ranking-table th:nth-child(3) { text-align: left; }
   .ranking-table th.col-highlight {
-    background: #262a3e;
-    color: #cccccc;
+    background: #262a3e; color: #cccccc;
     padding-top: 10px; text-align: center;
   }
   .ranking-table th.col-highlight:first-of-type { border-radius: 12px 0 0 0; padding-left: 20px; }
@@ -372,7 +305,6 @@
   .ranking-table tr:last-child td.col-highlight { border-bottom: none; }
   .ranking-table tr:hover td { background: rgba(255,255,255,0.02); }
   .ranking-table tr:last-child td { border-bottom: none; }
-  .ranking-table td:not(:first-child):not(:nth-child(2)):not(:nth-child(3)):not(.col-highlight) { text-align: center; }
   .ranking-table tfoot td {
     background: #242840; border: none;
     padding: 8px 12px 12px; font-size: 10px;
@@ -380,10 +312,7 @@
   }
   .ranking-table tfoot td:first-child { border-radius: 0 0 0 12px; padding-left: 20px; }
   .ranking-table tfoot td:last-child  { border-radius: 0 0 12px 0; padding-right: 20px; }
-  .rank-no {
-    font-family: 'DM Mono', monospace; font-size: 11px;
-    color: var(--text-dim); width: 28px;
-  }
+  .rank-no { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-dim); width: 28px; }
   .rank-name { font-weight: 600; }
   .rank-branch {
     display: inline-block; font-size: 10px; padding: 1px 8px;
@@ -391,21 +320,18 @@
     font-weight: 500; vertical-align: middle;
   }
   .mono { font-family: 'DM Mono', monospace; }
-  .bar-cell { padding: 11px 12px 11px 0 !important; }
   .inline-bar {
     height: 4px; border-radius: 2px; display: inline-block;
     vertical-align: middle; margin-left: 8px;
-    transition: width 0.8s ease;
   }
 
-  /* ── MONTH TREND SECTION ── */
   .trend-section {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 20px; padding: 24px; margin-bottom: 20px;
     animation: fadeUp 0.5s 0.4s ease both;
   }
   .trend-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 20px;
   }
   .trend-month-col {
     background: var(--surface2); border-radius: 14px; padding: 16px;
@@ -425,61 +351,42 @@
   .trend-visits { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted); }
   .trend-score { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; }
 
-  /* ── SCROLL FILTER BAR ── */
-  .filter-bar {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(12,14,20,0.85); backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 12px 0; margin: 0 -24px 28px; padding: 12px 24px;
-    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
-    animation: fadeDown 0.4s ease both;
+  .service-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px; margin-bottom: 20px;
+    animation: fadeUp 0.5s 0.28s ease both;
   }
-  .filter-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-right: 4px; }
-  .filter-btn {
-    padding: 5px 14px; border-radius: 20px; border: 1px solid var(--border);
-    background: transparent; color: var(--text-muted); font-size: 12px; font-weight: 500;
-    cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
-    transition: all 0.15s;
-  }
-  .filter-btn:hover { border-color: var(--accent); color: var(--text); }
-  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .service-chart-wrap { position: relative; height: 280px; }
 
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 20px 24px;
-    display: flex; align-items: center; justify-content: center;
-    gap: 24px; flex-wrap: wrap;
-    background: transparent;
+  .review-section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px; margin-bottom: 20px;
+    animation: fadeUp 0.5s 0.45s ease both;
   }
-  .footer-divider { color: var(--text-dim); font-size: 14px; }
-  .footer-copyright {
-    font-family: 'Noto Sans KR', sans-serif; font-size: 11px;
-    color: var(--text-dim); letter-spacing: 0.3px;
+  .review-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; margin-top: 14px; }
+  .review-tab {
+    padding: 4px 14px; border-radius: 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--text-muted); font-size: 12px;
+    cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s;
   }
-  .footer-contact {
-    font-family: 'Noto Sans KR', sans-serif; font-size: 11px;
-    color: var(--text-dim); letter-spacing: 0.3px;
+  .review-tab.active { color: white; border-color: transparent; }
+  .review-list { display: flex; flex-direction: column; gap: 10px; }
+  .review-item {
+    background: var(--surface2); border-radius: 14px; padding: 14px 16px;
+    border-left: 3px solid transparent;
   }
+  .review-item-header {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px;
+  }
+  .review-designer { font-size: 11px; font-weight: 600; }
+  .review-badge {
+    font-size: 10px; padding: 2px 8px; border-radius: 10px;
+    font-weight: 600; letter-spacing: 0.3px;
+  }
+  .review-text { font-size: 13px; color: var(--text); line-height: 1.6; }
+  .review-empty { font-size: 13px; color: var(--text-dim); text-align: center; padding: 24px; }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .hidden { display: none !important; }
-
-  /* ── CARD BRIGHTNESS UP ~20% ── */
-  .d-card { background: #222638; }
-  .d-metric { background: #2a2f4a; }
-  .d-trend-item { background: #2a2f4a; }
-
-  /* ── POPUP OVERLAY ── */
+  /* POPUP */
   .popup-overlay {
     display: none; position: fixed; inset: 0; z-index: 1000;
     background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
@@ -523,9 +430,7 @@
   .popup-kpi-row {
     display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px;
   }
-  .popup-kpi {
-    background: #242840; border-radius: 14px; padding: 14px 16px;
-  }
+  .popup-kpi { background: #242840; border-radius: 14px; padding: 14px 16px; }
   .popup-kpi-label {
     font-size: 10px; color: #cccccc; text-transform: uppercase;
     letter-spacing: 0.5px; margin-bottom: 6px; font-weight: 700;
@@ -535,188 +440,138 @@
     margin-bottom: 10px;
   }
   .popup-kpi-months {
-    display: grid; grid-template-columns: repeat(3, 1fr);
+    display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;
   }
-  .popup-kpi-month {
-    display: flex; flex-direction: column; gap: 2px; align-items: center;
-  }
-  .popup-kpi-month-label {
-    font-size: 9px; color: #cccccc; letter-spacing: 0.3px;
-  }
-  .popup-kpi-month-val {
-    font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500;
-  }
-  .popup-kpi-sub { font-size: 10px; color: var(--text-muted); margin-top: 3px; }
+  .popup-kpi-month { display: flex; flex-direction: column; gap: 2px; align-items: center; }
+  .popup-kpi-month-label { font-size: 9px; color: #cccccc; letter-spacing: 0.3px; }
+  .popup-kpi-month-val { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; }
   .popup-section-title {
     font-size: 11px; font-weight: 700; color: var(--text-dim);
     text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 10px;
   }
   .popup-chart-wrap { position: relative; height: 180px; margin-bottom: 4px; }
-  .popup-sat-dist {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 4px;
-  }
-  .popup-sat-item {
-    background: #242840; border-radius: 10px; padding: 8px;
-    text-align: center; display: flex; flex-direction: column; gap: 3px;
-  }
-  .popup-sat-label { font-size: 9px; color: var(--text-dim); }
-  .popup-sat-val { font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500; }
-  .popup-sat-pct { font-size: 10px; color: var(--text-muted); }
 
-  /* ── SERVICE TYPE SECTION ── */
-  .service-section {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 24px; margin-bottom: 20px;
-    animation: fadeUp 0.5s 0.28s ease both;
+  .pinnacle-placeholder-card {
+    background: var(--surface);
+    border: 1px dashed rgba(167,139,250,0.3);
+    border-radius: 20px; padding: 32px 24px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px; min-height: 180px;
+    animation: fadeUp 0.5s ease both;
   }
-  .service-chart-wrap { position: relative; height: 280px; }
+  .pinnacle-placeholder-card .pp-icon { font-size: 36px; opacity: 0.5; }
+  .pinnacle-placeholder-card .pp-title { font-size: 15px; font-weight: 700; color: #a78bfa; }
+  .pinnacle-placeholder-card .pp-sub { font-size: 12px; color: var(--text-dim); text-align: center; }
 
-  /* ── REVIEW SECTION ── */
-  .review-section {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 24px; margin-bottom: 20px;
-    animation: fadeUp 0.5s 0.45s ease both;
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 24px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 24px; flex-wrap: wrap;
   }
-  .review-tabs {
-    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; margin-top: 14px;
+  .footer-divider { color: var(--text-dim); font-size: 14px; }
+  .footer-copyright, .footer-contact {
+    font-family: 'Noto Sans KR', sans-serif; font-size: 11px;
+    color: var(--text-dim); letter-spacing: 0.3px;
   }
-  .review-tab {
-    padding: 4px 14px; border-radius: 20px; border: 1px solid var(--border);
-    background: transparent; color: var(--text-muted); font-size: 12px;
-    cursor: pointer; font-family: 'Noto Sans KR', sans-serif; transition: all 0.15s;
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  .review-tab.active { color: white; border-color: transparent; }
-  .review-list { display: flex; flex-direction: column; gap: 10px; }
-  .review-item {
-    background: var(--surface2); border-radius: 14px; padding: 14px 16px;
-    border-left: 3px solid transparent;
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
-  .review-item-header {
-    display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px;
-  }
-  .review-designer { font-size: 11px; font-weight: 600; }
-  .review-badge {
-    font-size: 10px; padding: 2px 8px; border-radius: 10px;
-    font-weight: 600; letter-spacing: 0.3px;
-  }
-  .review-text { font-size: 13px; color: var(--text); line-height: 1.6; }
-  .review-empty { font-size: 13px; color: var(--text-dim); text-align: center; padding: 24px; }
+
+  .hidden { display: none !important; }
 
   @media (max-width: 900px) {
     .kpi-row { grid-template-columns: repeat(3, 1fr); }
     .charts-grid { grid-template-columns: 1fr; }
-    .trend-grid { grid-template-columns: 1fr; }
+    .trend-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 600px) {
     .kpi-row { grid-template-columns: repeat(2, 1fr); }
     .designer-grid { grid-template-columns: 1fr; }
+    .trend-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 <div class="wrapper">
 
-  <!-- HEADER -->
   <header>
     <div class="logo-area">
       <div class="logo-title">Designer Dashboard</div>
-      <div class="logo-sub">헤어살롱 디자이너 성과 현황 · Q1 2026</div>
+      <div class="logo-sub">헤어살롱 디자이너 성과 현황 · 2026 Q1+4월</div>
     </div>
     <div class="header-meta">
-      <div class="period-badge">2026.01 — 2026.03</div>
+      <div class="period-badge">2026.01 — 2026.04</div>
     </div>
   </header>
 
-  <!-- FILTER BAR -->
   <div class="filter-bar">
     <span class="filter-label">지점</span>
     <button class="filter-btn active" onclick="filterBranch('all', this)">전체</button>
     <button class="filter-btn" onclick="filterBranch('아크', this)">🔵 아크점</button>
-    <button class="filter-btn filter-btn-closed" onclick="filterBranch('한타', this)">🟤 한타점 <span class="closed-badge">휴업</span></button>
     <button class="filter-btn" onclick="filterBranch('신논현', this)">🟢 신논현점</button>
     <button class="filter-btn filter-btn-pinnacle" onclick="filterBranch('피나클', this)">💜 피나클점 <span class="coming-badge">예정</span></button>
   </div>
 
-  <!-- KPI ROW -->
   <div class="kpi-row" id="kpi-row">
     <div class="kpi-card" style="--accent-line: var(--accent)">
       <div class="kpi-label">총 방문수</div>
-      <div class="kpi-value" id="kpi-visits">6,966</div>
-      <div class="kpi-sub">최근 3개월간</div>
+      <div class="kpi-value" id="kpi-visits">—</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--arc)">
       <div class="kpi-label">총 고객수</div>
-      <div class="kpi-value" id="kpi-customers">5,007</div>
-      <div class="kpi-sub">최근 3개월간</div>
+      <div class="kpi-value" id="kpi-customers">—</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--gold)">
       <div class="kpi-label">평균 만족도</div>
-      <div class="kpi-value" id="kpi-sat" style="color: var(--gold)">4.88</div>
-      <div class="kpi-sub">최근 3개월간</div>
+      <div class="kpi-value" id="kpi-sat" style="color: var(--gold)">—</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--success)">
       <div class="kpi-label">평균 예약율</div>
-      <div class="kpi-value" id="kpi-book" style="color: var(--success)">82%</div>
-      <div class="kpi-sub">최근 3개월간</div>
+      <div class="kpi-value" id="kpi-book" style="color: var(--success)">—</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--warn)">
       <div class="kpi-label">평균 재방률</div>
-      <div class="kpi-value" id="kpi-rev" style="color: var(--warn)">34%</div>
-      <div class="kpi-sub">최근 3개월간</div>
+      <div class="kpi-value" id="kpi-rev" style="color: var(--warn)">—</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
   </div>
 
-  <!-- DESIGNER CARDS -->
   <div class="section-header">
     <span class="section-title">디자이너별 카드</span>
     <div class="section-line"></div>
   </div>
   <div class="designer-grid" id="designer-grid"></div>
 
-  <!-- SERVICE TYPE SECTION -->
   <div class="section-header">
     <span class="section-title">시술 메뉴별 비율</span>
     <div class="section-line"></div>
   </div>
   <div class="service-section">
-    <div style="font-size:13px;color:var(--text-muted)">전 지점 합산 · 3개월 총 시술 건수 기준</div>
+    <div style="font-size:13px;color:var(--text-muted)">전 지점 합산 · 4개월 총 시술 건수 기준</div>
     <div class="service-chart-wrap" style="margin-top:20px"><canvas id="chartService"></canvas></div>
   </div>
 
-  <!-- HISTOGRAM SECTION -->
   <div class="section-header">
     <span class="section-title">별점 분포</span>
     <div class="section-line"></div>
   </div>
   <div class="histogram-section">
-    <div style="font-size:13px;color:var(--text-muted)">디자이너별 1~5점 응답 건수 분포</div>
+    <div style="font-size:13px;color:var(--text-muted)">디자이너별 1~5점 응답 건수 분포 (4개월 누계)</div>
     <div class="histogram-wrap"><canvas id="chartHistogram"></canvas></div>
   </div>
 
-  <!-- MENU SENTIMENT SECTION -->
-  <div class="section-header">
-    <span class="section-title">메뉴별 리뷰 감성 분석</span>
-    <div class="section-line"></div>
-  </div>
-  <div class="service-section">
-    <div style="font-size:13px;color:var(--text-muted)">리뷰 텍스트 기반 · 메뉴 언급 감성 분류 (긍정 / 복합 / 부정)</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
-      <div>
-        <div class="chart-title" style="font-size:12px;margin-bottom:12px">전체 메뉴별 감성 분포</div>
-        <div style="position:relative;height:220px"><canvas id="chartMenuSent"></canvas></div>
-      </div>
-      <div>
-        <div class="chart-title" style="font-size:12px;margin-bottom:12px">디자이너별 메뉴 부정 리뷰 비율 (%)</div>
-        <div style="position:relative;height:220px"><canvas id="chartDesignerMenuNeg"></canvas></div>
-      </div>
-    </div>
-    <div style="margin-top:20px">
-      <div class="chart-title" style="font-size:12px;margin-bottom:12px">💡 메뉴별 감성 인사이트</div>
-      <div id="menuInsights" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px"></div>
-      <div id="menuSummary"></div>
-    </div>
-  </div>
   <div class="section-header">
     <span class="section-title">지표 비교</span>
     <div class="section-line"></div>
@@ -732,9 +587,8 @@
     </div>
   </div>
 
-  <!-- RANKING TABLE -->
   <div class="section-header">
-    <span class="section-title">종합 순위(전월 대비 개선율)</span>
+    <span class="section-title">종합 순위</span>
     <div class="section-line"></div>
   </div>
   <div class="ranking-card" style="position:relative">
@@ -759,10 +613,9 @@
         </tr>
       </tfoot>
     </table>
-    <div style="position:absolute;bottom:12px;right:20px;font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace;letter-spacing:0.3px">2026.1~3 data</div>
+    <div style="position:absolute;bottom:12px;right:20px;font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace">2026.1~4 data</div>
   </div>
 
-  <!-- MONTH TREND -->
   <div class="section-header">
     <span class="section-title">월별 현황</span>
     <div class="section-line"></div>
@@ -772,13 +625,12 @@
     <div class="trend-grid" id="trend-grid"></div>
   </div>
 
-  <!-- REVIEW SECTION -->
   <div class="section-header">
     <span class="section-title">고객 리뷰</span>
     <div class="section-line"></div>
   </div>
   <div class="review-section">
-    <div style="font-size:13px;color:var(--text-muted)">만족도 응답 중 텍스트 리뷰 모음</div>
+    <div style="font-size:13px;color:var(--text-muted)">만족도 응답 중 텍스트 리뷰 모음 (4개월 종합)</div>
     <div class="review-tabs" id="review-tabs">
       <button class="review-tab active" onclick="filterReview(5,this)" style="background:#27ae60">⭐⭐⭐⭐⭐ 매우 만족</button>
       <button class="review-tab" onclick="filterReview(4,this)">⭐⭐⭐⭐ 만족</button>
@@ -789,7 +641,6 @@
     <div class="review-list" id="review-list"></div>
   </div>
 
-  <!-- POPUP OVERLAY -->
   <div class="popup-overlay" id="popup-overlay" onclick="closePopup(event)">
     <div class="popup-box" id="popup-box">
       <div class="popup-header">
@@ -815,145 +666,116 @@
   <footer>
     <span class="footer-copyright">© 2026 arkive Corp. All rights reserved.</span>
     <span class="footer-divider">|</span>
-    <span class="footer-contact"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="583b37362c393b2c18392a33312e3d763b3776332a">[email&#160;protected]</a></span>
+    <span class="footer-contact">contact@arkive.co</span>
   </footer>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 // ═══════════════════════════════════════════
-// DATA
+// DATA — 1월~4월 4개월 통합 (선태준·남민정·박희선·배연희·송다예 제외, 김수빈→아크 이동)
 // ═══════════════════════════════════════════
 const DESIGNERS = [
   { id:'아크 김도희', name:'김도희', branch:'아크', branchFull:'아크점',
-    sat:4.85, satResp:102, m1Sat:4.96, m2Sat:4.86, m3Sat:4.77,
-    m1Resp:27, m2Resp:36, m3Resp:39,
-    bookRate:0.827, m1Book:0.904, m2Book:0.768, m3Book:0.814,
-    revRate:0.406, m1Rev:0.317, m2Rev:0.438, m3Rev:0.468,
-    totalVisits:546, m1Visits:189, m2Visits:169, m3Visits:188,
-    totalCust:415, m1Cust:181, m2Cust:160, m3Cust:173,
-    dist:{s5:88,s4:13,s3:1,neg:0} },
+    sat:4.87, satResp:169,
+    m1Sat:4.96, m2Sat:4.86, m3Sat:4.77, m4Sat:4.91,
+    m1Resp:27, m2Resp:36, m3Resp:39, m4Resp:67,
+    bookRate:0.848, m1Book:0.904, m2Book:0.768, m3Book:0.814, m4Book:0.905,
+    revRate:0.408, m1Rev:0.317, m2Rev:0.438, m3Rev:0.468, m4Rev:0.411,
+    totalVisits:765, m1Visits:189, m2Visits:169, m3Visits:188, m4Visits:219,
+    totalCust:613, m1Cust:181, m2Cust:160, m3Cust:173, m4Cust:198,
+    dist:{s5:152,s4:14,s3:2,neg:1} },
+
   { id:'아크 김지애', name:'김지애', branch:'아크', branchFull:'아크점',
-    sat:4.89, satResp:91, m1Sat:4.92, m2Sat:5.00, m3Sat:4.79,
-    m1Resp:25, m2Resp:27, m3Resp:39,
-    bookRate:0.823, m1Book:0.995, m2Book:0.755, m3Book:0.732,
-    revRate:0.448, m1Rev:0.413, m2Rev:0.488, m3Rev:0.450,
-    totalVisits:543, m1Visits:208, m2Visits:166, m3Visits:169,
-    totalCust:398, m1Cust:192, m2Cust:156, m3Cust:156,
-    dist:{s5:82,s4:8,s3:1,neg:0} },
+    sat:4.88, satResp:138,
+    m1Sat:4.92, m2Sat:5.00, m3Sat:4.79, m4Sat:4.87,
+    m1Resp:25, m2Resp:27, m3Resp:39, m4Resp:47,
+    bookRate:0.845, m1Book:0.995, m2Book:0.755, m3Book:0.732, m4Book:0.905,
+    revRate:0.419, m1Rev:0.413, m2Rev:0.488, m3Rev:0.450, m4Rev:0.347,
+    totalVisits:762, m1Visits:208, m2Visits:166, m3Visits:169, m4Visits:219,
+    totalCust:607, m1Cust:192, m2Cust:156, m3Cust:156, m4Cust:209,
+    dist:{s5:125,s4:11,s3:1,neg:1} },
+
   { id:'아크 오주예', name:'오주예', branch:'아크', branchFull:'아크점',
-    sat:4.86, satResp:142, m1Sat:4.91, m2Sat:4.91, m3Sat:4.76,
-    m1Resp:47, m2Resp:44, m3Resp:51,
-    bookRate:0.810, m1Book:0.930, m2Book:0.725, m3Book:0.782,
-    revRate:0.441, m1Rev:0.335, m2Rev:0.500, m3Rev:0.503,
-    totalVisits:583, m1Visits:212, m2Visits:174, m3Visits:197,
-    totalCust:427, m1Cust:200, m2Cust:160, m3Cust:174,
-    dist:{s5:128,s4:12,s3:0,neg:2} },
-  { id:'아크 선태준', name:'선태준', branch:'아크', branchFull:'아크점',
-    sat:4.95, satResp:133, m1Sat:4.98, m2Sat:4.95, m3Sat:4.91,
-    m1Resp:50, m2Resp:39, m3Resp:44,
-    bookRate:0.844, m1Book:0.890, m2Book:0.729, m3Book:0.913,
-    revRate:0.627, m1Rev:0.557, m2Rev:0.657, m3Rev:0.665,
-    totalVisits:608, m1Visits:203, m2Visits:175, m3Visits:230,
-    totalCust:367, m1Cust:184, m2Cust:159, m3Cust:189,
-    dist:{s5:126,s4:7,s3:0,neg:0} },
+    sat:4.85, satResp:196,
+    m1Sat:4.91, m2Sat:4.91, m3Sat:4.76, m4Sat:4.83,
+    m1Resp:47, m2Resp:44, m3Resp:51, m4Resp:54,
+    bookRate:0.796, m1Book:0.930, m2Book:0.725, m3Book:0.782, m4Book:0.758,
+    revRate:0.429, m1Rev:0.335, m2Rev:0.500, m3Rev:0.503, m4Rev:0.395,
+    totalVisits:783, m1Visits:212, m2Visits:174, m3Visits:197, m4Visits:200,
+    totalCust:606, m1Cust:200, m2Cust:160, m3Cust:174, m4Cust:179,
+    dist:{s5:179,s4:13,s3:0,neg:4} },
+
+  // 김수빈 — 한타→아크 이동
+  { id:'아크 김수빈', name:'김수빈', branch:'아크', branchFull:'아크점',
+    sat:4.94, satResp:195,
+    m1Sat:4.92, m2Sat:4.95, m3Sat:4.93, m4Sat:4.97,
+    m1Resp:38, m2Resp:39, m3Resp:59, m4Resp:59,
+    bookRate:0.844, m1Book:0.960, m2Book:0.650, m3Book:0.868, m4Book:0.661,
+    revRate:0.730, m1Rev:0.684, m2Rev:0.787, m3Rev:0.700, m4Rev:0.000,
+    totalVisits:803, m1Visits:237, m2Visits:169, m3Visits:237, m4Visits:160,
+    totalCust:478, m1Cust:190, m2Cust:138, m3Cust:196, m4Cust:151,
+    dist:{s5:184,s4:11,s3:0,neg:0} },
+
   { id:'신논현 김상희', name:'김상희', branch:'신논현', branchFull:'신논현점',
-    sat:4.98, satResp:121, m1Sat:5.00, m2Sat:5.00, m3Sat:4.92,
-    m1Resp:36, m2Resp:45, m3Resp:40,
-    bookRate:0.664, m1Book:0.887, m2Book:0.600, m3Book:0.725,
-    revRate:0.619, m1Rev:0.269, m2Rev:0.628, m3Rev:0.611,
-    totalVisits:573, m1Visits:219, m2Visits:156, m3Visits:198,
-    totalCust:410, m1Cust:188, m2Cust:132, m3Cust:160,
-    dist:{s5:118,s4:3,s3:0,neg:0} },
+    sat:4.96, satResp:193,
+    m1Sat:5.00, m2Sat:5.00, m3Sat:4.92, m4Sat:4.92,
+    m1Resp:36, m2Resp:45, m3Resp:40, m4Resp:72,
+    bookRate:0.887, m1Book:0.887, m2Book:0.664, m3Book:0.752, m4Book:0.888,
+    revRate:0.622, m1Rev:0.269, m2Rev:0.645, m3Rev:0.627, m4Rev:0.693,
+    totalVisits:1081, m1Visits:219, m2Visits:312, m3Visits:396, m4Visits:254,
+    totalCust:618, m1Cust:188, m2Cust:132, m3Cust:160, m4Cust:208,
+    dist:{s5:186,s4:5,s3:2,neg:0} },
+
   { id:'신논현 이나연', name:'이나연', branch:'신논현', branchFull:'신논현점',
-    sat:4.91, satResp:139, m1Sat:4.95, m2Sat:4.88, m3Sat:4.90,
-    m1Resp:37, m2Resp:42, m3Resp:60,
-    bookRate:0.776, m1Book:1.000, m2Book:0.713, m3Book:0.837,
-    revRate:0.481, m1Rev:0.119, m2Rev:0.520, m3Rev:0.450,
-    totalVisits:592, m1Visits:210, m2Visits:171, m3Visits:211,
-    totalCust:476, m1Cust:197, m2Cust:156, m3Cust:191,
-    dist:{s5:128,s4:10,s3:0,neg:1} },
+    sat:4.94, satResp:216,
+    m1Sat:4.95, m2Sat:4.88, m3Sat:4.90, m4Sat:4.99,
+    m1Resp:37, m2Resp:42, m3Resp:60, m4Resp:77,
+    bookRate:0.949, m1Book:1.000, m2Book:0.740, m3Book:0.861, m4Book:0.901,
+    revRate:0.485, m1Rev:0.119, m2Rev:0.531, m3Rev:0.464, m4Rev:0.638,
+    totalVisits:1028, m1Visits:210, m2Visits:342, m3Visits:422, m4Visits:218,
+    totalCust:665, m1Cust:197, m2Cust:156, m3Cust:191, m4Cust:189,
+    dist:{s5:204,s4:11,s3:0,neg:1} },
+
   { id:'신논현 송영호', name:'송영호', branch:'신논현', branchFull:'신논현점',
-    sat:4.79, satResp:95, m1Sat:4.70, m2Sat:4.74, m3Sat:4.89,
-    m1Resp:20, m2Resp:39, m3Resp:36,
-    bookRate:0.803, m1Book:0.957, m2Book:0.729, m3Book:0.873,
-    revRate:0.433, m1Rev:0.070, m2Rev:0.463, m3Rev:0.409,
-    totalVisits:595, m1Visits:200, m2Visits:175, m3Visits:220,
-    totalCust:496, m1Cust:193, m2Cust:161, m3Cust:201,
-    dist:{s5:79,s4:13,s3:2,neg:1} },
-  { id:'한타 김수빈', name:'김수빈', branch:'한타', branchFull:'한타점 (휴업)',
-    sat:4.93, satResp:136, m1Sat:4.92, m2Sat:4.95, m3Sat:4.93,
-    m1Resp:38, m2Resp:39, m3Resp:59,
-    bookRate:0.824, m1Book:0.960, m2Book:0.650, m3Book:0.868,
-    revRate:0.717, m1Rev:0.684, m2Rev:0.787, m3Rev:0.700,
-    totalVisits:643, m1Visits:237, m2Visits:169, m3Visits:237,
-    totalCust:327, m1Cust:190, m2Cust:138, m3Cust:196,
-    dist:{s5:127,s4:9,s3:0,neg:0} },
-  { id:'한타 남민정', name:'남민정', branch:'한타', branchFull:'한타점 (휴업)',
-    sat:4.86, satResp:98, m1Sat:4.97, m2Sat:4.91, m3Sat:4.72,
-    m1Resp:30, m2Resp:32, m3Resp:36,
-    bookRate:0.824, m1Book:0.925, m2Book:0.733, m3Book:0.817,
-    revRate:0.420, m1Rev:0.393, m2Rev:0.438, m3Rev:0.432,
-    totalVisits:593, m1Visits:211, m2Visits:176, m3Visits:206,
-    totalCust:442, m1Cust:194, m2Cust:163, m3Cust:185,
-    dist:{s5:87,s4:10,s3:0,neg:1} },
-  { id:'한타 박희선', name:'박희선', branch:'한타', branchFull:'한타점 (휴업)',
-    sat:4.77, satResp:104, m1Sat:4.64, m2Sat:4.85, m3Sat:4.79,
-    m1Resp:28, m2Resp:33, m3Resp:43,
-    bookRate:0.721, m1Book:0.838, m2Book:0.600, m3Book:0.730,
-    revRate:0.443, m1Rev:0.408, m2Rev:0.458, m3Rev:0.467,
-    totalVisits:519, m1Visits:191, m2Visits:144, m3Visits:184,
-    totalCust:384, m1Cust:179, m2Cust:134, m3Cust:169,
-    dist:{s5:90,s4:8,s3:3,neg:3} },
-  { id:'한타 배연희', name:'배연희', branch:'한타', branchFull:'한타점 (휴업)',
-    sat:4.90, satResp:89, m1Sat:4.86, m2Sat:4.92, m3Sat:4.91,
-    m1Resp:29, m2Resp:25, m3Resp:35,
-    bookRate:0.877, m1Book:1.000, m2Book:0.773, m3Book:0.857,
-    revRate:0.465, m1Rev:0.427, m2Rev:0.494, m3Rev:0.480,
-    totalVisits:579, m1Visits:211, m2Visits:170, m3Visits:198,
-    totalCust:423, m1Cust:200, m2Cust:161, m3Cust:185,
-    dist:{s5:81,s4:7,s3:1,neg:0} },
-  { id:'한타 송다예', name:'송다예', branch:'한타', branchFull:'한타점 (휴업)',
-    sat:4.83, satResp:88, m1Sat:4.97, m2Sat:4.67, m3Sat:4.88,
-    m1Resp:29, m2Resp:33, m3Resp:26,
-    bookRate:0.822, m1Book:0.904, m2Book:0.717, m3Book:0.849,
-    revRate:0.438, m1Rev:0.388, m2Rev:0.477, m3Rev:0.453,
-    totalVisits:592, m1Visits:206, m2Visits:172, m3Visits:214,
-    totalCust:442, m1Cust:194, m2Cust:161, m3Cust:196,
-    dist:{s5:75,s4:11,s3:2,neg:0} },
+    sat:4.83, satResp:147,
+    m1Sat:4.70, m2Sat:4.74, m3Sat:4.89, m4Sat:4.90,
+    m1Resp:20, m2Resp:39, m3Resp:36, m4Resp:52,
+    bookRate:0.893, m1Book:0.957, m2Book:0.758, m3Book:0.897, m4Book:0.926,
+    revRate:0.472, m1Rev:0.070, m2Rev:0.478, m3Rev:0.436, m4Rev:0.607,
+    totalVisits:1043, m1Visits:200, m2Visits:399, m3Visits:440, m4Visits:224,
+    totalCust:697, m1Cust:193, m2Cust:161, m3Cust:201, m4Cust:201,
+    dist:{s5:129,s4:13,s3:3,neg:2} },
 ];
 
 const BRANCH_COLOR = {
   '아크': '#4fa3e0',
-  '한타': '#e07b4f',
   '신논현': '#50c878',
   '피나클': '#a78bfa',
 };
 
 function scoreColor(s) {
+  if (!s) return 'var(--text-dim)';
   if (s >= 4.95) return '#52c48a';
   if (s >= 4.85) return '#4fa3e0';
   if (s >= 4.75) return '#f5c842';
   return '#e05252';
 }
 function pctColor(p) {
+  if (!p && p !== 0) return 'var(--text-dim)';
   if (p >= 0.85) return '#52c48a';
   if (p >= 0.70) return '#4fa3e0';
   if (p >= 0.55) return '#f5c842';
   return '#e05252';
 }
-function stars(s) {
-  const n = Math.round(s);
-  return '★'.repeat(n) + '☆'.repeat(5-n);
-}
-function fmt(n, digits=1) { return n != null ? n.toFixed(digits) : '-'; }
-function pct(n) { return n != null ? Math.round(n*100)+'%' : '-'; }
-function num(n) { return n != null ? n.toLocaleString() : '-'; }
+function stars(s) { const n=Math.round(s); return '★'.repeat(n)+'☆'.repeat(5-n); }
+function fmt(n,d=1) { return n!=null ? n.toFixed(d) : '-'; }
+function pct(n) { return n!=null ? Math.round(n*100)+'%' : '-'; }
+function num(n) { return n!=null ? n.toLocaleString() : '-'; }
 
 // ═══════════════════════════════════════════
-// RENDER DESIGNER CARDS
+// FILTER
 // ═══════════════════════════════════════════
 let currentFilter = 'all';
-
 function filterBranch(branch, btn) {
   currentFilter = branch;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -961,26 +783,23 @@ function filterBranch(branch, btn) {
   renderCards();
   updateKPI();
 }
-
 function getBranchMatches(d) {
   if (currentFilter === 'all') return true;
-  return d.branch.includes(currentFilter);
+  return d.branch === currentFilter;
 }
 
+// ═══════════════════════════════════════════
+// DESIGNER CARDS
+// ═══════════════════════════════════════════
 function renderCards() {
   const grid = document.getElementById('designer-grid');
   const filtered = DESIGNERS.filter(getBranchMatches);
   grid.innerHTML = '';
 
-  // 피나클점 필터 선택 시 빈 카드만 표시
   if (currentFilter === '피나클') {
     const ph = document.createElement('div');
     ph.className = 'pinnacle-placeholder-card';
-    ph.innerHTML = `
-      <div class="pp-icon">💜</div>
-      <div class="pp-title">피나클점 (오픈 예정)</div>
-      <div class="pp-sub">디자이너 배정 전입니다.<br>오픈 후 데이터가 반영됩니다.</div>
-    `;
+    ph.innerHTML = `<div class="pp-icon">💜</div><div class="pp-title">피나클점 (오픈 예정)</div><div class="pp-sub">디자이너 배정 전입니다.<br>오픈 후 데이터가 반영됩니다.</div>`;
     grid.appendChild(ph);
     return;
   }
@@ -988,112 +807,53 @@ function renderCards() {
   filtered.forEach((d, i) => {
     const bc = BRANCH_COLOR[d.branch] || '#888';
     const sc = scoreColor(d.sat);
-    const total = d.dist.s5 + d.dist.s4 + d.dist.s3 + d.dist.neg;
-    const p5 = total ? (d.dist.s5/total*100) : 0;
-    const p4 = total ? (d.dist.s4/total*100) : 0;
-    const p3 = total ? (d.dist.s3/total*100) : 0;
-    const pn = total ? (d.dist.neg/total*100) : 0;
+    const total = d.dist.s5+d.dist.s4+d.dist.s3+d.dist.neg;
+    const p5 = total?(d.dist.s5/total*100):0;
+    const p4 = total?(d.dist.s4/total*100):0;
+    const p3 = total?(d.dist.s3/total*100):0;
+    const pn = total?(d.dist.neg/total*100):0;
 
-    const m1chg = d.m1Sat != null && d.m2Sat != null ? d.m2Sat - d.m1Sat : null;
-    const m2chg = d.m2Sat != null && d.m3Sat != null ? d.m3Sat - d.m2Sat : null;
-
-    function chgClass(c) { return c == null ? 'flat' : c > 0.01 ? 'up' : c < -0.01 ? 'down' : 'flat'; }
-    function chgTxt(c)  { return c == null ? '-' : (c > 0 ? '▲' : c < 0 ? '▼' : '→') + Math.abs(c).toFixed(2); }
-
-    // ── 스파크라인 SVG 생성
-    function sparkline(vals, color, isPercent=false) {
-      const clean = vals.map(v => v != null ? v : null);
-      const nonNull = clean.filter(v => v !== null);
-      if (nonNull.length < 2) return `<svg class="d-sparkline-svg"></svg>`;
-
-      const W = 100, H = 28, PAD = 3;
-      const minV = Math.min(...nonNull) * 0.98;
-      const maxV = Math.max(...nonNull) * 1.02;
-      const range = maxV - minV || 1;
-
-      const points = clean.map((v, i) => {
-        if (v === null) return null;
-        const x = PAD + (i / (clean.length - 1)) * (W - PAD*2);
-        const y = H - PAD - ((v - minV) / range) * (H - PAD*2);
-        return [x, y];
-      });
-
-      const validPts = points.filter(p => p !== null);
-      const pathD = validPts.map((p, i) => (i===0 ? `M` : `L`) + `${p[0].toFixed(1)},${p[1].toFixed(1)}`).join(' ');
-
-      // fill area
-      const fillD = pathD + ` L${validPts[validPts.length-1][0].toFixed(1)},${H} L${validPts[0][0].toFixed(1)},${H} Z`;
-
-      // month labels & dots
-      const labels = ['1월','2월','3월'];
-      const dotsHtml = points.map((p, i) => {
-        if (!p) return '';
-        const v = clean[i];
-        const label = isPercent ? Math.round(v*100)+'%' : v.toFixed(2);
-        return `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="2.5" fill="${color}" />`;
-      }).join('');
-
-      return `<svg class="d-sparkline-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="sg_${color.replace('#','')}" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="${color}" stop-opacity="0.3"/>
-            <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <path d="${fillD}" fill="url(#sg_${color.replace('#','')})" />
-        <path d="${pathD}" fill="none" stroke="${color}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        ${dotsHtml}
-      </svg>`;
-    }
-
-    function sparkVal(v, isPercent=false) {
-      if (v == null) return '-';
-      return isPercent ? Math.round(v*100)+'%' : v.toFixed(2);
-    }
-
-    const satColor  = scoreColor(d.sat);
-    const bookColor = pctColor(d.bookRate);
-    const revColor  = pctColor(d.revRate);
-    const visitColor = bc;
-    function deltaBadge(cur, prev, isPercent=false) {
-      if (cur == null || prev == null) return '';
-      const diff = cur - prev;
-      if (Math.abs(diff) < (isPercent ? 0.005 : 0.005)) return `<span class="delta-badge delta-flat">→</span>`;
-      const sym = diff > 0 ? '▲' : '▼';
-      const cls = diff > 0 ? 'delta-up' : 'delta-down';
-      const val = isPercent ? Math.round(Math.abs(diff)*100)+'%' : Math.abs(diff).toFixed(2);
+    function deltaBadge(cur,prev,isP=false) {
+      if(cur==null||prev==null) return '';
+      const diff=cur-prev;
+      if(Math.abs(diff)<0.005) return `<span class="delta-badge delta-flat">→</span>`;
+      const sym=diff>0?'▲':'▼';
+      const cls=diff>0?'delta-up':'delta-down';
+      const val=isP?Math.round(Math.abs(diff)*100)+'%':Math.abs(diff).toFixed(2);
       return `<span class="delta-badge ${cls}">${sym}${val}</span>`;
     }
-    const satDelta  = deltaBadge(d.m3Sat,  d.m2Sat);
-    const bookDelta = deltaBadge(d.m3Book, d.m2Book, true);
-    const revDelta  = deltaBadge(d.m3Rev,  d.m2Rev, true);
-    const initials = d.name.slice(1);
-    // 사진: id와 동일한 파일명 (예: '신논현 김상희.jpg')
+
+    function chgClass(c) { return c==null?'flat':c>0.01?'up':c<-0.01?'down':'flat'; }
+    function chgTxt(c)  { return c==null?'-':(c>0?'▲':c<0?'▼':'→')+Math.abs(c).toFixed(2); }
+
+    const satDelta  = deltaBadge(d.m4Sat,  d.m3Sat);
+    const bookDelta = deltaBadge(d.m4Book, d.m3Book, true);
+    const revDelta  = deltaBadge(d.m4Rev,  d.m3Rev, true);
+
     const photoSrc = `${d.id}.jpg`;
-    const photoHtml = `
-      <div class="d-photo" style="border-color:${bc}44">
-        <img src="${photoSrc}" alt="${d.name}"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="d-photo-placeholder" style="display:none">
-          <span>${initials}</span>
-          <span>사진 준비중</span>
-        </div>
-      </div>`;
+    const initials = d.name.slice(1);
+
+    const months = [
+      {label:'1월', sat:d.m1Sat, chg:null},
+      {label:'2월', sat:d.m2Sat, chg:d.m1Sat!=null&&d.m2Sat!=null?d.m2Sat-d.m1Sat:null},
+      {label:'3월', sat:d.m3Sat, chg:d.m2Sat!=null&&d.m3Sat!=null?d.m3Sat-d.m2Sat:null},
+      {label:'4월', sat:d.m4Sat, chg:d.m3Sat!=null&&d.m4Sat!=null?d.m4Sat-d.m3Sat:null},
+    ];
 
     const card = document.createElement('div');
     card.className = 'd-card';
-    card.style.animationDelay = (i * 0.05) + 's';
+    card.style.animationDelay = (i*0.05)+'s';
     card.innerHTML = `
-      <div class="d-card-accent" style="background: linear-gradient(90deg, ${bc}, transparent)"></div>
+      <div class="d-card-accent" style="background:linear-gradient(90deg,${bc},transparent)"></div>
       <div class="d-card-header">
         <div style="display:flex;align-items:center;gap:12px;flex:1">
-          ${photoHtml}
+          <div class="d-photo" style="border-color:${bc}44">
+            <img src="${photoSrc}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="d-photo-placeholder" style="display:none"><span>${initials}</span><span>사진 준비중</span></div>
+          </div>
           <div class="d-name-area">
             <div class="d-name">${d.name}</div>
-            <div class="d-branch">
-              <div class="d-branch-dot" style="background:${bc}"></div>
-              ${d.branchFull}
-            </div>
+            <div class="d-branch"><div class="d-branch-dot" style="background:${bc}"></div>${d.branchFull}</div>
           </div>
         </div>
         <div class="d-score-area">
@@ -1107,7 +867,7 @@ function renderCards() {
         <div class="d-metric">
           <div class="d-metric-label">총 방문수</div>
           <div class="d-metric-val" style="color:${bc}">${num(d.totalVisits)}</div>
-          <div class="d-metric-sub">3개월 누적</div>
+          <div class="d-metric-sub">4개월 누적</div>
         </div>
         <div class="d-metric">
           <div class="d-metric-label">예약율</div>
@@ -1138,146 +898,120 @@ function renderCards() {
       </div>
 
       <div class="d-trend-row">
-        <div class="d-trend-item">
-          <div class="d-trend-month">1월</div>
-          <div class="d-trend-val" style="color:${d.m1Sat ? scoreColor(d.m1Sat) : 'var(--text-dim)'}">${d.m1Sat ? fmt(d.m1Sat,2) : '-'}</div>
-          <div class="d-trend-chg flat">${d.m1Resp ? d.m1Resp+'건' : '-'}</div>
-        </div>
-        <div class="d-trend-item">
-          <div class="d-trend-month">2월</div>
-          <div class="d-trend-val" style="color:${d.m2Sat ? scoreColor(d.m2Sat) : 'var(--text-dim)'}">${d.m2Sat ? fmt(d.m2Sat,2) : '-'}</div>
-          <div class="d-trend-chg ${chgClass(m1chg)}">${chgTxt(m1chg)}</div>
-        </div>
-        <div class="d-trend-item">
-          <div class="d-trend-month">3월</div>
-          <div class="d-trend-val" style="color:${d.m3Sat ? scoreColor(d.m3Sat) : 'var(--text-dim)'}">${d.m3Sat ? fmt(d.m3Sat,2) : '-'}</div>
-          <div class="d-trend-chg ${chgClass(m2chg)}">${chgTxt(m2chg)}</div>
-        </div>
+        ${months.map(m => `
+          <div class="d-trend-item">
+            <div class="d-trend-month">${m.label}</div>
+            <div class="d-trend-val" style="color:${m.sat?scoreColor(m.sat):'var(--text-dim)'}">${m.sat?fmt(m.sat,2):'-'}</div>
+            <div class="d-trend-chg ${chgClass(m.chg)}">${m.chg!==null?chgTxt(m.chg):(m.sat?'—':'-')}</div>
+          </div>`).join('')}
       </div>
     `;
-    card.style.cursor = 'pointer';
     card.onclick = () => openPopup(d);
     grid.appendChild(card);
   });
 
-  // 전체 보기일 때 피나클 예정 카드 맨 마지막에 추가
   if (currentFilter === 'all') {
     const ph = document.createElement('div');
     ph.className = 'pinnacle-placeholder-card';
-    ph.style.animationDelay = (filtered.length * 0.05) + 's';
-    ph.innerHTML = `
-      <div class="pp-icon">💜</div>
-      <div class="pp-title">피나클점 (오픈 예정)</div>
-      <div class="pp-sub">디자이너 배정 전입니다.<br>오픈 후 데이터가 반영됩니다.</div>
-    `;
+    ph.style.animationDelay = (filtered.length*0.05)+'s';
+    ph.innerHTML = `<div class="pp-icon">💜</div><div class="pp-title">피나클점 (오픈 예정)</div><div class="pp-sub">디자이너 배정 전입니다.<br>오픈 후 데이터가 반영됩니다.</div>`;
     grid.appendChild(ph);
   }
 }
 
 // ═══════════════════════════════════════════
-// KPI UPDATE
+// KPI
 // ═══════════════════════════════════════════
 function updateKPI() {
   const filtered = DESIGNERS.filter(getBranchMatches);
-  const totalVisits = filtered.reduce((a,d) => a + d.totalVisits, 0);
-  const totalCust = filtered.reduce((a,d) => a + d.totalCust, 0);
-  const avgSat = filtered.reduce((a,d) => a + d.sat * d.satResp, 0) / filtered.reduce((a,d) => a + d.satResp, 0);
-  const avgBook = filtered.reduce((a,d) => a + d.bookRate, 0) / filtered.length;
-  const avgRev = filtered.reduce((a,d) => a + d.revRate, 0) / filtered.length;
-
-  document.getElementById('kpi-visits').textContent = totalVisits.toLocaleString();
+  const totalVisits = filtered.reduce((a,d)=>a+d.totalVisits,0);
+  const totalCust   = filtered.reduce((a,d)=>a+d.totalCust,0);
+  const totalResp   = filtered.reduce((a,d)=>a+d.satResp,0);
+  const avgSat = filtered.reduce((a,d)=>a+d.sat*d.satResp,0)/totalResp;
+  const avgBook = filtered.reduce((a,d)=>a+d.bookRate,0)/filtered.length;
+  const avgRev  = filtered.reduce((a,d)=>a+d.revRate,0)/filtered.length;
+  document.getElementById('kpi-visits').textContent    = totalVisits.toLocaleString();
   document.getElementById('kpi-customers').textContent = totalCust.toLocaleString();
-  document.getElementById('kpi-sat').textContent = avgSat.toFixed(2);
-  document.getElementById('kpi-book').textContent = Math.round(avgBook*100) + '%';
-  document.getElementById('kpi-rev').textContent = Math.round(avgRev*100) + '%';
+  document.getElementById('kpi-sat').textContent       = avgSat.toFixed(2);
+  document.getElementById('kpi-book').textContent      = Math.round(avgBook*100)+'%';
+  document.getElementById('kpi-rev').textContent       = Math.round(avgRev*100)+'%';
 }
 
 // ═══════════════════════════════════════════
 // RANKING TABLE
 // ═══════════════════════════════════════════
 function renderRanking() {
-  const sorted = [...DESIGNERS].sort((a,b) => b.sat - a.sat);
-  const maxVisits = Math.max(...DESIGNERS.map(d => d.totalVisits));
+  const sorted = [...DESIGNERS].sort((a,b)=>b.sat-a.sat);
+  const maxV = Math.max(...DESIGNERS.map(d=>d.totalVisits));
   const tbody = document.getElementById('ranking-body');
-  tbody.innerHTML = '';
+  tbody.innerHTML='';
 
-  function db(cur, prev, isP=false) {
-    if (cur == null || prev == null) return '';
-    const diff = cur - prev;
-    if (Math.abs(diff) < 0.005) return `<span style="font-size:10px;color:#6b7094;margin-left:4px">→</span>`;
-    const sym = diff > 0 ? '▲' : '▼';
-    const col = diff > 0 ? '#52c48a' : '#e05252';
-    const val = isP ? Math.round(Math.abs(diff)*100)+'%' : Math.abs(diff).toFixed(2);
+  function db(cur,prev,isP=false) {
+    if(cur==null||prev==null) return '';
+    const diff=cur-prev;
+    if(Math.abs(diff)<0.005) return `<span style="font-size:10px;color:#6b7094;margin-left:4px">→</span>`;
+    const sym=diff>0?'▲':'▼';
+    const col=diff>0?'#52c48a':'#e05252';
+    const val=isP?Math.round(Math.abs(diff)*100)+'%':Math.abs(diff).toFixed(2);
     return `<span style="font-size:10px;font-weight:700;color:${col};margin-left:4px">${sym}${val}</span>`;
   }
 
-  sorted.forEach((d, i) => {
-    const bc = BRANCH_COLOR[d.branch] || '#888';
-    const sc = scoreColor(d.sat);
-    const barW = Math.round(d.totalVisits / maxVisits * 120);
-    const scores = [d.m1Sat, d.m2Sat, d.m3Sat].filter(s => s != null);
-    const trend = scores.length >= 2
-      ? (scores[scores.length-1] > scores[0] ? '↗' : scores[scores.length-1] < scores[0] ? '↘' : '→')
-      : '·';
-    const trendColor = trend === '↗' ? '#52c48a' : trend === '↘' ? '#e05252' : '#6b7094';
+  sorted.forEach((d,i) => {
+    const bc=BRANCH_COLOR[d.branch]||'#888';
+    const sc=scoreColor(d.sat);
+    const bW=Math.round(d.totalVisits/maxV*120);
+    const ms=[d.m1Sat,d.m2Sat,d.m3Sat,d.m4Sat].filter(s=>s!=null);
+    const trend=ms.length>=2?(ms[ms.length-1]>ms[0]?'↗':ms[ms.length-1]<ms[0]?'↘':'→'):'·';
+    const tc=trend==='↗'?'#52c48a':trend==='↘'?'#e05252':'#6b7094';
 
-    tbody.innerHTML += `
+    tbody.innerHTML+=`
       <tr>
         <td class="rank-no">${i+1}</td>
-        <td>
-          <span class="rank-name">${d.name}</span>
-          <span class="rank-branch" style="background:${bc}22;color:${bc}">${d.branchFull}</span>
-        </td>
-        <td class="td-visits">
-          <span class="mono">${num(d.totalVisits)}</span>
-          <span class="inline-bar" style="width:${barW}px;background:${bc}44"></span>
-        </td>
-        <td class="col-highlight mono" style="color:${sc};font-weight:600">${fmt(d.sat,2)}${db(d.m3Sat, d.m2Sat)}</td>
-        <td class="col-highlight mono" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}${db(d.m3Book, d.m2Book, true)}</td>
-        <td class="col-highlight mono" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}${db(d.m3Rev, d.m2Rev, true)}</td>
+        <td><span class="rank-name">${d.name}</span><span class="rank-branch" style="background:${bc}22;color:${bc}">${d.branchFull}</span></td>
+        <td class="td-visits"><span class="mono">${num(d.totalVisits)}</span><span class="inline-bar" style="width:${bW}px;background:${bc}44"></span></td>
+        <td class="col-highlight mono" style="color:${sc};font-weight:600">${fmt(d.sat,2)}${db(d.m4Sat,d.m3Sat)}</td>
+        <td class="col-highlight mono" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}${db(d.m4Book,d.m3Book,true)}</td>
+        <td class="col-highlight mono" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}${db(d.m4Rev,d.m3Rev,true)}</td>
         <td style="text-align:center">
-          <span class="mono" style="font-size:12px;color:#cccccc">${d.m1Sat?fmt(d.m1Sat,2):'-'}</span>
-          <span style="font-size:11px;color:#cccccc"> → </span>
-          <span class="mono" style="font-size:12px;color:#cccccc">${d.m2Sat?fmt(d.m2Sat,2):'-'}</span>
-          <span style="font-size:11px;color:#cccccc"> → </span>
-          <span class="mono" style="font-size:12px;color:#cccccc">${d.m3Sat?fmt(d.m3Sat,2):'-'}</span>
-          <span style="font-size:13px;color:${trendColor};margin-left:6px;font-weight:700">${trend}</span>
+          <span class="mono" style="font-size:11px;color:#aaa">${d.m1Sat?fmt(d.m1Sat,2):'-'}</span>
+          <span style="color:#555">→</span>
+          <span class="mono" style="font-size:11px;color:#aaa">${d.m2Sat?fmt(d.m2Sat,2):'-'}</span>
+          <span style="color:#555">→</span>
+          <span class="mono" style="font-size:11px;color:#aaa">${d.m3Sat?fmt(d.m3Sat,2):'-'}</span>
+          <span style="color:#555">→</span>
+          <span class="mono" style="font-size:11px;color:#ccc;font-weight:600">${d.m4Sat?fmt(d.m4Sat,2):'-'}</span>
+          <span style="font-size:13px;color:${tc};margin-left:6px;font-weight:700">${trend}</span>
         </td>
       </tr>`;
   });
 }
 
 // ═══════════════════════════════════════════
-// MONTH TREND GRID
+// MONTH TREND (4개월)
 // ═══════════════════════════════════════════
 function renderTrend() {
   const grid = document.getElementById('trend-grid');
   const months = [
-    { key:'m1', label:'1월', vKey:'m1Visits', sKey:'m1Sat', rKey:'m1Resp' },
-    { key:'m2', label:'2월', vKey:'m2Visits', sKey:'m2Sat', rKey:'m2Resp' },
-    { key:'m3', label:'3월', vKey:'m3Visits', sKey:'m3Sat', rKey:'m3Resp' },
+    {label:'1월', vKey:'m1Visits', sKey:'m1Sat', rKey:'m1Resp'},
+    {label:'2월', vKey:'m2Visits', sKey:'m2Sat', rKey:'m2Resp'},
+    {label:'3월', vKey:'m3Visits', sKey:'m3Sat', rKey:'m3Resp'},
+    {label:'4월', vKey:'m4Visits', sKey:'m4Sat', rKey:'m4Resp'},
   ];
-  grid.innerHTML = '';
+  grid.innerHTML='';
   months.forEach(m => {
-    const sorted = [...DESIGNERS]
-      .filter(d => d[m.vKey] > 0)
-      .sort((a,b) => b[m.vKey] - a[m.vKey]);
-    const html = sorted.map(d => {
-      const bc = BRANCH_COLOR[d.branch] || '#888';
-      const sc = d[m.sKey] ? scoreColor(d[m.sKey]) : 'var(--text-dim)';
+    const sorted=[...DESIGNERS].filter(d=>d[m.vKey]>0).sort((a,b)=>b[m.vKey]-a[m.vKey]);
+    const html=sorted.map(d=>{
+      const bc=BRANCH_COLOR[d.branch]||'#888';
+      const sc=d[m.sKey]?scoreColor(d[m.sKey]):'var(--text-dim)';
       return `<div class="trend-row">
         <div class="trend-row-name" style="color:${bc}">${d.name}</div>
         <div class="trend-row-vals">
           <span class="trend-visits">${num(d[m.vKey])}회</span>
-          <span class="trend-score" style="color:${sc}">${d[m.sKey] ? fmt(d[m.sKey],2) : '-'}</span>
+          <span class="trend-score" style="color:${sc}">${d[m.sKey]?fmt(d[m.sKey],2):'-'}</span>
         </div>
       </div>`;
     }).join('');
-    grid.innerHTML += `
-      <div class="trend-month-col">
-        <div class="trend-month-title">${m.label}</div>
-        ${html}
-      </div>`;
+    grid.innerHTML+=`<div class="trend-month-col"><div class="trend-month-title">${m.label}</div>${html}</div>`;
   });
 }
 
@@ -1285,451 +1019,155 @@ function renderTrend() {
 // CHARTS
 // ═══════════════════════════════════════════
 function renderCharts() {
-  const names = DESIGNERS.map(d => d.name);
-  const colors = DESIGNERS.map(d => BRANCH_COLOR[d.branch] || '#888');
-  const colorsA = colors.map(c => c + 'cc');
+  const names  = DESIGNERS.map(d=>d.name);
+  const colors = DESIGNERS.map(d=>BRANCH_COLOR[d.branch]||'#888');
+  const colA   = colors.map(c=>c+'cc');
 
-  // Chart 1: Satisfaction scores
-  new Chart(document.getElementById('chartSat'), {
-    type: 'bar',
-    plugins: [ChartDataLabels],
-    data: {
-      labels: names,
-      datasets: [{
-        label: '만족도 평점',
-        data: DESIGNERS.map(d => d.sat),
-        backgroundColor: colorsA,
-        borderColor: colors,
-        borderWidth: 1.5,
-        borderRadius: 6,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { enabled: false },
-        datalabels: {
-          anchor: 'end', align: 'end',
-          color: '#cccccc',
-          font: { size: 10, family: 'DM Mono', weight: '600' },
-          formatter: v => v.toFixed(2),
-        }
-      },
-      scales: {
-        x: {
-          grid: { color: 'rgba(255,255,255,0.04)' },
-          ticks: { color: '#6b7094', font: { size: 11, family: 'Noto Sans KR' } }
-        },
-        y: {
-          min: 4.5, max: 5.15,
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { color: '#6b7094', font: { size: 11, family: 'DM Mono' },
-            callback: v => v.toFixed(2) }
-        }
-      }
-    }
+  new Chart(document.getElementById('chartSat'),{
+    type:'bar', plugins:[ChartDataLabels],
+    data:{labels:names,datasets:[{label:'만족도 평점',data:DESIGNERS.map(d=>d.sat),backgroundColor:colA,borderColor:colors,borderWidth:1.5,borderRadius:6}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{enabled:false},
+        datalabels:{anchor:'end',align:'end',color:'#cccccc',font:{size:10,family:'DM Mono',weight:'600'},formatter:v=>v.toFixed(2)}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#6b7094',font:{size:11,family:'Noto Sans KR'}}},
+        y:{min:4.5,max:5.15,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'},callback:v=>v.toFixed(2)}}}}
   });
 
-  // Chart 2: Booking rate vs Revisit rate (grouped bar)
-  new Chart(document.getElementById('chartBookRev'), {
-    type: 'bar',
-    data: {
-      labels: names,
-      datasets: [
-        {
-          label: '예약율',
-          data: DESIGNERS.map(d => Math.round(d.bookRate*100)),
-          backgroundColor: 'rgba(82,196,138,0.7)',
-          borderColor: '#52c48a',
-          borderWidth: 1.5, borderRadius: 4,
-        },
-        {
-          label: '재방률',
-          data: DESIGNERS.map(d => Math.round(d.revRate*100)),
-          backgroundColor: 'rgba(245,200,66,0.7)',
-          borderColor: '#f5c842',
-          borderWidth: 1.5, borderRadius: 4,
-        }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: true,
-          labels: { color: '#8b8fb8', font: { size: 11 }, boxWidth: 12, padding: 16 }
-        },
-        tooltip: {
-          backgroundColor: '#1a1d28', borderColor: '#2c2f45', borderWidth: 1,
-          titleColor: '#e8eaf2', bodyColor: '#8b8fb8',
-          callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}%` }
-        }
-      },
-      scales: {
-        x: {
-          grid: { color: 'rgba(255,255,255,0.04)' },
-          ticks: { color: '#6b7094', font: { size: 11, family: 'Noto Sans KR' } }
-        },
-        y: {
-          min: 0, max: 100,
-          grid: { color: 'rgba(255,255,255,0.06)' },
-          ticks: { color: '#6b7094', font: { size: 11, family: 'DM Mono' },
-            callback: v => v + '%' }
-        }
-      }
-    }
+  new Chart(document.getElementById('chartBookRev'),{
+    type:'bar',
+    data:{labels:names,datasets:[
+      {label:'예약율',data:DESIGNERS.map(d=>Math.round(d.bookRate*100)),backgroundColor:'rgba(82,196,138,0.7)',borderColor:'#52c48a',borderWidth:1.5,borderRadius:4},
+      {label:'재방률',data:DESIGNERS.map(d=>Math.round(d.revRate*100)),backgroundColor:'rgba(245,200,66,0.7)',borderColor:'#f5c842',borderWidth:1.5,borderRadius:4}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,labels:{color:'#8b8fb8',font:{size:11},boxWidth:12,padding:16}},
+        tooltip:{backgroundColor:'#1a1d28',borderColor:'#2c2f45',borderWidth:1,titleColor:'#e8eaf2',bodyColor:'#8b8fb8',
+          callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}%`}}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#6b7094',font:{size:11,family:'Noto Sans KR'}}},
+        y:{min:0,max:100,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'},callback:v=>v+'%'}}}}
   });
 }
 
 // ═══════════════════════════════════════════
-// SERVICE TYPE DATA
+// SERVICE CHART
 // ═══════════════════════════════════════════
 const SERVICE_TOTAL = {
-  '커트': 2778, '커트+펌': 1258, '클리닉': 1091,
-  '샴푸/세팅드라이': 812, '커트+염색': 519, '염색': 329, '펌': 174, '기타': 5
+  '커트':2778,'커트+펌':1258,'클리닉':1091,
+  '샴푸/세팅드라이':812,'커트+염색':519,'염색':329,'펌':174,'기타':5
 };
-const SERVICE_COLORS = ['#4fa3e0','#50c878','#f5c842','#e07b4f','#a78bfa','#e05252','#52c48a','#6b7094'];
+const SERVICE_COLORS=['#4fa3e0','#50c878','#f5c842','#e07b4f','#a78bfa','#e05252','#52c48a','#6b7094'];
 
 const SERVICE_BY_DESIGNER = {
   '아크 김도희':   {'커트':166,'커트+펌':113,'클리닉':93,'샴푸/세팅드라이':81,'커트+염색':43,'염색':30,'펌':20,'기타':0},
   '아크 김지애':   {'커트':162,'커트+펌':112,'클리닉':121,'샴푸/세팅드라이':76,'커트+염색':33,'염색':24,'펌':15,'기타':0},
   '아크 오주예':   {'커트':221,'커트+펌':93,'클리닉':98,'샴푸/세팅드라이':85,'커트+염색':38,'염색':30,'펌':18,'기타':0},
-  '아크 선태준':   {'커트':262,'커트+펌':117,'클리닉':91,'샴푸/세팅드라이':67,'커트+염색':42,'염색':17,'펌':12,'기타':0},
+  '아크 김수빈':   {'커트':332,'커트+펌':115,'클리닉':71,'샴푸/세팅드라이':51,'커트+염색':60,'염색':10,'펌':4,'기타':0},
   '신논현 김상희': {'커트':256,'커트+펌':104,'클리닉':64,'샴푸/세팅드라이':47,'커트+염색':59,'염색':25,'펌':13,'기타':5},
   '신논현 이나연': {'커트':258,'커트+펌':116,'클리닉':73,'샴푸/세팅드라이':66,'커트+염색':45,'염색':26,'펌':8,'기타':0},
   '신논현 송영호': {'커트':239,'커트+펌':98,'클리닉':105,'샴푸/세팅드라이':64,'커트+염색':40,'염색':31,'펌':18,'기타':0},
-  '한타 김수빈':   {'커트':332,'커트+펌':115,'클리닉':71,'샴푸/세팅드라이':51,'커트+염색':60,'염색':10,'펌':4,'기타':0},
-  '한타 남민정':   {'커트':258,'커트+펌':100,'클리닉':91,'샴푸/세팅드라이':64,'커트+염색':28,'염색':35,'펌':17,'기타':0},
-  '한타 박희선':   {'커트':191,'커트+펌':94,'클리닉':91,'샴푸/세팅드라이':75,'커트+염색':28,'염색':29,'펌':11,'기타':0},
-  '한타 배연희':   {'커트':196,'커트+펌':96,'클리닉':106,'샴푸/세팅드라이':76,'커트+염색':48,'염색':40,'펌':17,'기타':0},
-  '한타 송다예':   {'커트':237,'커트+펌':100,'클리닉':87,'샴푸/세팅드라이':60,'커트+염색':55,'염색':32,'펌':21,'기타':0},
 };
 
-// ═══════════════════════════════════════════
-// REVIEW DATA
-// ═══════════════════════════════════════════
-const REVIEWS = {
-  5: [
-    {designer:'선태준', text:'한 시간 안에 모든 시술을 다 해주시고 싶은 마음이 전해졌어요. 꼼꼼하게 해주셔서 감사해요.'},
-    {designer:'김상희', text:'항상 밝은 미소로 맞이해주시고 시술도 잘해주셔서 감사드립니다.'},
-    {designer:'김수빈', text:'임신 중인데 클리닉 제품 성분도 꼼꼼히 확인해주시고 자세 불편 등 여러 가지를 섬세하게 살펴봐주셔서 편안하게 시술 잘 받았습니다!'},
-    {designer:'이나연', text:'친절하고 따뜻하게 배려해주셔서 늘 기분 좋은 시간을 보내고 옵니다. 한정된 시간 내 제게 필요한 내용으로 알차게 진행되어 만족스러워요.'},
-    {designer:'선태준', text:'구석구석 꼼꼼히 신경써 주셔서 리프레시 됩니다~'},
-    {designer:'김도희', text:'섬세하게 챙겨주셔서 감사합니다. 작은 부분까지 세심하게 챙겨주시는 점에서 진심이 느껴졌어요.'},
-    {designer:'남민정', text:'항상 감사드립니다. 머리도 너무 마음에 들고 또 친절하셔서 감사드립니다.'},
-    {designer:'배연희', text:'꼼꼼하고 친절하게 잘해주셔서 감사합니다. 앞머리도 예쁘게 정리해주셔서 감사합니당!'},
-  ],
-  4: [
-    {designer:'선태준', text:'30분 샴푸에서도 간단 클리닉이 가능했으면 좋겠어요. 남은 30분을 쓰기 애매해서 항상 샴푸를 받는데 사실 머리가 상해서 약식이라도 함께 진행해주셨으면 좋겠습니다.'},
-    {designer:'이나연', text:'두피 마사지는 엄청 시원하고 친절하셔서 짱짱 좋았는데 머리 말릴 때 살짝 스타일링을 더 해주셨으면 더 좋았을 듯해요.'},
-    {designer:'김지애', text:'샴푸는 만족스럽습니다! 다만 드라이 스타일링이 항상 조금 아쉬워요.'},
-    {designer:'김상희', text:'샴푸와 머리 말리는 것을 꼼꼼히 해주셨습니다. 개인적으로는 두피를 좀 더 시원하게 세게 하는 것을 좋아합니다.'},
-  ],
-  3: [
-    {designer:'김도희', text:'시술 후에 머리카락이 너무 많이 남아서 업무 보는 데 머리와 상체가 너무 간지러웠어요. 이 부분이 개선되면 좋을 것 같아요!'},
-    {designer:'김지애', text:'샴푸는 만족스럽습니다! 다만 머리 말려주시면서 스타일링이 항상 조금 아쉬워요.'},
-    {designer:'송영호', text:'전반적으로 괜찮았지만 조금 더 꼼꼼하게 봐주셨으면 했어요.'},
-  ],
-  2: [
-    {designer:'이나연', text:'커트의 퀄리티가 많이 아쉬워요. 사진을 보여주면서 스타일을 이야기했는데, 머리카락도 더 짧고 좌우 대칭이 맞지 않게 해주셨어요.'},
-    {designer:'송영호', text:'시술이 빠르게 끝난 것 같아서 아쉬웠어요.'},
-    {designer:'박희선', text:'기대했던 것과 결과가 달라서 아쉬움이 남았어요.'},
-  ],
-  1: [
-    {designer:'오주예', text:'다운펌이 하나도 되지 않았어요. 체감상 시술 시간이 너무 짧았고 저녁에 집에 와서 보니 옆머리가 너무 떠있네요.'},
-    {designer:'오주예', text:'앞머리 펌이 너무 과하게 되어서 일단 내리고 다닐 수가 없어요. 시술 전 좀 더 꼼꼼한 상담이 있었으면 좋았을 것 같아요.'},
-  ],
-};
-
-// ═══════════════════════════════════════════
-// POPUP
-// ═══════════════════════════════════════════
-let popupServiceChart = null;
-
-// ── KPI 박스용 인라인 스파크라인 (월 숫자 위에, 각 점이 월 중앙에 정확히 얼라인)
-function kpiSparkline(vals, color) {
-  const nonNull = vals.filter(v => v != null);
-  if (nonNull.length < 2) return '';
-
-  const H = 32, P = 4;
-  const mn = Math.min(...nonNull) * 0.95;
-  const mx = Math.max(...nonNull) * 1.05;
-  const rng = mx - mn || 1;
-
-  // SVG viewBox 너비를 300으로 고정
-  // popup-kpi-months: repeat(3,1fr) gap=4px
-  // 3개 셀 중앙 = 1/6, 3/6, 5/6 of total width (gap 무시하면 근사적으로 맞음)
-  // SVG width=300 → x좌표: 50, 150, 250
-  const W = 300;
-  const xPos = [50, 150, 250];
-
-  const pts = vals.map((v, i) => {
-    if (v == null) return null;
-    const x = xPos[i];
-    const y = parseFloat((H - P - ((v - mn) / rng) * (H - P * 2)).toFixed(1));
-    return [x, y];
-  });
-
-  const valid = pts.filter(p => p);
-  const pathD = valid.map((p, i) => (i === 0 ? 'M' : 'L') + p[0] + ',' + p[1]).join(' ');
-  const fillD = pathD + ` L${valid[valid.length-1][0]},${H} L${valid[0][0]},${H} Z`;
-  const dots = pts.map(p => p
-    ? `<circle cx="${p[0]}" cy="${p[1]}" r="5" fill="${color}" stroke="#242840" stroke-width="2"/>`
-    : '').join('');
-  const id = 'ks' + Math.random().toString(36).slice(2, 8);
-
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none"
-    style="width:100%;height:${H}px;display:block;margin-bottom:2px">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
-      <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
-    </linearGradient></defs>
-    <path d="${fillD}" fill="url(#${id})"/>
-    <path d="${pathD}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    ${dots}
-  </svg>`;
-}
-
-function openPopup(d) {
-  const bc = BRANCH_COLOR[d.branch] || '#888';
-  const sc = scoreColor(d.sat);
-
-  // header
-  document.getElementById('popup-name').textContent = d.name;
-  document.getElementById('popup-branch').textContent = d.branchFull;
-  document.getElementById('popup-init').textContent = d.name.slice(1);
-
-  // photo
-  const photoEl = document.getElementById('popup-photo');
-  photoEl.style.borderColor = bc;
-  const imgEl = photoEl.querySelector('img');
-  if (imgEl) imgEl.remove();
-  const newImg = document.createElement('img');
-  newImg.src = `${d.id}.jpg`;
-  newImg.alt = d.name;
-  newImg.onerror = function(){ this.style.display='none'; document.getElementById('popup-init').style.display=''; };
-  document.getElementById('popup-init').style.display = 'none';
-  photoEl.insertBefore(newImg, photoEl.firstChild);
-  newImg.onerror = function(){ this.style.display='none'; document.getElementById('popup-init').style.display='block'; };
-
-  // KPIs with monthly breakdown
-  const total = d.dist.s5+d.dist.s4+d.dist.s3+d.dist.neg;
-
-  function mVal(v) { return v != null && v > 0 ? num(v) : '-'; }
-  function mPct(v) { return v != null && v > 0 ? pct(v) : '-'; }
-  function mSat(v) { return v != null ? fmt(v,2) : '-'; }
-
-  function monthBreakdown(vals, colorFn) {
-    return `<div class="popup-kpi-months">
-      ${['1월','2월','3월'].map((m,i) => {
-        const v = vals[i];
-        const col = (v != null && v !== '-') ? (colorFn ? colorFn(v) : 'var(--text-muted)') : '#3d4166';
-        return `<div class="popup-kpi-month">
-          <span class="popup-kpi-month-label">${m}</span>
-          <span class="popup-kpi-month-val" style="color:${col}">${v ?? '-'}</span>
-        </div>`;
-      }).join('')}
-    </div>`;
-  }
-
-  document.getElementById('popup-kpis').innerHTML = `
-    <div class="popup-kpi">
-      <div class="popup-kpi-label">총 방문수</div>
-      <div class="popup-kpi-total" style="color:${bc}">${num(d.totalVisits)}<span style="font-size:12px;color:#555;margin-left:4px">회</span></div>
-      ${kpiSparkline([d.m1Visits, d.m2Visits, d.m3Visits], bc)}
-      ${monthBreakdown([mVal(d.m1Visits), mVal(d.m2Visits), mVal(d.m3Visits)], null)}
-    </div>
-    <div class="popup-kpi">
-      <div class="popup-kpi-label">고객수</div>
-      <div class="popup-kpi-total">${num(d.totalCust)}<span style="font-size:12px;color:#555;margin-left:4px">명</span></div>
-      ${kpiSparkline([d.m1Cust, d.m2Cust, d.m3Cust], '#8b8fb8')}
-      ${monthBreakdown([mVal(d.m1Cust), mVal(d.m2Cust), mVal(d.m3Cust)], null)}
-    </div>
-    <div class="popup-kpi">
-      <div class="popup-kpi-label">예약율</div>
-      <div class="popup-kpi-total" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}</div>
-      ${kpiSparkline([d.m1Book, d.m2Book, d.m3Book], pctColor(d.bookRate))}
-      ${monthBreakdown([mPct(d.m1Book), mPct(d.m2Book), mPct(d.m3Book)], v => pctColor(parseFloat(v)/100))}
-    </div>
-    <div class="popup-kpi">
-      <div class="popup-kpi-label">재방률</div>
-      <div class="popup-kpi-total" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}</div>
-      ${kpiSparkline([d.m1Rev, d.m2Rev, d.m3Rev], pctColor(d.revRate))}
-      ${monthBreakdown([mPct(d.m1Rev), mPct(d.m2Rev), mPct(d.m3Rev)], v => pctColor(parseFloat(v)/100))}
-    </div>
-    <div class="popup-kpi">
-      <div class="popup-kpi-label">만족도</div>
-      <div class="popup-kpi-total" style="color:${sc}">${fmt(d.sat,2)}<span style="font-size:12px;color:#555;margin-left:4px">점</span></div>
-      ${kpiSparkline([d.m1Sat, d.m2Sat, d.m3Sat], sc)}
-      ${monthBreakdown([mSat(d.m1Sat), mSat(d.m2Sat), mSat(d.m3Sat)], v => scoreColor(parseFloat(v)))}
-    </div>
-    <div class="popup-kpi" style="grid-column: span 2">
-      <div class="popup-kpi-label">별점 분포</div>
-      <div style="position:relative;height:110px;margin-top:8px"><canvas id="popup-hist-chart"></canvas></div>
-    </div>`;
-
-  // Popup histogram chart
-  if (window._popupHistChart) window._popupHistChart.destroy();
-  setTimeout(() => {
-    const hCtx = document.getElementById('popup-hist-chart');
-    if (!hCtx) return;
-    const histData = [d.dist.s5, d.dist.s4, d.dist.s3, d.dist.neg, 0];
-    window._popupHistChart = new Chart(hCtx, {
-      type: 'bar',
-      plugins: [ChartDataLabels],
-      data: {
-        labels: ['5점', '4점', '3점', '2점', '1점'],
-        datasets: [{
-          data: histData,
-          backgroundColor: ['rgba(39,174,96,0.8)','rgba(79,163,224,0.8)','rgba(245,200,66,0.8)','rgba(224,123,79,0.8)','rgba(224,82,82,0.8)'],
-          borderColor:      ['#27ae60','#4fa3e0','#f5c842','#e07b4f','#e05252'],
-          borderWidth: 1.5, borderRadius: 5,
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: { enabled: false },
-          datalabels: {
-            anchor: 'end', align: 'end',
-            color: '#cccccc',
-            font: { size: 10, family: 'DM Mono', weight: '600' },
-            formatter: (val) => {
-              if (!val) return '';
-              const p = total ? Math.round(val/total*100) : 0;
-              return `${val}건\n${p}%`;
-            }
-          }
-        },
-        scales: {
-          x: { grid:{display:false}, ticks:{color:'#cccccc', font:{size:11}} },
-          y: {
-            grid:{color:'rgba(255,255,255,0.05)'},
-            ticks:{color:'#6b7094', font:{size:10, family:'DM Mono'}},
-            suggestedMax: Math.max(...histData) * 1.35,
-          }
-        }
-      }
-    });
-  }, 50);
-
-  // Service chart
-  if (popupServiceChart) popupServiceChart.destroy();
-  const svc = SERVICE_BY_DESIGNER[d.id] || {};
-  const svcLabels = Object.keys(SERVICE_TOTAL);
-  const svcData = svcLabels.map(k => svc[k] || 0);
-  const svcTotal = svcData.reduce((a,b)=>a+b,0);
-  const ctx = document.getElementById('popup-service-chart').getContext('2d');
-  popupServiceChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: svcLabels,
-      datasets: [{ data: svcData, backgroundColor: SERVICE_COLORS, borderWidth: 2, borderColor: '#1c2030' }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { position:'right', labels: { color:'#8b8fb8', font:{size:11}, padding:10, boxWidth:12 } },
-        tooltip: {
-          backgroundColor:'#1a1d28', borderColor:'#2c2f45', borderWidth:1,
-          titleColor:'#e8eaf2', bodyColor:'#8b8fb8',
-          callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}건 (${svcTotal?Math.round(ctx.raw/svcTotal*100):0}%)` }
-        }
-      }
-    }
-  });
-
-  document.getElementById('popup-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function closePopup(e) {
-  if (e.target === document.getElementById('popup-overlay')) {
-    document.getElementById('popup-overlay').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-}
-
-// ═══════════════════════════════════════════
-// SERVICE CHART (전체)
-// ═══════════════════════════════════════════
 function renderServiceChart() {
-  const labels = Object.keys(SERVICE_TOTAL);
-  const data = Object.values(SERVICE_TOTAL);
-  const total = data.reduce((a,b)=>a+b,0);
-  new Chart(document.getElementById('chartService'), {
-    type: 'bar',
-    plugins: [ChartDataLabels],
-    data: {
-      labels,
-      datasets: [{
-        label: '시술 건수',
-        data,
-        backgroundColor: SERVICE_COLORS.map(c => c+'cc'),
-        borderColor: SERVICE_COLORS,
-        borderWidth: 1.5, borderRadius: 8,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false, indexAxis: 'y',
-      plugins: {
-        legend: { display: false },
-        tooltip: { enabled: false },
-        datalabels: {
-          anchor: 'end', align: 'end',
-          color: '#cccccc',
-          font: { size: 11, family: 'DM Mono', weight: '600' },
-          formatter: (val) => `${val.toLocaleString()}건 (${Math.round(val/total*100)}%)`
-        }
-      },
-      scales: {
-        x: {
-          grid:{color:'rgba(255,255,255,0.05)'},
-          ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'}},
-          max: Math.max(...data) * 1.35,
-        },
-        y: { grid:{display:false}, ticks:{color:'#e8eaf2',font:{size:12,family:'Noto Sans KR'},padding:8} }
-      }
-    }
+  const labels=Object.keys(SERVICE_TOTAL);
+  const data=Object.values(SERVICE_TOTAL);
+  const total=data.reduce((a,b)=>a+b,0);
+  new Chart(document.getElementById('chartService'),{
+    type:'bar',plugins:[ChartDataLabels],
+    data:{labels,datasets:[{label:'시술 건수',data,backgroundColor:SERVICE_COLORS.map(c=>c+'cc'),borderColor:SERVICE_COLORS,borderWidth:1.5,borderRadius:8}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+      plugins:{legend:{display:false},tooltip:{enabled:false},
+        datalabels:{anchor:'end',align:'end',color:'#cccccc',font:{size:11,family:'DM Mono',weight:'600'},formatter:val=>`${val.toLocaleString()}건 (${Math.round(val/total*100)}%)`}},
+      scales:{
+        x:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'}},max:Math.max(...data)*1.35},
+        y:{grid:{display:false},ticks:{color:'#e8eaf2',font:{size:12,family:'Noto Sans KR'},padding:8}}}}
+  });
+}
+
+// ═══════════════════════════════════════════
+// HISTOGRAM
+// ═══════════════════════════════════════════
+function renderHistogram() {
+  const names=DESIGNERS.map(d=>d.name);
+  new Chart(document.getElementById('chartHistogram'),{
+    type:'bar',
+    data:{labels:names,datasets:[
+      {label:'5점 (매우만족)',data:DESIGNERS.map(d=>d.dist.s5),backgroundColor:'rgba(39,174,96,0.8)',borderColor:'#27ae60',borderWidth:1,borderRadius:3},
+      {label:'4점 (만족)',    data:DESIGNERS.map(d=>d.dist.s4),backgroundColor:'rgba(79,163,224,0.8)',borderColor:'#4fa3e0',borderWidth:1,borderRadius:3},
+      {label:'3점 (보통)',    data:DESIGNERS.map(d=>d.dist.s3),backgroundColor:'rgba(245,200,66,0.8)',borderColor:'#f5c842',borderWidth:1,borderRadius:3},
+      {label:'2점 이하',      data:DESIGNERS.map(d=>d.dist.neg),backgroundColor:'rgba(224,82,82,0.8)', borderColor:'#e05252',borderWidth:1,borderRadius:3},
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:true,labels:{color:'#8b8fb8',font:{size:11},boxWidth:12,padding:14}},
+        tooltip:{backgroundColor:'#1a1d28',borderColor:'#2c2f45',borderWidth:1,titleColor:'#e8eaf2',bodyColor:'#8b8fb8',
+          callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.raw}건`}}},
+      scales:{
+        x:{stacked:true,grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#8b8fb8',font:{size:11,family:'Noto Sans KR'}}},
+        y:{stacked:true,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'}}}}}
   });
 }
 
 // ═══════════════════════════════════════════
 // REVIEWS
 // ═══════════════════════════════════════════
-let currentReviewScore = 5;
-const REVIEW_BADGE = {
-  5: {label:'매우 만족', color:'#27ae60', bg:'rgba(39,174,96,0.12)'},
-  4: {label:'만족',     color:'#4fa3e0', bg:'rgba(79,163,224,0.12)'},
-  3: {label:'보통',     color:'#f5c842', bg:'rgba(245,200,66,0.12)'},
-  2: {label:'불만족',   color:'#e07b4f', bg:'rgba(224,123,79,0.12)'},
-  1: {label:'매우불만족',color:'#e05252', bg:'rgba(224,82,82,0.12)'},
+const REVIEWS = {
+  5:[
+    {designer:'김수빈', text:'임신 중인데 클리닉 제품 성분도 꼼꼼히 확인해주시고 자세 불편 등 여러 가지를 섬세하게 살펴봐주셔서 편안하게 시술 잘 받았습니다!'},
+    {designer:'김상희', text:'상희님은 압도적으로 최고이십니다. 이전의 상태를 다 기억하고 계셔주다보니 넘 좋아요! 예약이 더 어려워질까 염려는 되는군요.'},
+    {designer:'이나연', text:'머리 너무 잘 잘라주세요. 친절하시고 이전 요구사항이나 상황도 기억해서 해주십니다. 머리특징도 기억하셔서 신경써주시고 너무 세심하게 머리를 잘 만들어주십니다.'},
+    {designer:'김도희', text:'작은 부분까지 세심하게 챙겨주시는 점에서 진심이 느껴졌어요. 시술 중에도 제가 원하는 디자인을 계속 확인해주시고 디테일과 퀄리티를 끝까지 신경 써주셔서 믿고 맡길 수 있었어요.'},
+    {designer:'송영호', text:'알잘딱깔센이셨어요. 감사합니다~!!! 세심하게 잘챙겨주시는 영호님 항상 감사드려요. 저희 와이프도 영호님이 머리 만져주시면 항상 최고라고 외친답니다.'},
+    {designer:'김지애', text:'감기걸린거 알아보시고 추울까봐 담요와 수건으로 따뜻하게 해주시고 시술 내내 너무 편안하고 좋았어요. 항상 꼼꼼하게 해주셔서 감사합니다!'},
+    {designer:'오주예', text:'주예님 커트 완전 좋았어요! 몇번의 질문으로 저도 몰랐던 제 니즈를 파악해주시고! 훨씬 스타일도 좋고 관리도 편한 머리로 만들어주셨어요.'},
+    {designer:'김수빈', text:'처음 리뷰 남겨요. 커트가 맘에도 들지만 반갑게 인사를 먼저 건네주시고, 스타일을 매번 물어봐주십니다. 편안한 느낌으로 만족도가 높고 계속 이용하고 싶어요.'},
+  ],
+  4:[
+    {designer:'이나연', text:'두피 마사지는 엄청 시원하고 친절하셔서 짱짱 좋았는데 머리 말릴 때 살짝 스타일링을 더 해주셨으면 더 좋았을 듯해요.'},
+    {designer:'김지애', text:'샴푸는 만족스럽습니다! 다만 드라이 스타일링이 항상 조금 아쉬워요. 특정 디자이너분이 아니라 전체적으로 스타일링/드라이가 맘에안들어서 항상 아쉬워요.'},
+    {designer:'김상희', text:'샴푸와 머리 말리는 것을 꼼꼼히 해주셨습니다. 개인적으로는 두피를 좀 더 시원하게 세게 하는 것을 좋아합니다.'},
+    {designer:'이나연', text:'샴푸를 넘 정성껏 해주시고 지압도 좋아요! 다만 저번에 커트는 조금 실망했었어요.. 기장만 댕강 짜른 느낌.. 그래서 그 이후로 샴푸만 예약해서 하고있어요.'},
+  ],
+  3:[
+    {designer:'김도희', text:'시술 후에 머리카락이 너무 많이 남아서 업무 보는 데 간지러웠어요. 겉 위주로 약하게 해주셔서 그런게 아닐까 싶어요. 이 부분 개선되면 너무 좋을 것 같아요!'},
+    {designer:'김상희', text:'새치커버가 거의 안됐어요.'},
+    {designer:'송영호', text:'머리 잘 잘라주십니다. 하나 아쉬운건 힘이 쎄십니다. 머리 털어주실 때나 가위로 잘라주실 때 좀 쎄셔서 좀 아팠는데 그게 아쉬웠어요.'},
+  ],
+  2:[
+    {designer:'이나연', text:'커트의 퀄리티가 많이 아쉬워요. 사진을 보여주면서 스타일을 이야기했는데, 머리카락도 더 짧고 좌우 대칭이 맞지 않게 해주셨어요.'},
+    {designer:'송영호', text:'두달 전 시술이었는데 아쉬웠던 기억입니다. 시술 관련 상담도 건성으로 하는 느낌이었고, 커트 결과도 만족스럽지 않았어요. 10분 일찍 끝났는데 아무런 안내 없이 종료되어 당황스러웠어요.'},
+    {designer:'김도희', text:'클리닉이라고 해서 두피 마사지 같은 시간이 많이 있는 줄 알았는데요 샴푸만 하다 끝난 느낌이라 아쉬움이 컸어요.'},
+  ],
+  1:[
+    {designer:'오주예', text:'다운펌이 하나도 되지 않았어요. 체감상 시술 시간이 너무 짧았고 저녁에 집에 와서 보니 옆머리가 너무 떠있네요.'},
+    {designer:'오주예', text:'염색을 받았는데 염색은 잘 들지도 않고 두피쪽 머리가 다 지글지글 타버렸어요.. 앞머리 펌이 너무 과하게 되어서 일단 내리고 다닐 수가 없어요. 시술 전 좀 더 꼼꼼한 상담이 있었으면 좋겠어요.'},
+  ],
 };
 
-function filterReview(score, btn) {
-  currentReviewScore = score;
-  document.querySelectorAll('.review-tab').forEach(b => {
-    b.classList.remove('active');
-    b.style.background = '';
-  });
+const REVIEW_BADGE = {
+  5:{label:'매우 만족',color:'#27ae60',bg:'rgba(39,174,96,0.12)'},
+  4:{label:'만족',color:'#4fa3e0',bg:'rgba(79,163,224,0.12)'},
+  3:{label:'보통',color:'#f5c842',bg:'rgba(245,200,66,0.12)'},
+  2:{label:'불만족',color:'#e07b4f',bg:'rgba(224,123,79,0.12)'},
+  1:{label:'매우불만족',color:'#e05252',bg:'rgba(224,82,82,0.12)'},
+};
+
+let currentReviewScore=5;
+function filterReview(score,btn) {
+  currentReviewScore=score;
+  document.querySelectorAll('.review-tab').forEach(b=>{b.classList.remove('active');b.style.background='';});
   btn.classList.add('active');
-  btn.style.background = REVIEW_BADGE[score].color;
+  btn.style.background=REVIEW_BADGE[score].color;
   renderReviews();
 }
-
 function renderReviews() {
-  const list = document.getElementById('review-list');
-  const items = REVIEWS[currentReviewScore] || [];
-  const badge = REVIEW_BADGE[currentReviewScore];
-  if (!items.length) {
-    list.innerHTML = `<div class="review-empty">해당 만족도 리뷰가 없습니다.</div>`;
-    return;
-  }
-  list.innerHTML = items.map(r => {
-    const d = DESIGNERS.find(d => d.name === r.designer);
-    const bc = d ? BRANCH_COLOR[d.branch]||'#888' : '#888';
+  const list=document.getElementById('review-list');
+  const items=REVIEWS[currentReviewScore]||[];
+  const badge=REVIEW_BADGE[currentReviewScore];
+  if(!items.length){list.innerHTML=`<div class="review-empty">해당 만족도 리뷰가 없습니다.</div>`;return;}
+  list.innerHTML=items.map(r=>{
+    const d=DESIGNERS.find(x=>x.name===r.designer);
+    const bc=d?BRANCH_COLOR[d.branch]||'#888':'#888';
     return `<div class="review-item" style="border-left-color:${badge.color};background:${badge.bg}">
       <div class="review-item-header">
         <span class="review-designer" style="color:${bc}">${r.designer}</span>
@@ -1741,185 +1179,151 @@ function renderReviews() {
 }
 
 // ═══════════════════════════════════════════
-// HISTOGRAM CHART
+// POPUP
 // ═══════════════════════════════════════════
-function renderHistogram() {
-  const names = DESIGNERS.map(d => d.name);
-  const colors = DESIGNERS.map(d => BRANCH_COLOR[d.branch] || '#888');
+let popupServiceChart=null;
 
-  new Chart(document.getElementById('chartHistogram'), {
-    type: 'bar',
-    data: {
-      labels: names,
-      datasets: [
-        { label: '5점 (매우만족)', data: DESIGNERS.map(d => d.dist.s5), backgroundColor: 'rgba(39,174,96,0.8)',   borderColor: '#27ae60', borderWidth:1, borderRadius:3 },
-        { label: '4점 (만족)',     data: DESIGNERS.map(d => d.dist.s4), backgroundColor: 'rgba(79,163,224,0.8)',  borderColor: '#4fa3e0', borderWidth:1, borderRadius:3 },
-        { label: '3점 (보통)',     data: DESIGNERS.map(d => d.dist.s3), backgroundColor: 'rgba(245,200,66,0.8)',  borderColor: '#f5c842', borderWidth:1, borderRadius:3 },
-        { label: '2점 이하',       data: DESIGNERS.map(d => d.dist.neg),backgroundColor: 'rgba(224,82,82,0.8)',  borderColor: '#e05252', borderWidth:1, borderRadius:3 },
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: true, labels: { color:'#8b8fb8', font:{size:11}, boxWidth:12, padding:14 } },
-        tooltip: {
-          backgroundColor:'#1a1d28', borderColor:'#2c2f45', borderWidth:1,
-          titleColor:'#e8eaf2', bodyColor:'#8b8fb8',
-          callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}건` }
-        }
-      },
-      scales: {
-        x: {
-          stacked: true,
-          grid: { color:'rgba(255,255,255,0.04)' },
-          ticks: { color:'#8b8fb8', font:{size:11, family:'Noto Sans KR'} }
-        },
-        y: {
-          stacked: true,
-          grid: { color:'rgba(255,255,255,0.06)' },
-          ticks: { color:'#6b7094', font:{size:11, family:'DM Mono'} }
-        }
-      }
-    }
+function kpiSparkline(vals,color) {
+  const nonNull=vals.filter(v=>v!=null);
+  if(nonNull.length<2) return '';
+  const H=32,P=4,W=400;
+  const mn=Math.min(...nonNull)*0.95;
+  const mx=Math.max(...nonNull)*1.05;
+  const rng=mx-mn||1;
+  const xPos=[50,150,250,350];
+  const pts=vals.map((v,i)=>{
+    if(v==null) return null;
+    const x=xPos[i];
+    const y=parseFloat((H-P-((v-mn)/rng)*(H-P*2)).toFixed(1));
+    return [x,y];
   });
+  const valid=pts.filter(p=>p);
+  const pathD=valid.map((p,i)=>(i===0?'M':'L')+p[0]+','+p[1]).join(' ');
+  const fillD=pathD+` L${valid[valid.length-1][0]},${H} L${valid[0][0]},${H} Z`;
+  const dots=pts.map(p=>p?`<circle cx="${p[0]}" cy="${p[1]}" r="5" fill="${color}" stroke="#242840" stroke-width="2"/>`:'').join('');
+  const id='ks'+Math.random().toString(36).slice(2,8);
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="width:100%;height:${H}px;display:block;margin-bottom:2px">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path d="${fillD}" fill="url(#${id})"/>
+    <path d="${pathD}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    ${dots}
+  </svg>`;
 }
 
-// ═══════════════════════════════════════════
-// MENU SENTIMENT DATA
-// ═══════════════════════════════════════════
-const MENU_SENTIMENT = {
-  '커트':     { 긍정:52, 복합:3, 부정:2, total:57 },
-  '커트+펌':  { 긍정:0,  복합:0, 부정:0, total:0  },
-  '펌':       { 긍정:6,  복합:1, 부정:0, total:7  },
-  '클리닉':   { 긍정:63, 복합:11,부정:3, total:77 },
-  '샴푸/세팅':{ 긍정:40, 복합:7, 부정:1, total:48 },
-  '염색':     { 긍정:7,  복합:3, 부정:0, total:10 },
-};
+function openPopup(d) {
+  const bc=BRANCH_COLOR[d.branch]||'#888';
+  const sc=scoreColor(d.sat);
+  document.getElementById('popup-name').textContent=d.name;
+  document.getElementById('popup-branch').textContent=d.branchFull;
+  document.getElementById('popup-init').textContent=d.name.slice(1);
 
-// 디자이너별 부정 리뷰 집중 메뉴
-const DESIGNER_MENU_NEG = {
-  '남민정': { '클리닉':100, '샴푸/세팅':25 },
-  '이나연': { '커트':14.3 },
-  '오주예': { '펌':100 },
-  '송다예': { '클리닉':12.5, '커트':10 },
-};
+  const photoEl=document.getElementById('popup-photo');
+  photoEl.style.borderColor=bc;
+  const oldImg=photoEl.querySelector('img');
+  if(oldImg) oldImg.remove();
+  const newImg=document.createElement('img');
+  newImg.src=`${d.id}.jpg`;
+  newImg.alt=d.name;
+  newImg.onerror=function(){this.style.display='none';document.getElementById('popup-init').style.display='block';};
+  document.getElementById('popup-init').style.display='none';
+  photoEl.insertBefore(newImg,photoEl.firstChild);
 
-const MENU_INSIGHTS = [
-  { menu:'펌', icon:'⚠️', color:'#e05252',
-    text:'펌 메뉴는 건수(174건)는 적지만 오주예 디자이너의 앞머리펌 불만족 2건(매우불만족 1점)이 집중. 기술 난이도 대비 리스크 높음.' },
-  { menu:'클리닉', icon:'📝', color:'#f5c842',
-    text:'클리닉은 긍정 리뷰가 많지만, 남민정(부정률 100%), 송다예(12.5%)에서 부정 피드백 발생. 마사지 강도·손톱 관련 불만.' },
-  { menu:'샴푸/세팅', icon:'💬', color:'#4fa3e0',
-    text:'드라이·스타일링 완성도에 대한 개선 요청이 전반적으로 존재. 특정 디자이너 문제가 아닌 서비스 전체 이슈일 가능성.' },
-  { menu:'커트', icon:'✅', color:'#52c48a',
-    text:'커트는 가장 많은 시술(2,778건)이며 부정률 3.5%로 안정적. 대부분 "원하는 스타일 잘 구현"으로 긍정 평가.' },
-  { menu:'염색', icon:'✅', color:'#52c48a',
-    text:'염색 메뉴(329건)는 부정 피드백 0건. 새치염색(뿌리) 중심으로 꾸준한 재방문 유도 메뉴.' },
-];
+  function mVal(v){return v!=null&&v>0?num(v):'-';}
+  function mPct(v){return v!=null&&v>0?pct(v):'-';}
+  function mSat(v){return v!=null?fmt(v,2):'-';}
 
-const MENU_SUMMARY = {
-  icon:'💡', color:'#a78bfa',
-  title:'종합 분석',
-  text:'난이도 높은 펌 메뉴에서 불만족이 집중되고 있어 시술 전 상담 강화가 필요합니다. 샴푸·드라이 마무리 품질은 전체 만족도에 영향을 미치는 공통 이슈로, 특정 디자이너 개선보다 서비스 표준화가 효과적일 수 있습니다. 커트·염색은 안정적인 고만족 메뉴로, 재방문율과 직접 연결되는 핵심 메뉴입니다.',
-};
-
-function renderMenuSentiment() {
-  const menus = Object.keys(MENU_SENTIMENT).filter(m => MENU_SENTIMENT[m].total > 0);
-  const colors = { 긍정:'rgba(82,196,138,0.8)', 복합:'rgba(245,200,66,0.8)', 부정:'rgba(224,82,82,0.8)' };
-  const borderColors = { 긍정:'#52c48a', 복합:'#f5c842', 부정:'#e05252' };
-
-  // Chart 1: 전체 메뉴별 감성 스택 바
-  new Chart(document.getElementById('chartMenuSent'), {
-    type: 'bar',
-    data: {
-      labels: menus,
-      datasets: ['긍정','복합','부정'].map(s => ({
-        label: s,
-        data: menus.map(m => MENU_SENTIMENT[m][s] || 0),
-        backgroundColor: colors[s], borderColor: borderColors[s],
-        borderWidth: 1, borderRadius: 4,
-      }))
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: true, labels: { color:'#8b8fb8', font:{size:11}, boxWidth:12, padding:12 } },
-        tooltip: {
-          backgroundColor:'#1a1d28', borderColor:'#2c2f45', borderWidth:1,
-          titleColor:'#e8eaf2', bodyColor:'#8b8fb8',
-        }
-      },
-      scales: {
-        x: { stacked:true, grid:{display:false}, ticks:{color:'#cccccc', font:{size:11, family:'Noto Sans KR'}} },
-        y: { stacked:true, grid:{color:'rgba(255,255,255,0.05)'}, ticks:{color:'#6b7094', font:{size:10}} }
-      }
-    }
-  });
-
-  // Chart 2: 디자이너별 메뉴 부정 비율
-  const negData = [
-    { designer:'오주예',  menu:'펌',      pct:100 },
-    { designer:'남민정',  menu:'클리닉',  pct:100 },
-    { designer:'남민정',  menu:'샴푸/세팅',pct:25  },
-    { designer:'이나연',  menu:'커트',    pct:14.3 },
-    { designer:'송다예',  menu:'클리닉',  pct:12.5 },
-    { designer:'송다예',  menu:'커트',    pct:10   },
-  ];
-  const negColors = negData.map(d => {
-    const des = DESIGNERS.find(x => x.name === d.designer);
-    return des ? BRANCH_COLOR[des.branch]+'cc' : '#888';
-  });
-
-  new Chart(document.getElementById('chartDesignerMenuNeg'), {
-    type: 'bar',
-    plugins: [ChartDataLabels],
-    data: {
-      labels: negData.map(d => `${d.designer}\n(${d.menu})`),
-      datasets: [{
-        label: '부정 리뷰 비율(%)',
-        data: negData.map(d => d.pct),
-        backgroundColor: negColors,
-        borderColor: negColors.map(c => c.slice(0,-2)),
-        borderWidth: 1.5, borderRadius: 4,
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false, indexAxis: 'y',
-      plugins: {
-        legend: { display: false },
-        tooltip: { enabled: false },
-        datalabels: {
-          anchor:'end', align:'end',
-          color:'#cccccc', font:{size:10, family:'DM Mono', weight:'600'},
-          formatter: v => v + '%'
-        }
-      },
-      scales: {
-        x: { min:0, max:110, grid:{color:'rgba(255,255,255,0.05)'}, ticks:{color:'#6b7094', font:{size:10}, callback: v=>v+'%'} },
-        y: { grid:{display:false}, ticks:{color:'#cccccc', font:{size:11, family:'Noto Sans KR'}} }
-      }
-    }
-  });
-
-  // Insight cards (5개)
-  document.getElementById('menuInsights').innerHTML = MENU_INSIGHTS.map(ins => `
-    <div style="background:#242840;border-radius:12px;padding:14px;border-left:3px solid ${ins.color}">
-      <div style="font-size:13px;font-weight:700;color:${ins.color};margin-bottom:6px">${ins.icon} ${ins.menu}</div>
-      <div style="font-size:11px;color:#cccccc;line-height:1.6">${ins.text}</div>
-    </div>`).join('');
-
-  // 종합 summary
-  document.getElementById('menuSummary').innerHTML = `
-    <div style="background:linear-gradient(135deg,rgba(167,139,250,0.12),rgba(167,139,250,0.04));
-      border:1px solid rgba(167,139,250,0.3);border-radius:14px;padding:20px 24px;
-      display:flex;gap:16px;align-items:flex-start">
-      <div style="font-size:28px;flex-shrink:0;margin-top:2px">${MENU_SUMMARY.icon}</div>
-      <div>
-        <div style="font-size:13px;font-weight:700;color:${MENU_SUMMARY.color};
-          letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">${MENU_SUMMARY.title}</div>
-        <div style="font-size:12px;color:#cccccc;line-height:1.8">${MENU_SUMMARY.text}</div>
-      </div>
+  function monthBreakdown4(vals,colorFn) {
+    return `<div class="popup-kpi-months">
+      ${['1월','2월','3월','4월'].map((m,i)=>{
+        const v=vals[i];
+        const col=(v!=null&&v!=='-')?(colorFn?colorFn(v):'var(--text-muted)'):'#3d4166';
+        return `<div class="popup-kpi-month">
+          <span class="popup-kpi-month-label">${m}</span>
+          <span class="popup-kpi-month-val" style="color:${col}">${v??'-'}</span>
+        </div>`;
+      }).join('')}
     </div>`;
+  }
+
+  const total=d.dist.s5+d.dist.s4+d.dist.s3+d.dist.neg;
+  document.getElementById('popup-kpis').innerHTML=`
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">총 방문수</div>
+      <div class="popup-kpi-total" style="color:${bc}">${num(d.totalVisits)}<span style="font-size:12px;color:#555;margin-left:4px">회</span></div>
+      ${kpiSparkline([d.m1Visits,d.m2Visits,d.m3Visits,d.m4Visits],bc)}
+      ${monthBreakdown4([mVal(d.m1Visits),mVal(d.m2Visits),mVal(d.m3Visits),mVal(d.m4Visits)],null)}
+    </div>
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">예약율</div>
+      <div class="popup-kpi-total" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}</div>
+      ${kpiSparkline([d.m1Book,d.m2Book,d.m3Book,d.m4Book],pctColor(d.bookRate))}
+      ${monthBreakdown4([mPct(d.m1Book),mPct(d.m2Book),mPct(d.m3Book),mPct(d.m4Book)],v=>pctColor(parseFloat(v)/100))}
+    </div>
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">재방률</div>
+      <div class="popup-kpi-total" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}</div>
+      ${kpiSparkline([d.m1Rev,d.m2Rev,d.m3Rev,d.m4Rev],pctColor(d.revRate))}
+      ${monthBreakdown4([mPct(d.m1Rev),mPct(d.m2Rev),mPct(d.m3Rev),mPct(d.m4Rev)],v=>pctColor(parseFloat(v)/100))}
+    </div>
+    <div class="popup-kpi">
+      <div class="popup-kpi-label">만족도</div>
+      <div class="popup-kpi-total" style="color:${sc}">${fmt(d.sat,2)}<span style="font-size:12px;color:#555;margin-left:4px">점</span></div>
+      ${kpiSparkline([d.m1Sat,d.m2Sat,d.m3Sat,d.m4Sat],sc)}
+      ${monthBreakdown4([mSat(d.m1Sat),mSat(d.m2Sat),mSat(d.m3Sat),mSat(d.m4Sat)],v=>scoreColor(parseFloat(v)))}
+    </div>
+    <div class="popup-kpi" style="grid-column:span 2">
+      <div class="popup-kpi-label">별점 분포</div>
+      <div style="position:relative;height:110px;margin-top:8px"><canvas id="popup-hist-chart"></canvas></div>
+    </div>`;
+
+  if(window._popupHistChart) window._popupHistChart.destroy();
+  setTimeout(()=>{
+    const hCtx=document.getElementById('popup-hist-chart');
+    if(!hCtx) return;
+    window._popupHistChart=new Chart(hCtx,{
+      type:'bar',plugins:[ChartDataLabels],
+      data:{labels:['5점','4점','3점','2점','1점'],
+        datasets:[{data:[d.dist.s5,d.dist.s4,d.dist.s3,d.dist.neg,0],
+          backgroundColor:['rgba(39,174,96,0.8)','rgba(79,163,224,0.8)','rgba(245,200,66,0.8)','rgba(224,123,79,0.8)','rgba(224,82,82,0.8)'],
+          borderColor:['#27ae60','#4fa3e0','#f5c842','#e07b4f','#e05252'],
+          borderWidth:1.5,borderRadius:5}]},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{enabled:false},
+          datalabels:{anchor:'end',align:'end',color:'#cccccc',font:{size:10,family:'DM Mono',weight:'600'},
+            formatter:(val)=>{if(!val)return'';const p=total?Math.round(val/total*100):0;return `${val}건\n${p}%`;}}},
+        scales:{
+          x:{grid:{display:false},ticks:{color:'#cccccc',font:{size:11}}},
+          y:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#6b7094',font:{size:10,family:'DM Mono'}},suggestedMax:Math.max(d.dist.s5,d.dist.s4,d.dist.s3,d.dist.neg)*1.35}}}
+    });
+  },50);
+
+  if(popupServiceChart) popupServiceChart.destroy();
+  const svc=SERVICE_BY_DESIGNER[d.id]||{};
+  const svcLabels=Object.keys(SERVICE_TOTAL);
+  const svcData=svcLabels.map(k=>svc[k]||0);
+  const svcTotal=svcData.reduce((a,b)=>a+b,0);
+  const ctx=document.getElementById('popup-service-chart').getContext('2d');
+  popupServiceChart=new Chart(ctx,{
+    type:'doughnut',
+    data:{labels:svcLabels,datasets:[{data:svcData,backgroundColor:SERVICE_COLORS,borderWidth:2,borderColor:'#1c2030'}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'right',labels:{color:'#8b8fb8',font:{size:11},padding:10,boxWidth:12}},
+        tooltip:{backgroundColor:'#1a1d28',borderColor:'#2c2f45',borderWidth:1,titleColor:'#e8eaf2',bodyColor:'#8b8fb8',
+          callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw}건 (${svcTotal?Math.round(ctx.raw/svcTotal*100):0}%)`}}}}
+  });
+
+  document.getElementById('popup-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closePopup(e) {
+  if(e.target===document.getElementById('popup-overlay')) {
+    document.getElementById('popup-overlay').classList.remove('open');
+    document.body.style.overflow='';
+  }
 }
 
 // ═══════════════════════════════════════════
@@ -1931,7 +1335,6 @@ renderRanking();
 renderTrend();
 renderCharts();
 renderServiceChart();
-renderMenuSentiment();
 renderHistogram();
 renderReviews();
 </script>
