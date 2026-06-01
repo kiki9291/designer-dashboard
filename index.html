@@ -1202,19 +1202,12 @@ function renderReviews() {
   const items=[...(REVIEWS[currentReviewScore]||[])].sort((a,b)=>b.month-a.month);
   const badge=REVIEW_BADGE[currentReviewScore];
   if(!items.length){list.innerHTML=`<div class="review-empty">해당 만족도 리뷰가 없습니다.</div>`;return;}
-  const monthLabel={5:'5월',4:'4월',3:'3월',2:'2월',1:'1월'};
-  const monthColor={5:'#7c6af7',4:'#4fa3e0',3:'#50c878',2:'#f5a442',1:'#e05252'};
   list.innerHTML=items.map(r=>{
     const d=DESIGNERS.find(x=>x.name===r.designer);
     const bc=d?BRANCH_COLOR[d.branch]||'#888':'#888';
-    const mc=monthColor[r.month]||'#6b7094';
-    const ml=monthLabel[r.month]||'';
     return `<div class="review-item" style="border-left-color:${badge.color};background:${badge.bg}">
       <div class="review-item-header">
-        <div style="display:flex;align-items:center;gap:8px">
-          <span class="review-designer" style="color:${bc}">${r.designer}</span>
-          <span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:${mc}22;color:${mc};font-family:'DM Mono',monospace">${ml}</span>
-        </div>
+        <span class="review-designer" style="color:${bc}">${r.designer}</span>
         <span class="review-badge" style="color:${badge.color};background:rgba(0,0,0,0.2)">${badge.label}</span>
       </div>
       <div class="review-text">${r.text}</div>
