@@ -829,7 +829,7 @@ function renderCards() {
       <div class="d-card-header">
         <div style="display:flex;align-items:center;gap:12px;flex:1">
           <div class="d-photo" style="border-color:${bc}44">
-            <img src="images/${d.id}.jpg" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img src="${d.id}.jpg" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="d-photo-placeholder" style="display:none"><span>${initials}</span><span>사진 준비중</span></div>
           </div>
           <div class="d-name-area">
@@ -1169,7 +1169,7 @@ function openPopup(d) {
   const oldImg = photoEl.querySelector('img');
   if (oldImg) oldImg.remove();
   const newImg = document.createElement('img');
-  newImg.src=`images/${d.id}.jpg`; newImg.alt=d.name;
+  newImg.src=`${d.id}.jpg`; newImg.alt=d.name;
   newImg.onerror=function(){this.style.display='none';document.getElementById('popup-init').style.display='block';};
   document.getElementById('popup-init').style.display='none';
   photoEl.insertBefore(newImg, photoEl.firstChild);
