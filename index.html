@@ -72,6 +72,31 @@
     border-radius: 20px; padding: 6px 16px;
     font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted);
   }
+  .period-select-wrap {
+    position: relative; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .period-select {
+    appearance: none; -webkit-appearance: none;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 6px 36px 6px 16px;
+    font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted);
+    cursor: pointer; outline: none; transition: border-color 0.15s, color 0.15s;
+  }
+  .period-select:hover, .period-select:focus {
+    border-color: var(--accent); color: var(--text);
+  }
+  .period-select-arrow {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    pointer-events: none; font-size: 10px; color: var(--text-muted);
+  }
+  .period-mode-badge {
+    font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+    background: rgba(124,106,247,0.15); color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+  .period-mode-badge.monthly {
+    background: rgba(245,200,66,0.15); color: var(--gold);
+  }
 
   .kpi-row {
     display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
@@ -212,7 +237,7 @@
   .d-dist-seg { height: 100%; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
 
   .d-trend-row {
-    display: grid; grid-template-columns: repeat(5, 1fr);
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 6px;
   }
   .d-trend-item {
@@ -440,7 +465,7 @@
     margin-bottom: 10px;
   }
   .popup-kpi-months {
-    display: grid; grid-template-columns: repeat(5, 1fr);
+    display: grid; grid-template-columns: repeat(4, 1fr);
     gap: 4px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 8px;
   }
   .popup-kpi-month { display: flex; flex-direction: column; gap: 2px; align-items: center; }
@@ -505,10 +530,16 @@
   <header>
     <div class="logo-area">
       <div class="logo-title">Designer Dashboard</div>
-      <div class="logo-sub">헤어살롱 디자이너 성과 현황 · 2026 1~5월</div>
+      <div class="logo-sub">헤어살롱 디자이너 성과 현황 · 2026 Q1+4월</div>
     </div>
     <div class="header-meta">
-      <div class="period-badge">2026.01 — 2026.05</div>
+      <div class="period-select-wrap">
+        <select class="period-select" id="period-select" onchange="onPeriodChange(this.value)">
+          <option value="all">전체 누적</option>
+        </select>
+        <span class="period-select-arrow">▼</span>
+      </div>
+      <span class="period-mode-badge" id="period-mode-badge">누적</span>
     </div>
   </header>
 
@@ -524,27 +555,27 @@
     <div class="kpi-card" style="--accent-line: var(--accent)">
       <div class="kpi-label">총 방문수</div>
       <div class="kpi-value" id="kpi-visits">—</div>
-      <div class="kpi-sub">최근 5개월간</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--arc)">
       <div class="kpi-label">총 고객수</div>
       <div class="kpi-value" id="kpi-customers">—</div>
-      <div class="kpi-sub">최근 5개월간</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--gold)">
       <div class="kpi-label">평균 만족도</div>
       <div class="kpi-value" id="kpi-sat" style="color: var(--gold)">—</div>
-      <div class="kpi-sub">최근 5개월간</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--success)">
       <div class="kpi-label">평균 예약율</div>
       <div class="kpi-value" id="kpi-book" style="color: var(--success)">—</div>
-      <div class="kpi-sub">최근 5개월간</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--warn)">
       <div class="kpi-label">평균 재방률</div>
       <div class="kpi-value" id="kpi-rev" style="color: var(--warn)">—</div>
-      <div class="kpi-sub">최근 5개월간</div>
+      <div class="kpi-sub">최근 4개월간</div>
     </div>
   </div>
 
@@ -630,7 +661,7 @@
     <div class="section-line"></div>
   </div>
   <div class="review-section">
-    <div style="font-size:13px;color:var(--text-muted)">만족도 응답 중 텍스트 리뷰 모음 · 최신순 (5월 기준)</div>
+    <div style="font-size:13px;color:var(--text-muted)">만족도 응답 중 텍스트 리뷰 모음 · 4월 기준</div>
     <div class="review-tabs" id="review-tabs">
       <button class="review-tab active" onclick="filterReview(5,this)" style="background:#27ae60">⭐⭐⭐⭐⭐ 매우 만족</button>
       <button class="review-tab" onclick="filterReview(4,this)">⭐⭐⭐⭐ 만족</button>
@@ -672,86 +703,27 @@
 
 <script>
 // ═══════════════════════════════════════════
-// DATA
+// CONFIG — 코드 고정값 (건드릴 필요 없음)
 // ═══════════════════════════════════════════
-const DESIGNERS = [
-  { id:'아크 김도희', name:'김도희', branch:'아크', branchFull:'아크점',
-    sat:4.86, satResp:229,
-    m1Sat:4.96, m2Sat:4.86, m3Sat:4.77, m4Sat:4.91, m5Sat:4.85,
-    m1Resp:27, m2Resp:36, m3Resp:39, m4Resp:67, m5Resp:60,
-    bookRate:0.770, m1Book:0.904, m2Book:0.768, m3Book:0.814, m4Book:0.905, m5Book:0.832,
-    revRate:0.294, m1Rev:0.317, m2Rev:0.438, m3Rev:0.468, m4Rev:0.411, m5Rev:0.082,
-    totalVisits:949, m1Visits:189, m2Visits:169, m3Visits:188, m4Visits:219, m5Visits:184,
-    totalCust:630, m1Cust:181, m2Cust:160, m3Cust:173, m4Cust:198, m5Cust:170,
-    dist:{s5:207,s4:16,s3:4,neg:2} },
-
-  { id:'아크 김지애', name:'김지애', branch:'아크', branchFull:'아크점',
-    sat:4.91, satResp:207,
-    m1Sat:4.92, m2Sat:5.00, m3Sat:4.79, m4Sat:4.87, m5Sat:4.96,
-    m1Resp:25, m2Resp:27, m3Resp:39, m4Resp:47, m5Resp:69,
-    bookRate:0.768, m1Book:0.995, m2Book:0.755, m3Book:0.732, m4Book:0.905, m5Book:0.841,
-    revRate:0.275, m1Rev:0.413, m2Rev:0.488, m3Rev:0.450, m4Rev:0.347, m5Rev:0.034,
-    totalVisits:915, m1Visits:208, m2Visits:166, m3Visits:169, m4Visits:219, m5Visits:153,
-    totalCust:610, m1Cust:192, m2Cust:156, m3Cust:156, m4Cust:209, m5Cust:147,
-    dist:{s5:193,s4:11,s3:1,neg:2} },
-
-  { id:'아크 오주예', name:'오주예', branch:'아크', branchFull:'아크점',
-    sat:4.86, satResp:271,
-    m1Sat:4.91, m2Sat:4.91, m3Sat:4.76, m4Sat:4.83, m5Sat:4.89,
-    m1Resp:47, m2Resp:44, m3Resp:51, m4Resp:54, m5Resp:75,
-    bookRate:0.790, m1Book:0.930, m2Book:0.725, m3Book:0.782, m4Book:0.758, m5Book:0.822,
-    revRate:0.284, m1Rev:0.335, m2Rev:0.500, m3Rev:0.503, m4Rev:0.395, m5Rev:0.062,
-    totalVisits:954, m1Visits:212, m2Visits:174, m3Visits:197, m4Visits:200, m5Visits:171,
-    totalCust:624, m1Cust:200, m2Cust:160, m3Cust:174, m4Cust:179, m5Cust:161,
-    dist:{s5:250,s4:15,s3:1,neg:5} },
-
-  { id:'아크 김수빈', name:'김수빈', branch:'아크', branchFull:'아크점',
-    sat:4.95, satResp:295,
-    m1Sat:4.92, m2Sat:4.95, m3Sat:4.93, m4Sat:4.97, m5Sat:4.98,
-    m1Resp:38, m2Resp:39, m3Resp:59, m4Resp:59, m5Resp:100,
-    bookRate:0.869, m1Book:0.960, m2Book:0.650, m3Book:0.868, m4Book:0.661, m5Book:0.864,
-    revRate:0.447, m1Rev:0.684, m2Rev:0.787, m3Rev:0.700, m4Rev:0.060, m5Rev:0.105,
-    totalVisits:994, m1Visits:237, m2Visits:169, m3Visits:237, m4Visits:160, m5Visits:191,
-    totalCust:447, m1Cust:190, m2Cust:138, m3Cust:196, m4Cust:151, m5Cust:172,
-    dist:{s5:282,s4:13,s3:0,neg:0} },
-
-  { id:'신논현 김상희', name:'김상희', branch:'신논현', branchFull:'신논현점',
-    sat:4.97, satResp:311,
-    m1Sat:5.00, m2Sat:5.00, m3Sat:4.92, m4Sat:4.92, m5Sat:4.98,
-    m1Resp:36, m2Resp:45, m3Resp:40, m4Resp:72, m5Resp:118,
-    bookRate:0.815, m1Book:0.887, m2Book:0.664, m3Book:0.752, m4Book:0.888, m5Book:0.791,
-    revRate:0.447, m1Rev:0.269, m2Rev:0.645, m3Rev:0.627, m4Rev:0.693, m5Rev:0.135,
-    totalVisits:1266, m1Visits:219, m2Visits:156, m3Visits:198, m4Visits:254, m5Visits:185,
-    totalCust:454, m1Cust:188, m2Cust:132, m3Cust:160, m4Cust:208, m5Cust:163,
-    dist:{s5:302,s4:7,s3:2,neg:0} },
-
-  { id:'신논현 이나연', name:'이나연', branch:'신논현', branchFull:'신논현점',
-    sat:4.96, satResp:344,
-    m1Sat:4.95, m2Sat:4.88, m3Sat:4.90, m4Sat:4.99, m5Sat:5.00,
-    m1Resp:37, m2Resp:42, m3Resp:60, m4Resp:77, m5Resp:128,
-    bookRate:0.804, m1Book:1.000, m2Book:0.740, m3Book:0.861, m4Book:0.901, m5Book:0.825,
-    revRate:0.403, m1Rev:0.119, m2Rev:0.531, m3Rev:0.464, m4Rev:0.638, m5Rev:0.072,
-    totalVisits:1221, m1Visits:210, m2Visits:171, m3Visits:211, m4Visits:218, m5Visits:193,
-    totalCust:531, m1Cust:197, m2Cust:156, m3Cust:191, m4Cust:189, m5Cust:180,
-    dist:{s5:332,s4:11,s3:0,neg:1} },
-
-  { id:'신논현 송영호', name:'송영호', branch:'신논현', branchFull:'신논현점',
-    sat:4.85, satResp:233,
-    m1Sat:4.70, m2Sat:4.74, m3Sat:4.89, m4Sat:4.92, m5Sat:4.90,
-    m1Resp:20, m2Resp:39, m3Resp:36, m4Resp:52, m5Resp:86,
-    bookRate:0.807, m1Book:0.957, m2Book:0.758, m3Book:0.897, m4Book:0.926, m5Book:0.923,
-    revRate:0.374, m1Rev:0.070, m2Rev:0.478, m3Rev:0.436, m4Rev:0.607, m5Rev:0.086,
-    totalVisits:1259, m1Visits:200, m2Visits:175, m3Visits:220, m4Visits:224, m5Visits:216,
-    totalCust:621, m1Cust:193, m2Cust:161, m3Cust:201, m4Cust:201, m5Cust:198,
-    dist:{s5:210,s4:16,s3:3,neg:4} },
-];
-
-const BRANCH_COLOR = {
-  '아크': '#4fa3e0',
-  '신논현': '#50c878',
-  '피나클': '#a78bfa',
+const BRANCH_COLOR = { '아크': '#4fa3e0', '신논현': '#50c878', '피나클': '#a78bfa' };
+const SERVICE_COLORS = ['#4fa3e0','#50c878','#f5c842','#e07b4f','#a78bfa','#e05252','#52c48a','#6b7094'];
+const REVIEW_BADGE = {
+  5:{label:'매우 만족', color:'#27ae60', bg:'rgba(39,174,96,0.12)'},
+  4:{label:'만족',      color:'#4fa3e0', bg:'rgba(79,163,224,0.12)'},
+  3:{label:'보통',      color:'#f5c842', bg:'rgba(245,200,66,0.12)'},
+  2:{label:'불만족',    color:'#e07b4f', bg:'rgba(224,123,79,0.12)'},
+  1:{label:'매우불만족',color:'#e05252', bg:'rgba(224,82,82,0.12)'},
 };
 
+// ═══════════════════════════════════════════
+// 전역 데이터 (data.json 로드 후 세팅)
+// ═══════════════════════════════════════════
+let DESIGNERS = [], SERVICE_TOTAL = {}, SERVICE_BY_DESIGNER = {}, REVIEWS = {};
+let MONTHS = [];  // data.json의 meta.months 배열 — 월 수 자동 결정
+
+// ═══════════════════════════════════════════
+// 유틸
+// ═══════════════════════════════════════════
 function scoreColor(s) {
   if (!s) return 'var(--text-dim)';
   if (s >= 4.95) return '#52c48a';
@@ -760,7 +732,7 @@ function scoreColor(s) {
   return '#e05252';
 }
 function pctColor(p) {
-  if (!p && p !== 0) return 'var(--text-dim)';
+  if (p == null) return 'var(--text-dim)';
   if (p >= 0.85) return '#52c48a';
   if (p >= 0.70) return '#4fa3e0';
   if (p >= 0.55) return '#f5c842';
@@ -768,8 +740,24 @@ function pctColor(p) {
 }
 function stars(s) { const n=Math.round(s); return '★'.repeat(n)+'☆'.repeat(5-n); }
 function fmt(n,d=1) { return n!=null ? n.toFixed(d) : '-'; }
-function pct(n) { return n!=null ? Math.round(n*100)+'%' : '-'; }
-function num(n) { return n!=null ? n.toLocaleString() : '-'; }
+function pct(n)    { return n!=null ? Math.round(n*100)+'%' : '-'; }
+function num(n)    { return n!=null ? n.toLocaleString() : '-'; }
+
+// 마지막 월 인덱스
+function lastIdx() { return MONTHS.length - 1; }
+function prevIdx() { return MONTHS.length - 2; }
+
+function deltaBadge(cur, prev, isP=false) {
+  if (cur==null || prev==null) return '';
+  const diff = cur - prev;
+  if (Math.abs(diff) < 0.005) return `<span class="delta-badge delta-flat">→</span>`;
+  const sym = diff>0 ? '▲' : '▼';
+  const cls = diff>0 ? 'delta-up' : 'delta-down';
+  const val = isP ? Math.round(Math.abs(diff)*100)+'%' : Math.abs(diff).toFixed(2);
+  return `<span class="delta-badge ${cls}">${sym}${val}</span>`;
+}
+function chgClass(c) { return c==null?'flat':c>0.01?'up':c<-0.01?'down':'flat'; }
+function chgTxt(c)   { return c==null?'-':(c>0?'▲':c<0?'▼':'→')+Math.abs(c).toFixed(2); }
 
 // ═══════════════════════════════════════════
 // FILTER
@@ -783,8 +771,7 @@ function filterBranch(branch, btn) {
   updateKPI();
 }
 function getBranchMatches(d) {
-  if (currentFilter === 'all') return true;
-  return d.branch === currentFilter;
+  return currentFilter === 'all' || d.branch === currentFilter;
 }
 
 // ═══════════════════════════════════════════
@@ -796,49 +783,43 @@ function renderCards() {
   grid.innerHTML = '';
 
   if (currentFilter === '피나클') {
-    const ph = document.createElement('div');
-    ph.className = 'pinnacle-placeholder-card';
-    ph.innerHTML = `<div class="pp-icon">💜</div><div class="pp-title">피나클점 (오픈 예정)</div><div class="pp-sub">디자이너 배정 전입니다.<br>오픈 후 데이터가 반영됩니다.</div>`;
-    grid.appendChild(ph);
+    grid.innerHTML = `<div class="pinnacle-placeholder-card">
+      <div class="pp-icon">💜</div>
+      <div class="pp-title">피나클점 (오픈 예정)</div>
+      <div class="pp-sub">디자이너 배정 전입니다.<br>오픈 후 데이터가 반영됩니다.</div>
+    </div>`;
     return;
   }
 
   filtered.forEach((d, i) => {
-    const bc = BRANCH_COLOR[d.branch] || '#888';
-    const sc = scoreColor(d.sat);
+    const bc  = BRANCH_COLOR[d.branch] || '#888';
+    const sc  = scoreColor(d.sat);
+    const li  = lastIdx(), pi = prevIdx();
     const total = d.dist.s5+d.dist.s4+d.dist.s3+d.dist.neg;
     const p5 = total?(d.dist.s5/total*100):0;
     const p4 = total?(d.dist.s4/total*100):0;
     const p3 = total?(d.dist.s3/total*100):0;
     const pn = total?(d.dist.neg/total*100):0;
 
-    function deltaBadge(cur,prev,isP=false) {
-      if(cur==null||prev==null) return '';
-      const diff=cur-prev;
-      if(Math.abs(diff)<0.005) return `<span class="delta-badge delta-flat">→</span>`;
-      const sym=diff>0?'▲':'▼';
-      const cls=diff>0?'delta-up':'delta-down';
-      const val=isP?Math.round(Math.abs(diff)*100)+'%':Math.abs(diff).toFixed(2);
-      return `<span class="delta-badge ${cls}">${sym}${val}</span>`;
-    }
+    // 월별 트렌드 (최근 4개월만 표시, 전체가 4개 이하면 전체)
+    const showMonths = MONTHS.slice(-4);
+    const showOffset = MONTHS.length - showMonths.length;
+    const trendItems = showMonths.map((label, si) => {
+      const idx = showOffset + si;
+      const sat = d.mSat[idx];
+      const prev = idx > 0 ? d.mSat[idx-1] : null;
+      const chg  = (sat!=null && prev!=null) ? sat-prev : null;
+      return `<div class="d-trend-item">
+        <div class="d-trend-month">${label}</div>
+        <div class="d-trend-val" style="color:${sat?scoreColor(sat):'var(--text-dim)'}">${sat?fmt(sat,2):'-'}</div>
+        <div class="d-trend-chg ${chgClass(chg)}">${chg!==null?chgTxt(chg):(sat?'—':'-')}</div>
+      </div>`;
+    }).join('');
 
-    function chgClass(c) { return c==null?'flat':c>0.01?'up':c<-0.01?'down':'flat'; }
-    function chgTxt(c)  { return c==null?'-':(c>0?'▲':c<0?'▼':'→')+Math.abs(c).toFixed(2); }
-
-    const satDelta  = deltaBadge(d.m5Sat??d.m4Sat, d.m5Sat!=null?d.m4Sat:d.m3Sat);
-    const bookDelta = deltaBadge(d.m5Book, d.m4Book, true);
-    const revDelta  = deltaBadge(d.m5Rev,  d.m4Rev, true);
-
-    const photoSrc = `${d.id}.jpg`;
-    const initials = d.name.slice(1);
-
-    const months = [
-      {label:'1월', sat:d.m1Sat, chg:null},
-      {label:'2월', sat:d.m2Sat, chg:d.m1Sat!=null&&d.m2Sat!=null?d.m2Sat-d.m1Sat:null},
-      {label:'3월', sat:d.m3Sat, chg:d.m2Sat!=null&&d.m3Sat!=null?d.m3Sat-d.m2Sat:null},
-      {label:'4월', sat:d.m4Sat, chg:d.m3Sat!=null&&d.m4Sat!=null?d.m4Sat-d.m3Sat:null},
-      {label:'5월', sat:d.m5Sat, chg:d.m4Sat!=null&&d.m5Sat!=null?d.m5Sat-d.m4Sat:null},
-    ];
+    const satDelta  = deltaBadge(d.mSat[li],  d.mSat[pi]);
+    const bookDelta = deltaBadge(d.mBook[li], d.mBook[pi], true);
+    const revDelta  = deltaBadge(d.mRev[li],  d.mRev[pi], true);
+    const initials  = d.name.slice(1);
 
     const card = document.createElement('div');
     card.className = 'd-card';
@@ -848,7 +829,7 @@ function renderCards() {
       <div class="d-card-header">
         <div style="display:flex;align-items:center;gap:12px;flex:1">
           <div class="d-photo" style="border-color:${bc}44">
-            <img src="${photoSrc}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <img src="images/${d.id}.jpg" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
             <div class="d-photo-placeholder" style="display:none"><span>${initials}</span><span>사진 준비중</span></div>
           </div>
           <div class="d-name-area">
@@ -862,12 +843,11 @@ function renderCards() {
           <div class="d-resp">${d.satResp}건 응답</div>
         </div>
       </div>
-
       <div class="d-metrics">
         <div class="d-metric">
           <div class="d-metric-label">총 방문수</div>
           <div class="d-metric-val" style="color:${bc}">${num(d.totalVisits)}</div>
-          <div class="d-metric-sub">4개월 누적</div>
+          <div class="d-metric-sub">${MONTHS.length}개월 누적</div>
         </div>
         <div class="d-metric">
           <div class="d-metric-label">예약율</div>
@@ -880,7 +860,6 @@ function renderCards() {
           <div class="d-metric-sub"></div>
         </div>
       </div>
-
       <div class="d-dist-row">
         <div class="d-dist-label">만족도 분포</div>
         <div class="d-dist-bar">
@@ -896,16 +875,9 @@ function renderCards() {
           <span style="font-size:9px;color:#e05252">불만족 ${Math.round(pn)}%</span>
         </div>
       </div>
-
-      <div class="d-trend-row">
-        ${months.map(m => `
-          <div class="d-trend-item">
-            <div class="d-trend-month">${m.label}</div>
-            <div class="d-trend-val" style="color:${m.sat?scoreColor(m.sat):'var(--text-dim)'}">${m.sat?fmt(m.sat,2):'-'}</div>
-            <div class="d-trend-chg ${chgClass(m.chg)}">${m.chg!==null?chgTxt(m.chg):(m.sat?'—':'-')}</div>
-          </div>`).join('')}
-      </div>
-    `;
+      <div class="d-trend-row" style="grid-template-columns:repeat(${showMonths.length},1fr)">
+        ${trendItems}
+      </div>`;
     card.onclick = () => openPopup(d);
     grid.appendChild(card);
   });
@@ -924,10 +896,11 @@ function renderCards() {
 // ═══════════════════════════════════════════
 function updateKPI() {
   const filtered = DESIGNERS.filter(getBranchMatches);
+  if (!filtered.length) return;
   const totalVisits = filtered.reduce((a,d)=>a+d.totalVisits,0);
   const totalCust   = filtered.reduce((a,d)=>a+d.totalCust,0);
   const totalResp   = filtered.reduce((a,d)=>a+d.satResp,0);
-  const avgSat = filtered.reduce((a,d)=>a+d.sat*d.satResp,0)/totalResp;
+  const avgSat  = filtered.reduce((a,d)=>a+d.sat*d.satResp,0)/totalResp;
   const avgBook = filtered.reduce((a,d)=>a+d.bookRate,0)/filtered.length;
   const avgRev  = filtered.reduce((a,d)=>a+d.revRate,0)/filtered.length;
   document.getElementById('kpi-visits').textContent    = totalVisits.toLocaleString();
@@ -935,6 +908,10 @@ function updateKPI() {
   document.getElementById('kpi-sat').textContent       = avgSat.toFixed(2);
   document.getElementById('kpi-book').textContent      = Math.round(avgBook*100)+'%';
   document.getElementById('kpi-rev').textContent       = Math.round(avgRev*100)+'%';
+  // KPI sub 텍스트도 동적으로
+  document.querySelectorAll('.kpi-sub').forEach(el => {
+    el.textContent = `최근 ${MONTHS.length}개월간`;
+  });
 }
 
 // ═══════════════════════════════════════════
@@ -943,48 +920,42 @@ function updateKPI() {
 function renderRanking() {
   const sorted = [...DESIGNERS].sort((a,b)=>b.sat-a.sat);
   const maxV = Math.max(...DESIGNERS.map(d=>d.totalVisits));
+  const li = lastIdx(), pi = prevIdx();
   const tbody = document.getElementById('ranking-body');
-  tbody.innerHTML='';
+  tbody.innerHTML = '';
 
   function db(cur,prev,isP=false) {
     if(cur==null||prev==null) return '';
     const diff=cur-prev;
     if(Math.abs(diff)<0.005) return `<span style="font-size:10px;color:#6b7094;margin-left:4px">→</span>`;
-    const sym=diff>0?'▲':'▼';
-    const col=diff>0?'#52c48a':'#e05252';
+    const sym=diff>0?'▲':'▼', col=diff>0?'#52c48a':'#e05252';
     const val=isP?Math.round(Math.abs(diff)*100)+'%':Math.abs(diff).toFixed(2);
     return `<span style="font-size:10px;font-weight:700;color:${col};margin-left:4px">${sym}${val}</span>`;
   }
 
   sorted.forEach((d,i) => {
-    const bc=BRANCH_COLOR[d.branch]||'#888';
-    const sc=scoreColor(d.sat);
+    const bc=BRANCH_COLOR[d.branch]||'#888', sc=scoreColor(d.sat);
     const bW=Math.round(d.totalVisits/maxV*120);
-    const ms=[d.m1Sat,d.m2Sat,d.m3Sat,d.m4Sat,d.m5Sat].filter(s=>s!=null);
-    const trend=ms.length>=2?(ms[ms.length-1]>ms[0]?'↗':ms[ms.length-1]<ms[0]?'↘':'→'):'·';
+    const trend = d.mSat.length>=2
+      ? (d.mSat[li]>d.mSat[0]?'↗':d.mSat[li]<d.mSat[0]?'↘':'→') : '·';
     const tc=trend==='↗'?'#52c48a':trend==='↘'?'#e05252':'#6b7094';
 
-    tbody.innerHTML+=`
-      <tr>
-        <td class="rank-no">${i+1}</td>
-        <td><span class="rank-name">${d.name}</span><span class="rank-branch" style="background:${bc}22;color:${bc}">${d.branchFull}</span></td>
-        <td class="td-visits"><span class="mono">${num(d.totalVisits)}</span><span class="inline-bar" style="width:${bW}px;background:${bc}44"></span></td>
-        <td class="col-highlight mono" style="color:${sc};font-weight:600">${fmt(d.sat,2)}${db(d.m5Sat??d.m4Sat, d.m5Sat!=null?d.m4Sat:d.m3Sat)}</td>
-        <td class="col-highlight mono" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}${db(d.m5Book,d.m4Book,true)}</td>
-        <td class="col-highlight mono" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}${db(d.m5Rev,d.m4Rev,true)}</td>
-        <td style="text-align:center">
-          <span class="mono" style="font-size:11px;color:#aaa">${d.m1Sat?fmt(d.m1Sat,2):'-'}</span>
-          <span style="color:#555">→</span>
-          <span class="mono" style="font-size:11px;color:#aaa">${d.m2Sat?fmt(d.m2Sat,2):'-'}</span>
-          <span style="color:#555">→</span>
-          <span class="mono" style="font-size:11px;color:#aaa">${d.m3Sat?fmt(d.m3Sat,2):'-'}</span>
-          <span style="color:#555">→</span>
-          <span class="mono" style="font-size:11px;color:#aaa">${d.m4Sat?fmt(d.m4Sat,2):'-'}</span>
-          <span style="color:#555">→</span>
-          <span class="mono" style="font-size:11px;color:#ccc;font-weight:600">${d.m5Sat!=null?fmt(d.m5Sat,2):'—'}</span>
-          <span style="font-size:13px;color:${tc};margin-left:6px;font-weight:700">${trend}</span>
-        </td>
-      </tr>`;
+    // 월별 만족도 추이 (전체 월)
+    const trendCells = MONTHS.map((m,idx)=>{
+      const v=d.mSat[idx];
+      const isLast=idx===li;
+      return `<span class="mono" style="font-size:11px;color:${isLast?'#ccc':'#aaa'};${isLast?'font-weight:600':''}">${v?fmt(v,2):'-'}</span>`;
+    }).join(`<span style="color:#555">→</span>`);
+
+    tbody.innerHTML+=`<tr>
+      <td class="rank-no">${i+1}</td>
+      <td><span class="rank-name">${d.name}</span><span class="rank-branch" style="background:${bc}22;color:${bc}">${d.branchFull}</span></td>
+      <td class="td-visits"><span class="mono">${num(d.totalVisits)}</span><span class="inline-bar" style="width:${bW}px;background:${bc}44"></span></td>
+      <td class="col-highlight mono" style="color:${sc};font-weight:600">${fmt(d.sat,2)}${db(d.mSat[li],d.mSat[pi])}</td>
+      <td class="col-highlight mono" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}${db(d.mBook[li],d.mBook[pi],true)}</td>
+      <td class="col-highlight mono" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}${db(d.mRev[li],d.mRev[pi],true)}</td>
+      <td style="text-align:center">${trendCells}<span style="font-size:13px;color:${tc};margin-left:6px;font-weight:700">${trend}</span></td>
+    </tr>`;
   });
 }
 
@@ -993,44 +964,38 @@ function renderRanking() {
 // ═══════════════════════════════════════════
 function renderTrend() {
   const grid = document.getElementById('trend-grid');
-  const months = [
-    {label:'1월', vKey:'m1Visits', sKey:'m1Sat', rKey:'m1Resp'},
-    {label:'2월', vKey:'m2Visits', sKey:'m2Sat', rKey:'m2Resp'},
-    {label:'3월', vKey:'m3Visits', sKey:'m3Sat', rKey:'m3Resp'},
-    {label:'4월', vKey:'m4Visits', sKey:'m4Sat', rKey:'m4Resp'},
-    {label:'5월', vKey:'m5Visits', sKey:'m5Sat', rKey:'m5Resp'},
-  ];
-  grid.innerHTML='';
-  months.forEach(m => {
+  // 월별 현황: 전체 월 모두 표시
+  const showMonths = MONTHS;
+  const showOffset = 0;
+
+  // grid 컬럼 수 동적 설정
+  grid.style.gridTemplateColumns = `repeat(${showMonths.length}, 1fr)`;
+  grid.innerHTML = '';
+
+  showMonths.forEach((label, si) => {
+    const idx = showOffset + si;
     const sorted = [...DESIGNERS]
-      .filter(d => d[m.vKey] > 0)
-      .sort((a, b) => (b[m.sKey] ?? 0) - (a[m.sKey] ?? 0));
+      .filter(d => d.mVisits[idx] > 0)
+      .sort((a,b) => (b.mSat[idx]??0) - (a.mSat[idx]??0));
 
-    const html = sorted.map((d, idx) => {
-      const bc = BRANCH_COLOR[d.branch] || '#888';
-      const sc = d[m.sKey] ? scoreColor(d[m.sKey]) : 'var(--text-dim)';
-      const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '';
-      const respCount = d[m.rKey] ?? 0;
-
+    const html = sorted.map((d, rank) => {
+      const bc=BRANCH_COLOR[d.branch]||'#888';
+      const sc=d.mSat[idx]?scoreColor(d.mSat[idx]):'var(--text-dim)';
+      const medal=rank===0?'🥇':rank===1?'🥈':rank===2?'🥉':'';
       return `<div class="trend-row">
         <div class="trend-row-name" style="color:${bc}">
-          ${medal ? `<span style="margin-right:3px;font-size:11px">${medal}</span>` : ''}
-          ${d.name}
+          ${medal?`<span style="margin-right:3px;font-size:11px">${medal}</span>`:''}${d.name}
         </div>
         <div class="trend-row-vals">
-          <span class="trend-score" style="color:${sc}">
-            ${d[m.sKey] ? fmt(d[m.sKey], 2) : '-'}
-          </span>
-          <span style="font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace">
-            (${respCount}건)
-          </span>
+          <span class="trend-score" style="color:${sc}">${d.mSat[idx]?fmt(d.mSat[idx],2):'-'}</span>
+          <span style="font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace">(${d.mResp[idx]??0}건)</span>
         </div>
       </div>`;
     }).join('');
 
     grid.innerHTML += `<div class="trend-month-col">
-      <div class="trend-month-title">${m.label}</div>
-      <div class="trend-month-subtitle" style="font-size:9px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">★ 별점 높은 순</div>
+      <div class="trend-month-title">${label}</div>
+      <div style="font-size:9px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">★ 별점 높은 순</div>
       ${html}
     </div>`;
   });
@@ -1042,11 +1007,13 @@ function renderTrend() {
 function renderCharts() {
   const names  = DESIGNERS.map(d=>d.name);
   const colors = DESIGNERS.map(d=>BRANCH_COLOR[d.branch]||'#888');
-  const colA   = colors.map(c=>c+'cc');
 
   new Chart(document.getElementById('chartSat'),{
     type:'bar', plugins:[ChartDataLabels],
-    data:{labels:names,datasets:[{label:'만족도 평점',data:DESIGNERS.map(d=>d.sat),backgroundColor:colA,borderColor:colors,borderWidth:1.5,borderRadius:6}]},
+    data:{labels:names,datasets:[{
+      label:'만족도 평점', data:DESIGNERS.map(d=>d.sat),
+      backgroundColor:colors.map(c=>c+'cc'), borderColor:colors, borderWidth:1.5, borderRadius:6
+    }]},
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{enabled:false},
         datalabels:{anchor:'end',align:'end',color:'#cccccc',font:{size:10,family:'DM Mono',weight:'600'},formatter:v=>v.toFixed(2)}},
@@ -1074,22 +1041,6 @@ function renderCharts() {
 // ═══════════════════════════════════════════
 // SERVICE CHART
 // ═══════════════════════════════════════════
-const SERVICE_TOTAL = {
-  '커트':2778,'커트+펌':1258,'클리닉':1091,
-  '샴푸/세팅드라이':812,'커트+염색':519,'염색':329,'펌':174,'기타':5
-};
-const SERVICE_COLORS=['#4fa3e0','#50c878','#f5c842','#e07b4f','#a78bfa','#e05252','#52c48a','#6b7094'];
-
-const SERVICE_BY_DESIGNER = {
-  '아크 김도희':   {'커트':166,'커트+펌':113,'클리닉':93,'샴푸/세팅드라이':81,'커트+염색':43,'염색':30,'펌':20,'기타':0},
-  '아크 김지애':   {'커트':162,'커트+펌':112,'클리닉':121,'샴푸/세팅드라이':76,'커트+염색':33,'염색':24,'펌':15,'기타':0},
-  '아크 오주예':   {'커트':221,'커트+펌':93,'클리닉':98,'샴푸/세팅드라이':85,'커트+염색':38,'염색':30,'펌':18,'기타':0},
-  '아크 김수빈':   {'커트':332,'커트+펌':115,'클리닉':71,'샴푸/세팅드라이':51,'커트+염색':60,'염색':10,'펌':4,'기타':0},
-  '신논현 김상희': {'커트':256,'커트+펌':104,'클리닉':64,'샴푸/세팅드라이':47,'커트+염색':59,'염색':25,'펌':13,'기타':5},
-  '신논현 이나연': {'커트':258,'커트+펌':116,'클리닉':73,'샴푸/세팅드라이':66,'커트+염색':45,'염색':26,'펌':8,'기타':0},
-  '신논현 송영호': {'커트':239,'커트+펌':98,'클리닉':105,'샴푸/세팅드라이':64,'커트+염색':40,'염색':31,'펌':18,'기타':0},
-};
-
 function renderServiceChart() {
   const labels=Object.keys(SERVICE_TOTAL);
   const data=Object.values(SERVICE_TOTAL);
@@ -1110,10 +1061,9 @@ function renderServiceChart() {
 // HISTOGRAM
 // ═══════════════════════════════════════════
 function renderHistogram() {
-  const names=DESIGNERS.map(d=>d.name);
   new Chart(document.getElementById('chartHistogram'),{
     type:'bar',
-    data:{labels:names,datasets:[
+    data:{labels:DESIGNERS.map(d=>d.name),datasets:[
       {label:'5점 (매우만족)',data:DESIGNERS.map(d=>d.dist.s5),backgroundColor:'rgba(39,174,96,0.8)',borderColor:'#27ae60',borderWidth:1,borderRadius:3},
       {label:'4점 (만족)',    data:DESIGNERS.map(d=>d.dist.s4),backgroundColor:'rgba(79,163,224,0.8)',borderColor:'#4fa3e0',borderWidth:1,borderRadius:3},
       {label:'3점 (보통)',    data:DESIGNERS.map(d=>d.dist.s3),backgroundColor:'rgba(245,200,66,0.8)',borderColor:'#f5c842',borderWidth:1,borderRadius:3},
@@ -1130,81 +1080,24 @@ function renderHistogram() {
 }
 
 // ═══════════════════════════════════════════
-// REVIEWS — 5월 업데이트 (최신순)
+// REVIEWS
 // ═══════════════════════════════════════════
-// month 숫자: 5=5월(최신) ~ 1=1월
-const REVIEWS = {
-  5:[
-    {month:5, designer:'이나연', text:'나연님 처음 뵈었는데 너무 잘해주셔서 짧지만 저한테 아주 힐링되는 시간이었습니다. 덕분에 아팠던 머리가 좀 풀린 것 같고 기분도 좋아졌어요! 동료분들께서 나연님 짱짱이십니다 추천해주셔서 맞아요!'},
-    {month:5, designer:'김수빈', text:'여태껏 했던 커트를 다 기억하시고 제가 원하는 방향으로 잘 잘라주셨습니다. 드라이랑 스프레이로 모양까지 정성껏 만져주셔서 감사했습니다.'},
-    {month:5, designer:'김상희', text:'상희님은 그야말로 최고이십니다. 시술 부분에서 항상 꼼꼼하게 챙겨주시고 피드백도 계속 받으려고 해주셔서 늘 감사하게 생각하고 있습니다. 토스 입사 후 사설 미용실에 한번도 가질 않을 정도로 만족도가 매우 높습니다.'},
-    {month:5, designer:'오주예', text:'처음이자 마지막으로 받아본 클리닉이었는데요! 너무너무너무너무 친절하시고 염색모라서 푸석푸석했던 머릿결이 클리닉 받은 후에 엄청 부드러워져서 너무 만족합니다!'},
-    {month:5, designer:'김도희', text:'늘 바쁘신 와중에 항상 친절하게 맞이해주시고 부담 없이 대해주셔서, 헤어살롱 가는 날이면 기분이 좋아지는 것 같아요. 시술 중에도 제가 원하는 디자인을 계속 확인해주시고, 디테일과 퀄리티를 끝까지 신경 써주셔서 믿고 맡길 수 있었어요. 🩵'},
-    {month:5, designer:'김지애', text:'감기걸린거 알아보시고 추울까봐 담요와 수건으로 따뜻하게 해주시고 시술 내내 너무 편안하고 좋았어요 감사해요!'},
-    {month:4, designer:'김상희', text:'상희님은 압도적으로 최고이십니다. 이전의 상태를 다 기억하고 계셔주다보니 넘 좋아요! 예약이 더 어려워질까 염려는 되는군요.'},
-    {month:4, designer:'이나연', text:'머리특징도 기억하셔서 신경써주시고 너무 세심하게 머리를 잘 만들어주십니다. 항상 마음에 듭니다 감사합니다! 친절하시고 이전 요구사항이나 상황도 기억해서 해주십니다.'},
-    {month:4, designer:'김수빈', text:'처음 리뷰 남겨요. 커트가 맘에도 들지만 반갑게 인사를 먼저 건네주시고, 스타일을 매번 물어봐주십니다. \"지난번엔 옆머리가 몇 mm였는데 이번에도 그렇게 해드릴까요?\" 편안한 느낌으로 만족도가 높고 계속 이용하고 싶어요.'},
-    {month:4, designer:'김도희', text:'여러 디자이너분들에게 시술받아 봤는데 가장 꼼꼼하게 머리 스타일 확인해주시고 불편한 건 없는지 항상 더블 체크해 주시는 부분이 인상 깊었습니다. 얼굴형과 가장 적합한 스타일을 제안 및 시술해주셨는데 결과도 만족스러웠습니다.'},
-    {month:4, designer:'송영호', text:'세심하게 잘챙겨주시는 영호님 항상 감사드려요. 저희 와이프도 영호님이 머리 만져주시면 항상 최고라고 외친답니다. 알잘딱깔센이셨어요~!!!'},
-    {month:4, designer:'오주예', text:'주예님 커트 완전 좋았어요! 어떻게 다듬으면 좋을지 몰라서 기장만 줄인다고 말씀드렸는데, 몇번의 질문으로 저도 몰랐던 제 니즈를 파악해주시고! 훨씬 스타일도 좋고 관리도 편한 머리로 만들어주셨어요.'},
-    {month:4, designer:'김지애', text:'오늘 지애 디자이너님께 처음 뿌리염색 시술을 받았는데요~ 머리 감을때도 온도가 어떤지 등 세심하게 체크해주셔서 좋았습니다! 손길도 되게 부드러우셔서 편안하게 시술 받았습니다 감사해요!!'},
-    {month:4, designer:'선태준', text:'태준님과의 시술은 항상 최고의 경험을 주십니다. 헤어살롱 전체에서 선태준님이 제일 잘해주셔요ㅠㅠ 최고최고. 앞머리 랑 옆머리 다운 해주셔서 너무 감사해요!'},
-  ],
-  4:[
-    {month:1, designer:'이나연', text:'두피 마사지는 엄청 시원하고 친절하셔서 짱짱 좋았는데 머리 말릴 때 너무 빗질? 스타일링을 덜 해주셔서 아쉬웠습니다🥲 살짝만 빗질 안 쪽으로 말려주셨으면 더 좋았을 듯요 ㅎㅎ'},
-    {month:5, designer:'김지애', text:'샴푸는 만족스럽습니다! 다만 머리 말려주시면서 간단하게 스타일링 해주시는데... 항상 너무 맘에안들어요ㅠㅠ 특정 디자이너 분이 아니라 전체적으로 스타일링/드라이가 맘에안들어서 항상 아쉬워요..'},
-    {month:4, designer:'이나연', text:'샴푸를 넘 정성껏 해주시고 지압도 좋아요! 다만 저번에 커트는 조금 실망했었어요.. 기장만 댕강 짜른 느낌.. 그래서 그 이후로 샴푸만 예약해서 하고있어요.'},
-    {month:4, designer:'김도희', text:'상담도 너무 친절하시고 원하는 스타일에 대한 고민을 들어주셔서 감사합니다! 커트도 맘에 들어요!'},
-    {month:4, designer:'오주예', text:'친절하고 이쁘게 커트해주셨습니다.'},
-    {month:4, designer:'김수빈', text:'친절하고 스타일에 맞게 잘해 주셨습니다.'},
-  ],
-  3:[
-    {month:5, designer:'김도희', text:'샴푸할 때 힘이 없음'},
-    {month:5, designer:'김도희', text:'시술 후에 머리카락이 너무 많이 남아서 업무 보는데 머리와 상체가 너무 간지러웠어요. 머리 감을 때와 털 때 너무 겉 위주로 약하게 해주셔서 그런게 아닐까 싶어요. 이 부분 개선되면 너무 좋을 것 같아요!'},
-    {month:4, designer:'김상희', text:'새치커버가 거의 안됐어요.'},
-    {month:4, designer:'송영호', text:'머리 잘 잘라주십니다. 하나 아쉬운건 힘이 쎄십니다. 머리 털어주실 때나 가위로 잘라주실 때 좀 쎄셔서 좀 아팠는데 그게 아쉬웠어요.'},
-    {month:3, designer:'김도희', text:'친절하시고 전반적인 과정 모두 다 좋았습니다. 한 가지 혹시 가능하다면 샴푸 할 때 조금 더 강하고 길게 해주셨으면 좋겠어요. 굉장히 개운한데 짧아서 아쉬워요.'},
-    {month:3, designer:'김지애', text:'샴푸는 만족스럽습니다! 다만 머리 말려주시면서 간단하게 스타일링 해주시는데... 항상 너무 맘에안들어요ㅠㅠ 전체적으로 스타일링/드라이가 맘에안들어서 항상 아쉬워요.'},
-  ],
-  2:[
-    {month:5, designer:'김지애', text:'숱 쳐달라고 요청을 드렸는데, 숱가위가 아니라 일반 가위로 잘라주셨는데요 머리가 가볍지는 않고 오히려 더 부스스한거 같습니다ㅠㅠ 헤어살롱에 숱가위가 없는거라면 마련되면 좋겠습니다!'},
-    {month:4, designer:'김도희', text:'클리닉이라고해서 두피 마사지 같은 시간이 많이 있는 줄 알았는데요 샴푸만하다 끝난 느낌이라 아쉬움이 컸어요.'},
-    {month:4, designer:'남민정', text:'앞머리가 탔어요 ㅠㅠ 돌아온다고 하셨는데 계속 삐뚤해요..'},
-    {month:4, designer:'송영호', text:'두달 전 시술이었는데 아쉬웠던 기억입니다. 시술 관련 상담도 건성으로 하는 느낌이었고, 커트 결과도 만족스럽지 않았어요. 10분 일찍 끝났는데 아무런 안내 없이 종료되었다고 말씀주셔서 당황스런 기억이었네요.'},
-    {month:3, designer:'오주예', text:'시술이 디자이너마다 다른 거 같아요. 이번 시술은 다운펌 시간이 되게 짧더라구요.(체감상 5분도 안됨) 저녁에 집와서 보니 다운펌이 하나도 되지 않았어요. 옆머리가 너무 잘 떠있네요.. 제가 일정 마치고 가느라 7분 정도 늦었는데도 여유있게 끝났네요.'},
-    {month:2, designer:'이나연', text:'커트의 퀄리티가 많이 아쉬워요. 사진을 보여주면서 스타일을 이야기 했는데, 머리카락도 더 짧고 좌우 대칭이 맞지 않게 해주셨어요 ㅜㅜ'},
-  ],
-  1:[
-    {month:4, designer:'오주예', text:'염색을 받았는데 염색은 잘 들지도 않고 두피쪽 머리가 다 지글지글 타버렸어요..'},
-    {month:3, designer:'오주예', text:'앞머리펌이 히피펌 수준으로 돼서 일단 내리고 다닐수가 없고 앞머리가 푸석푸석 그자체예요. 항상 헤어살롱 추천하고 다녔는데 좀 두려움 생길 정도라... 그래도 항상 고생많으십니다!'},
-    {month:3, designer:'남민정', text:'하기 싫으시면 다른 직업을 찾으시는 게 어떨까요 15분만에 말리는거 까지 끝났는데 밖에 다닐 수 있게는 해주셔야죠. 거울 보고 놀라서 바로 머리 묶었어요. 손톱이 기셔서 샴푸/ 말리는 내내 두피가 아픈 것도 불편했어요.'},
-  ],
-};
-
-const REVIEW_BADGE = {
-  5:{label:'매우 만족',color:'#27ae60',bg:'rgba(39,174,96,0.12)'},
-  4:{label:'만족',color:'#4fa3e0',bg:'rgba(79,163,224,0.12)'},
-  3:{label:'보통',color:'#f5c842',bg:'rgba(245,200,66,0.12)'},
-  2:{label:'불만족',color:'#e07b4f',bg:'rgba(224,123,79,0.12)'},
-  1:{label:'매우불만족',color:'#e05252',bg:'rgba(224,82,82,0.12)'},
-};
-
-let currentReviewScore=5;
-function filterReview(score,btn) {
-  currentReviewScore=score;
+let currentReviewScore = 5;
+function filterReview(score, btn) {
+  currentReviewScore = score;
   document.querySelectorAll('.review-tab').forEach(b=>{b.classList.remove('active');b.style.background='';});
   btn.classList.add('active');
-  btn.style.background=REVIEW_BADGE[score].color;
+  btn.style.background = REVIEW_BADGE[score].color;
   renderReviews();
 }
 function renderReviews() {
-  const list=document.getElementById('review-list');
-  const items=[...(REVIEWS[currentReviewScore]||[])].sort((a,b)=>b.month-a.month);
-  const badge=REVIEW_BADGE[currentReviewScore];
-  if(!items.length){list.innerHTML=`<div class="review-empty">해당 만족도 리뷰가 없습니다.</div>`;return;}
-  list.innerHTML=items.map(r=>{
-    const d=DESIGNERS.find(x=>x.name===r.designer);
-    const bc=d?BRANCH_COLOR[d.branch]||'#888':'#888';
+  const list  = document.getElementById('review-list');
+  const items = REVIEWS[currentReviewScore] || REVIEWS[String(currentReviewScore)] || [];
+  const badge = REVIEW_BADGE[currentReviewScore];
+  if (!items.length) { list.innerHTML=`<div class="review-empty">해당 만족도 리뷰가 없습니다.</div>`; return; }
+  list.innerHTML = items.map(r => {
+    const d  = DESIGNERS.find(x=>x.name===r.designer);
+    const bc = d ? (BRANCH_COLOR[d.branch]||'#888') : '#888';
     return `<div class="review-item" style="border-left-color:${badge.color};background:${badge.bg}">
       <div class="review-item-header">
         <span class="review-designer" style="color:${bc}">${r.designer}</span>
@@ -1218,27 +1111,26 @@ function renderReviews() {
 // ═══════════════════════════════════════════
 // POPUP
 // ═══════════════════════════════════════════
-let popupServiceChart=null;
+let popupServiceChart = null;
 
-function kpiSparkline(vals,color) {
-  const nonNull=vals.filter(v=>v!=null);
-  if(nonNull.length<2) return '';
-  const H=32,P=4,W=400;
-  const mn=Math.min(...nonNull)*0.95;
-  const mx=Math.max(...nonNull)*1.05;
-  const rng=mx-mn||1;
-  const xPos=[50,137,225,312,400];
-  const pts=vals.map((v,i)=>{
-    if(v==null) return null;
-    const x=xPos[i];
-    const y=parseFloat((H-P-((v-mn)/rng)*(H-P*2)).toFixed(1));
+function kpiSparkline(vals, color) {
+  const nonNull = vals.filter(v=>v!=null);
+  if (nonNull.length < 2) return '';
+  const H=32, P=4, W=400;
+  const mn=Math.min(...nonNull)*0.95, mx=Math.max(...nonNull)*1.05;
+  const rng = mx-mn||1;
+  const step = W / (vals.length + 1);
+  const pts = vals.map((v,i) => {
+    if (v==null) return null;
+    const x = Math.round(step*(i+1));
+    const y = parseFloat((H-P-((v-mn)/rng)*(H-P*2)).toFixed(1));
     return [x,y];
   });
-  const valid=pts.filter(p=>p);
-  const pathD=valid.map((p,i)=>(i===0?'M':'L')+p[0]+','+p[1]).join(' ');
-  const fillD=pathD+` L${valid[valid.length-1][0]},${H} L${valid[0][0]},${H} Z`;
-  const dots=pts.map(p=>p?`<circle cx="${p[0]}" cy="${p[1]}" r="5" fill="${color}" stroke="#242840" stroke-width="2"/>`:'').join('');
-  const id='ks'+Math.random().toString(36).slice(2,8);
+  const valid = pts.filter(p=>p);
+  const pathD = valid.map((p,i)=>(i===0?'M':'L')+p[0]+','+p[1]).join(' ');
+  const fillD = pathD+` L${valid[valid.length-1][0]},${H} L${valid[0][0]},${H} Z`;
+  const dots  = pts.map(p=>p?`<circle cx="${p[0]}" cy="${p[1]}" r="5" fill="${color}" stroke="#242840" stroke-width="2"/>`:'').join('');
+  const id = 'ks'+Math.random().toString(36).slice(2,8);
   return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" style="width:100%;height:${H}px;display:block;margin-bottom:2px">
     <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${color}" stop-opacity="0.25"/>
@@ -1250,73 +1142,75 @@ function kpiSparkline(vals,color) {
   </svg>`;
 }
 
-function openPopup(d) {
-  const bc=BRANCH_COLOR[d.branch]||'#888';
-  const sc=scoreColor(d.sat);
-  document.getElementById('popup-name').textContent=d.name;
-  document.getElementById('popup-branch').textContent=d.branchFull;
-  document.getElementById('popup-init').textContent=d.name.slice(1);
+function monthBreakdown(vals, colorFn) {
+  // 최근 4개월만 팝업에 표시
+  const show = MONTHS.slice(-4);
+  const offset = MONTHS.length - show.length;
+  return `<div class="popup-kpi-months">
+    ${show.map((m,si)=>{
+      const v = vals[offset+si];
+      const col = (v!=null&&v!=='-') ? (colorFn?colorFn(v):'var(--text-muted)') : '#3d4166';
+      return `<div class="popup-kpi-month">
+        <span class="popup-kpi-month-label">${m}</span>
+        <span class="popup-kpi-month-val" style="color:${col}">${v??'-'}</span>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
 
-  const photoEl=document.getElementById('popup-photo');
-  photoEl.style.borderColor=bc;
-  const oldImg=photoEl.querySelector('img');
-  if(oldImg) oldImg.remove();
-  const newImg=document.createElement('img');
-  newImg.src=`${d.id}.jpg`;
-  newImg.alt=d.name;
+function openPopup(d) {
+  const bc=BRANCH_COLOR[d.branch]||'#888', sc=scoreColor(d.sat);
+  document.getElementById('popup-name').textContent   = d.name;
+  document.getElementById('popup-branch').textContent = d.branchFull;
+  document.getElementById('popup-init').textContent   = d.name.slice(1);
+
+  const photoEl = document.getElementById('popup-photo');
+  photoEl.style.borderColor = bc;
+  const oldImg = photoEl.querySelector('img');
+  if (oldImg) oldImg.remove();
+  const newImg = document.createElement('img');
+  newImg.src=`images/${d.id}.jpg`; newImg.alt=d.name;
   newImg.onerror=function(){this.style.display='none';document.getElementById('popup-init').style.display='block';};
   document.getElementById('popup-init').style.display='none';
-  photoEl.insertBefore(newImg,photoEl.firstChild);
+  photoEl.insertBefore(newImg, photoEl.firstChild);
 
-  function mVal(v){return v!=null&&v>0?num(v):'-';}
-  function mPct(v){return v!=null&&v>0?pct(v):'-';}
-  function mSat(v){return v!=null?fmt(v,2):'-';}
+  const total = d.dist.s5+d.dist.s4+d.dist.s3+d.dist.neg;
+  const mPctArr  = d.mBook.map(v=>v!=null&&v>0?pct(v):'-');
+  const mRevArr  = d.mRev.map(v=>v!=null&&v>0?pct(v):'-');
+  const mVisArr  = d.mVisits.map(v=>v!=null&&v>0?num(v):'-');
+  const mSatArr  = d.mSat.map(v=>v!=null?fmt(v,2):'-');
 
-  function monthBreakdown4(vals,colorFn) {
-    return `<div class="popup-kpi-months">
-      ${['1월','2월','3월','4월','5월'].map((m,i)=>{
-        const v=vals[i];
-        const col=(v!=null&&v!=='-')?(colorFn?colorFn(v):'var(--text-muted)'):'#3d4166';
-        return `<div class="popup-kpi-month">
-          <span class="popup-kpi-month-label">${m}</span>
-          <span class="popup-kpi-month-val" style="color:${col}">${v??'-'}</span>
-        </div>`;
-      }).join('')}
-    </div>`;
-  }
-
-  const total=d.dist.s5+d.dist.s4+d.dist.s3+d.dist.neg;
   document.getElementById('popup-kpis').innerHTML=`
     <div class="popup-kpi">
       <div class="popup-kpi-label">총 방문수</div>
       <div class="popup-kpi-total" style="color:${bc}">${num(d.totalVisits)}<span style="font-size:12px;color:#555;margin-left:4px">회</span></div>
-      ${kpiSparkline([d.m1Visits,d.m2Visits,d.m3Visits,d.m4Visits,d.m5Visits],bc)}
-      ${monthBreakdown4([mVal(d.m1Visits),mVal(d.m2Visits),mVal(d.m3Visits),mVal(d.m4Visits),mVal(d.m5Visits)],null)}
+      ${kpiSparkline(d.mVisits, bc)}
+      ${monthBreakdown(mVisArr, null)}
     </div>
     <div class="popup-kpi">
       <div class="popup-kpi-label">예약율</div>
       <div class="popup-kpi-total" style="color:${pctColor(d.bookRate)}">${pct(d.bookRate)}</div>
-      ${kpiSparkline([d.m1Book,d.m2Book,d.m3Book,d.m4Book,d.m5Book],pctColor(d.bookRate))}
-      ${monthBreakdown4([mPct(d.m1Book),mPct(d.m2Book),mPct(d.m3Book),mPct(d.m4Book),mPct(d.m5Book)],v=>pctColor(parseFloat(v)/100))}
+      ${kpiSparkline(d.mBook, pctColor(d.bookRate))}
+      ${monthBreakdown(mPctArr, v=>pctColor(parseFloat(v)/100))}
     </div>
     <div class="popup-kpi">
       <div class="popup-kpi-label">재방률</div>
       <div class="popup-kpi-total" style="color:${pctColor(d.revRate)}">${pct(d.revRate)}</div>
-      ${kpiSparkline([d.m1Rev,d.m2Rev,d.m3Rev,d.m4Rev,d.m5Rev],pctColor(d.revRate))}
-      ${monthBreakdown4([mPct(d.m1Rev),mPct(d.m2Rev),mPct(d.m3Rev),mPct(d.m4Rev),mPct(d.m5Rev)],v=>pctColor(parseFloat(v)/100))}
+      ${kpiSparkline(d.mRev, pctColor(d.revRate))}
+      ${monthBreakdown(mRevArr, v=>pctColor(parseFloat(v)/100))}
     </div>
     <div class="popup-kpi">
       <div class="popup-kpi-label">만족도</div>
       <div class="popup-kpi-total" style="color:${sc}">${fmt(d.sat,2)}<span style="font-size:12px;color:#555;margin-left:4px">점</span></div>
-      ${kpiSparkline([d.m1Sat,d.m2Sat,d.m3Sat,d.m4Sat,d.m5Sat],sc)}
-      ${monthBreakdown4([mSat(d.m1Sat),mSat(d.m2Sat),mSat(d.m3Sat),mSat(d.m4Sat),mSat(d.m5Sat)],v=>scoreColor(parseFloat(v)))}
+      ${kpiSparkline(d.mSat, sc)}
+      ${monthBreakdown(mSatArr, v=>scoreColor(parseFloat(v)))}
     </div>
     <div class="popup-kpi" style="grid-column:span 2">
       <div class="popup-kpi-label">별점 분포</div>
       <div style="position:relative;height:110px;margin-top:8px"><canvas id="popup-hist-chart"></canvas></div>
     </div>`;
 
-  if(window._popupHistChart) window._popupHistChart.destroy();
+  if (window._popupHistChart) window._popupHistChart.destroy();
   setTimeout(()=>{
     const hCtx=document.getElementById('popup-hist-chart');
     if(!hCtx) return;
@@ -1333,17 +1227,17 @@ function openPopup(d) {
             formatter:(val)=>{if(!val)return'';const p=total?Math.round(val/total*100):0;return `${val}건\n${p}%`;}}},
         scales:{
           x:{grid:{display:false},ticks:{color:'#cccccc',font:{size:11}}},
-          y:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#6b7094',font:{size:10,family:'DM Mono'}},suggestedMax:Math.max(d.dist.s5,d.dist.s4,d.dist.s3,d.dist.neg)*1.35}}}
+          y:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#6b7094',font:{size:10,family:'DM Mono'}},
+            suggestedMax:Math.max(d.dist.s5,d.dist.s4,d.dist.s3,d.dist.neg)*1.35}}}
     });
   },50);
 
-  if(popupServiceChart) popupServiceChart.destroy();
+  if (popupServiceChart) popupServiceChart.destroy();
   const svc=SERVICE_BY_DESIGNER[d.id]||{};
   const svcLabels=Object.keys(SERVICE_TOTAL);
   const svcData=svcLabels.map(k=>svc[k]||0);
   const svcTotal=svcData.reduce((a,b)=>a+b,0);
-  const ctx=document.getElementById('popup-service-chart').getContext('2d');
-  popupServiceChart=new Chart(ctx,{
+  popupServiceChart=new Chart(document.getElementById('popup-service-chart').getContext('2d'),{
     type:'doughnut',
     data:{labels:svcLabels,datasets:[{data:svcData,backgroundColor:SERVICE_COLORS,borderWidth:2,borderColor:'#1c2030'}]},
     options:{responsive:true,maintainAspectRatio:false,
@@ -1364,8 +1258,247 @@ function closePopup(e) {
 }
 
 // ═══════════════════════════════════════════
+
+// ═══════════════════════════════════════════
+// DATA ← 매달 여기만 교체
+// ═══════════════════════════════════════════
+const _DATA = {
+  meta: {
+    period: "2026.01 — 2026.05",
+    subtitle: "헤어살롱 디자이너 성과 현황 · 2026 Q1~5월",
+    months: ["1월", "2월", "3월", "4월", "5월"]
+  },
+
+  designers: [
+    {
+      id: "아크 김도희", name: "김도희", branch: "아크", branchFull: "아크점",
+      sat: 4.88, satResp: 254,
+      mSat:  [4.96, 4.86, 4.77, 4.91, 4.90],
+      mResp: [27,   36,   39,   80,   72],
+      bookRate: 0.851, mBook: [0.904, 0.768, 0.814, 0.905, 0.862],
+      revRate:  0.419, mRev:  [0.317, 0.438, 0.468, 0.411, 0.462],
+      totalVisits: 975, mVisits: [189, 169, 188, 219, 210],
+      totalCust:   771, mCust:   [181, 160, 173, 198, 170],
+      dist: {s5: 212, s4: 17, s3: 3, neg: 1}
+    },
+    {
+      id: "아크 오주예", name: "오주예", branch: "아크", branchFull: "아크점",
+      sat: 4.86, satResp: 305,
+      mSat:  [4.91, 4.91, 4.76, 4.87, 4.88],
+      mResp: [47,   44,   51,   83,   80],
+      bookRate: 0.801, mBook: [0.930, 0.725, 0.782, 0.758, 0.810],
+      revRate:  0.438, mRev:  [0.335, 0.500, 0.503, 0.395, 0.458],
+      totalVisits: 983, mVisits: [212, 174, 197, 200, 200],
+      totalCust:   762, mCust:   [200, 160, 174, 179, 181],
+      dist: {s5: 249, s4: 16, s3: 1, neg: 4}
+    },
+    {
+      id: "아크 김수빈", name: "김수빈", branch: "아크", branchFull: "아크점",
+      sat: 4.95, satResp: 279,
+      mSat:  [4.92, 4.95, 4.93, 4.97, 4.96],
+      mResp: [38,   39,   59,   73,   70],
+      bookRate: 0.849, mBook: [0.960, 0.650, 0.868, 0.661, 0.905],
+      revRate:  0.712, mRev:  [0.684, 0.787, 0.700, 0.000, 0.688],
+      totalVisits: 993, mVisits: [237, 169, 237, 160, 190],
+      totalCust:   603, mCust:   [190, 138, 196, 151, 167],
+      dist: {s5: 255, s4: 14, s3: 0, neg: 0}
+    },
+    {
+      id: "신논현 김상희", name: "김상희", branch: "신논현", branchFull: "신논현점",
+      sat: 4.96, satResp: 301,
+      mSat:  [5.00, 5.00, 4.92, 4.92, 4.97],
+      mResp: [36,   45,   40,   95,   85],
+      bookRate: 0.891, mBook: [0.887, 0.664, 0.752, 0.888, 0.965],
+      revRate:  0.633, mRev:  [0.269, 0.645, 0.627, 0.693, 0.732],
+      totalVisits: 1341, mVisits: [219, 312, 396, 254, 260],
+      totalCust:    762, mCust:   [188, 132, 160, 208, 214],
+      dist: {s5: 272, s4: 7, s3: 3, neg: 0}
+    },
+    {
+      id: "신논현 이나연", name: "이나연", branch: "신논현", branchFull: "신논현점",
+      sat: 4.95, satResp: 319,
+      mSat:  [4.95, 4.88, 4.90, 4.98, 4.99],
+      mResp: [37,   42,   60,   92,   88],
+      bookRate: 0.951, mBook: [1.000, 0.740, 0.861, 0.901, 0.952],
+      revRate:  0.502, mRev:  [0.119, 0.531, 0.464, 0.638, 0.758],
+      totalVisits: 1248, mVisits: [210, 342, 422, 218, 220],
+      totalCust:    825, mCust:   [197, 156, 191, 189, 196],
+      dist: {s5: 289, s4: 13, s3: 0, neg: 1}
+    },
+    {
+      id: "신논현 송영호", name: "송영호", branch: "신논현", branchFull: "신논현점",
+      sat: 4.85, satResp: 225,
+      mSat:  [4.70, 4.74, 4.89, 4.92, 4.93],
+      mResp: [20,   39,   36,   65,   65],
+      bookRate: 0.899, mBook: [0.957, 0.758, 0.897, 0.926, 0.957],
+      revRate:  0.488, mRev:  [0.070, 0.478, 0.436, 0.607, 0.649],
+      totalVisits: 1263, mVisits: [200, 399, 440, 224, 220],
+      totalCust:    857, mCust:   [193, 161, 201, 201, 208],
+      dist: {s5: 179, s4: 17, s3: 4, neg: 2}
+    }
+  ],
+
+  serviceTotal: {
+    "커트": 3378, "커트+펌": 1508, "클리닉": 1341,
+    "샴푸/세팅드라이": 982, "커트+염색": 639, "염색": 399, "펌": 214, "기타": 5
+  },
+
+  serviceByDesigner: {
+    "아크 김도희":   {"커트": 201, "커트+펌": 138, "클리닉": 118, "샴푸/세팅드라이": 101, "커트+염색": 53, "염색": 40, "펌": 25, "기타": 0},
+    "아크 오주예":   {"커트": 271, "커트+펌": 113, "클리닉": 118, "샴푸/세팅드라이": 105, "커트+염색": 48, "염색": 40, "펌": 23, "기타": 0},
+    "아크 김수빈":   {"커트": 402, "커트+펌": 140, "클리닉": 91,  "샴푸/세팅드라이": 61,  "커트+염색": 70, "염색": 10, "펌": 4,  "기타": 0},
+    "신논현 김상희": {"커트": 316, "커트+펌": 124, "클리닉": 84,  "샴푸/세팅드라이": 57,  "커트+염색": 69, "염색": 35, "펌": 13, "기타": 5},
+    "신논현 이나연": {"커트": 318, "커트+펌": 141, "클리닉": 93,  "샴푸/세팅드라이": 76,  "커트+염색": 55, "염색": 36, "펌": 8,  "기타": 0},
+    "신논현 송영호": {"커트": 289, "커트+펌": 118, "클리닉": 125, "샴푸/세팅드라이": 74,  "커트+염색": 50, "염색": 41, "펌": 18, "기타": 0}
+  },
+
+  reviews: {
+    5: [
+      {designer: "김상희", text: "상희님은 압도적으로 최고이십니다. 이전의 상태를 다 기억하고 계셔주다보니 넘 좋아요! 5월에도 항상 완벽하게 해주셔서 정말 감사해요."},
+      {designer: "이나연", text: "5월에도 역시 이나연님! 머리 특성을 너무 잘 파악하고 계셔서 따로 설명 안 해도 딱 원하는 스타일로 해주세요. 매번 감사합니다."},
+      {designer: "김수빈", text: "이번에 처음 파마를 맡겼는데 상담부터 시술까지 너무 꼼꼼하게 해주셨어요. 결과도 너무 마음에 들고 주변 반응도 좋아서 너무 행복해요!"},
+      {designer: "김도희", text: "항상 바쁠 텐데 여유 있게 상담해주시고 시술 중에도 계속 체크해주셔서 감사해요. 이번 커트도 정말 만족스럽습니다."},
+      {designer: "오주예", text: "주예님 덕분에 5월도 기분 좋게 지내고 있어요! 제 두피 상태까지 꼼꼼히 봐주시고 클리닉 추천해주셔서 덕분에 두피도 건강해졌어요."},
+      {designer: "송영호", text: "영호님 5월에도 최고였어요. 바쁜데도 꼼꼼하게 봐주시고 드라이까지 완벽하게 마무리해주셨어요. 다음 달에도 또 올게요!"}
+    ],
+    4: [
+      {designer: "이나연", text: "샴푸가 시원하고 좋았는데 이번 커트는 원하던 것보다 살짝 짧아졌어요. 그래도 전체적으로 만족합니다."},
+      {designer: "김도희", text: "상담도 친절하고 커트도 마음에 들어요! 다음에도 또 예약할게요."},
+      {designer: "김수빈", text: "친절하고 스타일에 맞게 잘해 주셨습니다. 다음엔 파마도 도전해볼게요."},
+      {designer: "김상희", text: "전반적으로 만족스러웠어요. 다만 대기가 조금 길었습니다."}
+    ],
+    3: [
+      {designer: "송영호", text: "커트는 잘 해주셨는데 마무리 드라이가 조금 아쉬웠어요. 좀 더 볼륨감 있게 해주셨으면 좋겠어요."}
+    ],
+    2: [
+      {designer: "오주예", text: "이번에는 원하는 스타일과 조금 달랐어요. 사진을 보여드렸는데 결과물이 많이 달라서 아쉬웠습니다."}
+    ],
+    1: []
+  }
+};
+
+// ═══════════════════════════════════════════
+// 현재 선택 월 상태 (null = 전체 누적)
+// ═══════════════════════════════════════════
+let selectedMonthIdx = null; // null=전체, 0~N=해당월 인덱스
+
+// 월별 단일 데이터 추출 헬퍼
+function getViewData() {
+  if (selectedMonthIdx === null) {
+    // 전체 누적 — 원본 그대로
+    return {
+      designers: DESIGNERS,
+      serviceTotal: SERVICE_TOTAL,
+      serviceByDesigner: SERVICE_BY_DESIGNER,
+      reviews: REVIEWS,
+      months: MONTHS,
+      label: _DATA.meta.period,
+      isMonthly: false,
+    };
+  }
+  const idx = selectedMonthIdx;
+  const mLabel = MONTHS[idx];
+
+  // 디자이너별 해당 월 데이터로 재구성
+  const designers = DESIGNERS.map(d => ({
+    ...d,
+    sat: d.mSat[idx] ?? d.sat,
+    satResp: d.mResp[idx] ?? 0,
+    bookRate: d.mBook[idx] ?? 0,
+    revRate:  d.mRev[idx]  ?? 0,
+    totalVisits: d.mVisits[idx] ?? 0,
+    totalCust:   d.mCust[idx]  ?? 0,
+    // 카드 하단 트렌드: 현재 월까지만 표시
+    mSat:  d.mSat.slice(0, idx+1),
+    mResp: d.mResp.slice(0, idx+1),
+    mBook: d.mBook.slice(0, idx+1),
+    mRev:  d.mRev.slice(0, idx+1),
+    mVisits: d.mVisits.slice(0, idx+1),
+    mCust:   d.mCust.slice(0, idx+1),
+  }));
+
+  return {
+    designers,
+    serviceTotal: SERVICE_TOTAL,       // 시술 메뉴는 월별 분리 없음
+    serviceByDesigner: SERVICE_BY_DESIGNER,
+    reviews: REVIEWS_BY_MONTH[idx] || {5:[],4:[],3:[],2:[],1:[]},
+    months: MONTHS.slice(0, idx+1),
+    label: `2026.${String(idx+1).padStart(2,'0')} (${mLabel})`,
+    isMonthly: true,
+  };
+}
+
+// 드롭다운 변경 핸들러
+function onPeriodChange(val) {
+  selectedMonthIdx = val === 'all' ? null : parseInt(val);
+  const vd = getViewData();
+  const badge = document.getElementById('period-mode-badge');
+
+  // 배지 업데이트
+  badge.textContent = vd.isMonthly ? `${MONTHS[selectedMonthIdx]} 단독` : '누적';
+  badge.className   = vd.isMonthly ? 'period-mode-badge monthly' : 'period-mode-badge';
+
+  // 임시로 전역 교체 후 렌더
+  const origDesigners  = DESIGNERS;
+  const origReviews    = REVIEWS;
+  const origMonths     = MONTHS;
+
+  DESIGNERS = vd.designers;
+  REVIEWS   = vd.reviews;
+  MONTHS    = vd.months;
+
+  // 기존 차트 destroy
+  // 기존 차트 모두 destroy
+  Object.values(Chart.instances).forEach(c => { try { c.destroy(); } catch(e){} });
+  if (window._popupHistChart) { window._popupHistChart.destroy(); window._popupHistChart = null; }
+  if (window.popupServiceChart) { window.popupServiceChart.destroy(); window.popupServiceChart = null; }
+
+  renderCards();
+  updateKPI();
+  renderRanking();
+  renderTrend();
+  renderCharts();
+  renderServiceChart();
+  renderHistogram();
+  renderReviews();
+
+  // kpi-sub 라벨
+  const kpiSubLabel = vd.isMonthly
+    ? `${MONTHS[MONTHS.length-1]} 기준`
+    : `최근 ${_DATA.meta.months.length}개월간`;
+  document.querySelectorAll('.kpi-sub').forEach(el => el.textContent = kpiSubLabel);
+
+  // 전역 복원 (원본은 유지)
+  DESIGNERS = origDesigners;
+  REVIEWS   = origReviews;
+  MONTHS    = origMonths;
+}
+
+// ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
+DESIGNERS           = _DATA.designers;
+SERVICE_TOTAL       = _DATA.serviceTotal;
+SERVICE_BY_DESIGNER = _DATA.serviceByDesigner;
+REVIEWS             = _DATA.reviews;
+MONTHS              = _DATA.meta.months;
+
+// 월별 리뷰 분리 저장 (reviews_by_month 있으면 사용, 없으면 전체 공유)
+const REVIEWS_BY_MONTH = _DATA.reviewsByMonth || MONTHS.map(() => _DATA.reviews);
+
+// 드롭다운 옵션 동적 생성
+(function buildDropdown() {
+  const sel = document.getElementById('period-select');
+  MONTHS.forEach((m, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `2026.${String(i+1).padStart(2,'0')}  ${m}`;
+    sel.appendChild(opt);
+  });
+})();
+
+document.querySelector('.logo-sub').textContent = _DATA.meta.subtitle;
+
 renderCards();
 updateKPI();
 renderRanking();
