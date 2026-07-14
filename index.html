@@ -26,9 +26,7 @@
     --success: #52c48a;
     --warn: #f5a442;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'Inter', 'Noto Sans KR', sans-serif;
     background: var(--bg);
@@ -36,7 +34,6 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
   body::before {
     content: '';
     position: fixed; inset: 0; pointer-events: none; z-index: 0;
@@ -45,9 +42,7 @@
       linear-gradient(90deg, rgba(124,106,247,0.03) 1px, transparent 1px);
     background-size: 40px 40px;
   }
-
   .wrapper { position: relative; z-index: 1; max-width: 1600px; margin: 0 auto; padding: 32px 24px 80px; }
-
   header {
     display: flex; align-items: flex-end; justify-content: space-between;
     margin-bottom: 40px; padding-bottom: 28px;
@@ -97,7 +92,6 @@
   .period-mode-badge.monthly {
     background: rgba(245,200,66,0.15); color: var(--gold);
   }
-
   .kpi-row {
     display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
     margin-bottom: 32px;
@@ -118,7 +112,6 @@
   .kpi-label { font-size: 11px; color: #cccccc; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
   .kpi-value { font-family: 'DM Mono', monospace; font-size: 30px; font-weight: 500; line-height: 1; }
   .kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 6px; }
-
   .section-header {
     display: flex; align-items: center; gap: 12px;
     margin-bottom: 16px; margin-top: 36px;
@@ -128,7 +121,6 @@
     text-transform: uppercase; color: var(--text-muted);
   }
   .section-line { flex: 1; height: 1px; background: var(--border); }
-
   .filter-bar {
     position: sticky; top: 0; z-index: 100;
     background: rgba(12,14,20,0.85); backdrop-filter: blur(20px);
@@ -160,13 +152,11 @@
     background: rgba(167,139,250,0.15) !important;
     border-color: #a78bfa !important;
   }
-
   .designer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 16px; margin-bottom: 32px;
   }
-
   .d-card {
     background: #222638;
     border: 1px solid var(--border);
@@ -186,7 +176,6 @@
     position: absolute; top: 0; left: 0; right: 0; height: 3px;
     border-radius: 20px 20px 0 0;
   }
-
   .d-card-header {
     display: flex; align-items: flex-start; justify-content: space-between;
     margin-bottom: 16px;
@@ -201,7 +190,6 @@
     width: fit-content;
   }
   .d-branch-dot { width: 6px; height: 6px; border-radius: 50%; }
-
   .d-score-area { text-align: right; }
   .d-score-big {
     font-family: 'DM Mono', monospace;
@@ -210,7 +198,6 @@
   }
   .d-stars { font-size: 13px; color: var(--gold); margin-top: 2px; }
   .d-resp { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
-
   .d-metrics {
     display: grid; grid-template-columns: 1fr 1fr 1fr;
     gap: 8px; margin-bottom: 16px;
@@ -226,7 +213,6 @@
     font-size: 18px; font-weight: 500; line-height: 1;
   }
   .d-metric-sub { font-size: 10px; color: var(--text-muted); }
-
   .d-dist-row { margin-bottom: 14px; }
   .d-dist-label { font-size: 10px; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px; }
   .d-dist-bar {
@@ -235,7 +221,6 @@
     display: flex; gap: 1px;
   }
   .d-dist-seg { height: 100%; transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
-
   .d-trend-row {
     display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 6px;
@@ -253,7 +238,6 @@
   .up { color: var(--success); }
   .down { color: var(--danger); }
   .flat { color: var(--text-muted); }
-
   .delta-badge {
     display: inline-flex; align-items: center; gap: 2px;
     font-size: 10px; font-weight: 700; padding: 1px 6px;
@@ -262,7 +246,6 @@
   .delta-up   { background: rgba(82,196,138,0.15); color: #52c48a; }
   .delta-down { background: rgba(224,82,82,0.15);  color: #e05252; }
   .delta-flat { background: rgba(107,112,148,0.15); color: #6b7094; }
-
   .d-photo {
     width: 84px; height: 84px; border-radius: 50%;
     flex-shrink: 0;
@@ -279,14 +262,12 @@
   }
   .d-photo-placeholder span:first-child { font-size: 28px; line-height: 1; }
   .d-photo-placeholder span:last-child { font-size: 8px; color: var(--text-dim); letter-spacing: 0.3px; }
-
   .histogram-section {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 20px; padding: 24px; margin-bottom: 20px;
     animation: fadeUp 0.5s 0.42s ease both;
   }
   .histogram-wrap { position: relative; height: 300px; margin-top: 20px; }
-
   .charts-grid {
     display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px;
   }
@@ -300,7 +281,6 @@
     letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px;
   }
   .chart-wrap { position: relative; height: 260px; }
-
   .ranking-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 20px; padding: 24px; margin-bottom: 20px;
@@ -349,7 +329,6 @@
     height: 4px; border-radius: 2px; display: inline-block;
     vertical-align: middle; margin-left: 8px;
   }
-
   .trend-section {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 20px; padding: 24px; margin-bottom: 20px;
@@ -375,14 +354,12 @@
   .trend-row-vals { display: flex; gap: 14px; align-items: center; }
   .trend-visits { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted); }
   .trend-score { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; }
-
   .service-section {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 20px; padding: 24px; margin-bottom: 20px;
     animation: fadeUp 0.5s 0.28s ease both;
   }
   .service-chart-wrap { position: relative; height: 280px; }
-
   .review-section {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 20px; padding: 24px; margin-bottom: 20px;
@@ -410,7 +387,6 @@
   }
   .review-text { font-size: 13px; color: var(--text); line-height: 1.6; }
   .review-empty { font-size: 13px; color: var(--text-dim); text-align: center; padding: 24px; }
-
   /* POPUP */
   .popup-overlay {
     display: none; position: fixed; inset: 0; z-index: 1000;
@@ -476,7 +452,6 @@
     text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 10px;
   }
   .popup-chart-wrap { position: relative; height: 180px; margin-bottom: 4px; }
-
   .pinnacle-placeholder-card {
     background: var(--surface);
     border: 1px dashed rgba(167,139,250,0.3);
@@ -488,7 +463,6 @@
   .pinnacle-placeholder-card .pp-icon { font-size: 36px; opacity: 0.5; }
   .pinnacle-placeholder-card .pp-title { font-size: 15px; font-weight: 700; color: #a78bfa; }
   .pinnacle-placeholder-card .pp-sub { font-size: 12px; color: var(--text-dim); text-align: center; }
-
   footer {
     border-top: 1px solid var(--border);
     padding: 20px 24px;
@@ -500,7 +474,6 @@
     font-family: 'Noto Sans KR', sans-serif; font-size: 11px;
     color: var(--text-dim); letter-spacing: 0.3px;
   }
-
   @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-12px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -509,9 +482,7 @@
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
   .hidden { display: none !important; }
-
   @media (max-width: 900px) {
     .kpi-row { grid-template-columns: repeat(3, 1fr); }
     .charts-grid { grid-template-columns: 1fr; }
@@ -526,11 +497,10 @@
 </head>
 <body>
 <div class="wrapper">
-
   <header>
     <div class="logo-area">
       <div class="logo-title">Designer Dashboard</div>
-      <div class="logo-sub">헤어살롱 디자이너 성과 현황 · 2026 Q1+4월</div>
+      <div class="logo-sub">헤어살롱 디자이너 성과 현황 · 2026 Q1~6월</div>
     </div>
     <div class="header-meta">
       <div class="period-select-wrap">
@@ -542,67 +512,62 @@
       <span class="period-mode-badge" id="period-mode-badge">누적</span>
     </div>
   </header>
-
   <div class="filter-bar">
     <span class="filter-label">지점</span>
     <button class="filter-btn active" onclick="filterBranch('all', this)">전체</button>
     <button class="filter-btn" onclick="filterBranch('아크', this)">🔵 아크점</button>
     <button class="filter-btn" onclick="filterBranch('신논현', this)">🟢 신논현점</button>
+    <button class="filter-btn" onclick="filterBranch('한타', this)">🟠 한타점</button>
     <button class="filter-btn filter-btn-pinnacle" onclick="filterBranch('피나클', this)">💜 피나클점 <span class="coming-badge">예정</span></button>
   </div>
-
   <div class="kpi-row" id="kpi-row">
     <div class="kpi-card" style="--accent-line: var(--accent)">
       <div class="kpi-label">총 방문수</div>
       <div class="kpi-value" id="kpi-visits">—</div>
-      <div class="kpi-sub">최근 4개월간</div>
+      <div class="kpi-sub">최근 6개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--arc)">
       <div class="kpi-label">총 고객수</div>
       <div class="kpi-value" id="kpi-customers">—</div>
-      <div class="kpi-sub">최근 4개월간</div>
+      <div class="kpi-sub">최근 6개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--gold)">
       <div class="kpi-label">평균 만족도</div>
       <div class="kpi-value" id="kpi-sat" style="color: var(--gold)">—</div>
-      <div class="kpi-sub">최근 4개월간</div>
+      <div class="kpi-sub">최근 6개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--success)">
       <div class="kpi-label">평균 예약율</div>
       <div class="kpi-value" id="kpi-book" style="color: var(--success)">—</div>
-      <div class="kpi-sub">최근 4개월간</div>
+      <div class="kpi-sub">최근 6개월간</div>
     </div>
     <div class="kpi-card" style="--accent-line: var(--warn)">
       <div class="kpi-label">평균 재방률</div>
       <div class="kpi-value" id="kpi-rev" style="color: var(--warn)">—</div>
-      <div class="kpi-sub">최근 4개월간</div>
+      <div class="kpi-sub">최근 6개월간</div>
     </div>
   </div>
-
   <div class="section-header">
     <span class="section-title">디자이너별 카드</span>
     <div class="section-line"></div>
   </div>
   <div class="designer-grid" id="designer-grid"></div>
-
   <div class="section-header">
     <span class="section-title">시술 메뉴별 비율</span>
     <div class="section-line"></div>
   </div>
   <div class="service-section">
-    <div style="font-size:13px;color:var(--text-muted)">전 지점 합산 · 4개월 총 시술 건수 기준</div>
+    <div style="font-size:13px;color:var(--text-muted)">전 지점 합산 · 6개월 총 시술 건수 기준</div>
     <div class="service-chart-wrap" style="margin-top:20px"><canvas id="chartService"></canvas></div>
   </div>
-
   <div class="section-header">
     <span class="section-title">별점 분포</span>
     <div class="section-line"></div>
   </div>
   <div class="histogram-section">
-    <div style="font-size:13px;color:var(--text-muted)">디자이너별 1~5점 응답 건수 분포 (4개월 누계)</div>
+    <div style="font-size:13px;color:var(--text-muted)">디자이너별 1~5점 응답 건수 분포 (6개월 누계)</div>
     <div class="histogram-wrap"><canvas id="chartHistogram"></canvas></div>
   </div>
-
   <div class="section-header">
     <span class="section-title">지표 비교</span>
     <div class="section-line"></div>
@@ -617,7 +582,6 @@
       <div class="chart-wrap"><canvas id="chartBookRev"></canvas></div>
     </div>
   </div>
-
   <div class="section-header">
     <span class="section-title">종합 순위</span>
     <div class="section-line"></div>
@@ -644,9 +608,8 @@
         </tr>
       </tfoot>
     </table>
-    <div style="position:absolute;bottom:12px;right:20px;font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace">2026.1~4 data</div>
+    <div style="position:absolute;bottom:12px;right:20px;font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace">2026.1~6 data</div>
   </div>
-
   <div class="section-header">
     <span class="section-title">월별 현황</span>
     <div class="section-line"></div>
@@ -655,13 +618,12 @@
     <div style="font-size:13px;color:var(--text-muted)">디자이너별 월별 방문수 및 만족도 점수</div>
     <div class="trend-grid" id="trend-grid"></div>
   </div>
-
   <div class="section-header">
     <span class="section-title">고객 리뷰</span>
     <div class="section-line"></div>
   </div>
   <div class="review-section">
-    <div style="font-size:13px;color:var(--text-muted)">만족도 응답 중 텍스트 리뷰 모음 · 4월 기준</div>
+    <div style="font-size:13px;color:var(--text-muted)">만족도 응답 중 텍스트 리뷰 모음 · 6월 기준</div>
     <div class="review-tabs" id="review-tabs">
       <button class="review-tab active" onclick="filterReview(5,this)" style="background:#27ae60">⭐⭐⭐⭐⭐ 매우 만족</button>
       <button class="review-tab" onclick="filterReview(4,this)">⭐⭐⭐⭐ 만족</button>
@@ -671,7 +633,6 @@
     </div>
     <div class="review-list" id="review-list"></div>
   </div>
-
   <div class="popup-overlay" id="popup-overlay" onclick="closePopup(event)">
     <div class="popup-box" id="popup-box">
       <div class="popup-header">
@@ -693,19 +654,17 @@
       </div>
     </div>
   </div>
-
   <footer>
     <span class="footer-copyright">© 2026 arkive Corp. All rights reserved.</span>
     <span class="footer-divider">|</span>
     <span class="footer-contact">contact@arkive.co</span>
   </footer>
 </div>
-
 <script>
 // ═══════════════════════════════════════════
 // CONFIG — 코드 고정값 (건드릴 필요 없음)
 // ═══════════════════════════════════════════
-const BRANCH_COLOR = { '아크': '#4fa3e0', '신논현': '#50c878', '피나클': '#a78bfa' };
+const BRANCH_COLOR = { '아크': '#4fa3e0', '신논현': '#50c878', '한타': '#e07b4f', '피나클': '#a78bfa' };
 const SERVICE_COLORS = ['#4fa3e0','#50c878','#f5c842','#e07b4f','#a78bfa','#e05252','#52c48a','#6b7094'];
 const REVIEW_BADGE = {
   5:{label:'매우 만족', color:'#27ae60', bg:'rgba(39,174,96,0.12)'},
@@ -714,13 +673,11 @@ const REVIEW_BADGE = {
   2:{label:'불만족',    color:'#e07b4f', bg:'rgba(224,123,79,0.12)'},
   1:{label:'매우불만족',color:'#e05252', bg:'rgba(224,82,82,0.12)'},
 };
-
 // ═══════════════════════════════════════════
 // 전역 데이터 (data.json 로드 후 세팅)
 // ═══════════════════════════════════════════
 let DESIGNERS = [], SERVICE_TOTAL = {}, SERVICE_BY_DESIGNER = {}, REVIEWS = {};
 let MONTHS = [];  // data.json의 meta.months 배열 — 월 수 자동 결정
-
 // ═══════════════════════════════════════════
 // 유틸
 // ═══════════════════════════════════════════
@@ -742,11 +699,9 @@ function stars(s) { const n=Math.round(s); return '★'.repeat(n)+'☆'.repeat(5
 function fmt(n,d=1) { return n!=null ? n.toFixed(d) : '-'; }
 function pct(n)    { return n!=null ? Math.round(n*100)+'%' : '-'; }
 function num(n)    { return n!=null ? n.toLocaleString() : '-'; }
-
 // 마지막 월 인덱스
 function lastIdx() { return MONTHS.length - 1; }
 function prevIdx() { return MONTHS.length - 2; }
-
 function deltaBadge(cur, prev, isP=false) {
   if (cur==null || prev==null) return '';
   const diff = cur - prev;
@@ -758,7 +713,6 @@ function deltaBadge(cur, prev, isP=false) {
 }
 function chgClass(c) { return c==null?'flat':c>0.01?'up':c<-0.01?'down':'flat'; }
 function chgTxt(c)   { return c==null?'-':(c>0?'▲':c<0?'▼':'→')+Math.abs(c).toFixed(2); }
-
 // ═══════════════════════════════════════════
 // FILTER
 // ═══════════════════════════════════════════
@@ -773,7 +727,6 @@ function filterBranch(branch, btn) {
 function getBranchMatches(d) {
   return currentFilter === 'all' || d.branch === currentFilter;
 }
-
 // ═══════════════════════════════════════════
 // DESIGNER CARDS
 // ═══════════════════════════════════════════
@@ -781,7 +734,6 @@ function renderCards() {
   const grid = document.getElementById('designer-grid');
   const filtered = DESIGNERS.filter(getBranchMatches);
   grid.innerHTML = '';
-
   if (currentFilter === '피나클') {
     grid.innerHTML = `<div class="pinnacle-placeholder-card">
       <div class="pp-icon">💜</div>
@@ -790,7 +742,6 @@ function renderCards() {
     </div>`;
     return;
   }
-
   filtered.forEach((d, i) => {
     const bc  = BRANCH_COLOR[d.branch] || '#888';
     const sc  = scoreColor(d.sat);
@@ -800,7 +751,6 @@ function renderCards() {
     const p4 = total?(d.dist.s4/total*100):0;
     const p3 = total?(d.dist.s3/total*100):0;
     const pn = total?(d.dist.neg/total*100):0;
-
     // 월별 트렌드 (최근 4개월만 표시, 전체가 4개 이하면 전체)
     const showMonths = MONTHS.slice(-4);
     const showOffset = MONTHS.length - showMonths.length;
@@ -815,12 +765,10 @@ function renderCards() {
         <div class="d-trend-chg ${chgClass(chg)}">${chg!==null?chgTxt(chg):(sat?'—':'-')}</div>
       </div>`;
     }).join('');
-
     const satDelta  = deltaBadge(d.mSat[li],  d.mSat[pi]);
     const bookDelta = deltaBadge(d.mBook[li], d.mBook[pi], true);
     const revDelta  = deltaBadge(d.mRev[li],  d.mRev[pi], true);
     const initials  = d.name.slice(1);
-
     const card = document.createElement('div');
     card.className = 'd-card';
     card.style.animationDelay = (i*0.05)+'s';
@@ -881,7 +829,6 @@ function renderCards() {
     card.onclick = () => openPopup(d);
     grid.appendChild(card);
   });
-
   if (currentFilter === 'all') {
     const ph = document.createElement('div');
     ph.className = 'pinnacle-placeholder-card';
@@ -890,7 +837,6 @@ function renderCards() {
     grid.appendChild(ph);
   }
 }
-
 // ═══════════════════════════════════════════
 // KPI
 // ═══════════════════════════════════════════
@@ -913,7 +859,6 @@ function updateKPI() {
     el.textContent = `최근 ${MONTHS.length}개월간`;
   });
 }
-
 // ═══════════════════════════════════════════
 // RANKING TABLE
 // ═══════════════════════════════════════════
@@ -923,7 +868,6 @@ function renderRanking() {
   const li = lastIdx(), pi = prevIdx();
   const tbody = document.getElementById('ranking-body');
   tbody.innerHTML = '';
-
   function db(cur,prev,isP=false) {
     if(cur==null||prev==null) return '';
     const diff=cur-prev;
@@ -932,21 +876,18 @@ function renderRanking() {
     const val=isP?Math.round(Math.abs(diff)*100)+'%':Math.abs(diff).toFixed(2);
     return `<span style="font-size:10px;font-weight:700;color:${col};margin-left:4px">${sym}${val}</span>`;
   }
-
   sorted.forEach((d,i) => {
     const bc=BRANCH_COLOR[d.branch]||'#888', sc=scoreColor(d.sat);
     const bW=Math.round(d.totalVisits/maxV*120);
     const trend = d.mSat.length>=2
       ? (d.mSat[li]>d.mSat[0]?'↗':d.mSat[li]<d.mSat[0]?'↘':'→') : '·';
     const tc=trend==='↗'?'#52c48a':trend==='↘'?'#e05252':'#6b7094';
-
     // 월별 만족도 추이 (전체 월)
     const trendCells = MONTHS.map((m,idx)=>{
       const v=d.mSat[idx];
       const isLast=idx===li;
       return `<span class="mono" style="font-size:11px;color:${isLast?'#ccc':'#aaa'};${isLast?'font-weight:600':''}">${v?fmt(v,2):'-'}</span>`;
     }).join(`<span style="color:#555">→</span>`);
-
     tbody.innerHTML+=`<tr>
       <td class="rank-no">${i+1}</td>
       <td><span class="rank-name">${d.name}</span><span class="rank-branch" style="background:${bc}22;color:${bc}">${d.branchFull}</span></td>
@@ -958,7 +899,6 @@ function renderRanking() {
     </tr>`;
   });
 }
-
 // ═══════════════════════════════════════════
 // MONTH TREND
 // ═══════════════════════════════════════════
@@ -967,17 +907,14 @@ function renderTrend() {
   // 월별 현황: 전체 월 모두 표시
   const showMonths = MONTHS;
   const showOffset = 0;
-
   // grid 컬럼 수 동적 설정
   grid.style.gridTemplateColumns = `repeat(${showMonths.length}, 1fr)`;
   grid.innerHTML = '';
-
   showMonths.forEach((label, si) => {
     const idx = showOffset + si;
     const sorted = [...DESIGNERS]
       .filter(d => d.mVisits[idx] > 0)
       .sort((a,b) => (b.mSat[idx]??0) - (a.mSat[idx]??0));
-
     const html = sorted.map((d, rank) => {
       const bc=BRANCH_COLOR[d.branch]||'#888';
       const sc=d.mSat[idx]?scoreColor(d.mSat[idx]):'var(--text-dim)';
@@ -992,7 +929,6 @@ function renderTrend() {
         </div>
       </div>`;
     }).join('');
-
     grid.innerHTML += `<div class="trend-month-col">
       <div class="trend-month-title">${label}</div>
       <div style="font-size:9px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">★ 별점 높은 순</div>
@@ -1000,14 +936,12 @@ function renderTrend() {
     </div>`;
   });
 }
-
 // ═══════════════════════════════════════════
 // CHARTS
 // ═══════════════════════════════════════════
 function renderCharts() {
   const names  = DESIGNERS.map(d=>d.name);
   const colors = DESIGNERS.map(d=>BRANCH_COLOR[d.branch]||'#888');
-
   new Chart(document.getElementById('chartSat'),{
     type:'bar', plugins:[ChartDataLabels],
     data:{labels:names,datasets:[{
@@ -1021,7 +955,6 @@ function renderCharts() {
         x:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#6b7094',font:{size:11,family:'Noto Sans KR'}}},
         y:{min:4.5,max:5.15,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'},callback:v=>v.toFixed(2)}}}}
   });
-
   new Chart(document.getElementById('chartBookRev'),{
     type:'bar',
     data:{labels:names,datasets:[
@@ -1037,7 +970,6 @@ function renderCharts() {
         y:{min:0,max:100,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'},callback:v=>v+'%'}}}}
   });
 }
-
 // ═══════════════════════════════════════════
 // SERVICE CHART
 // ═══════════════════════════════════════════
@@ -1056,7 +988,6 @@ function renderServiceChart() {
         y:{grid:{display:false},ticks:{color:'#e8eaf2',font:{size:12,family:'Noto Sans KR'},padding:8}}}}
   });
 }
-
 // ═══════════════════════════════════════════
 // HISTOGRAM
 // ═══════════════════════════════════════════
@@ -1078,7 +1009,6 @@ function renderHistogram() {
         y:{stacked:true,grid:{color:'rgba(255,255,255,0.06)'},ticks:{color:'#6b7094',font:{size:11,family:'DM Mono'}}}}}
   });
 }
-
 // ═══════════════════════════════════════════
 // REVIEWS
 // ═══════════════════════════════════════════
@@ -1107,12 +1037,10 @@ function renderReviews() {
     </div>`;
   }).join('');
 }
-
 // ═══════════════════════════════════════════
 // POPUP
 // ═══════════════════════════════════════════
 let popupServiceChart = null;
-
 function kpiSparkline(vals, color) {
   const nonNull = vals.filter(v=>v!=null);
   if (nonNull.length < 2) return '';
@@ -1141,7 +1069,6 @@ function kpiSparkline(vals, color) {
     ${dots}
   </svg>`;
 }
-
 function monthBreakdown(vals, colorFn) {
   // 최근 4개월만 팝업에 표시
   const show = MONTHS.slice(-4);
@@ -1157,13 +1084,11 @@ function monthBreakdown(vals, colorFn) {
     }).join('')}
   </div>`;
 }
-
 function openPopup(d) {
   const bc=BRANCH_COLOR[d.branch]||'#888', sc=scoreColor(d.sat);
   document.getElementById('popup-name').textContent   = d.name;
   document.getElementById('popup-branch').textContent = d.branchFull;
   document.getElementById('popup-init').textContent   = d.name.slice(1);
-
   const photoEl = document.getElementById('popup-photo');
   photoEl.style.borderColor = bc;
   const oldImg = photoEl.querySelector('img');
@@ -1173,13 +1098,11 @@ function openPopup(d) {
   newImg.onerror=function(){this.style.display='none';document.getElementById('popup-init').style.display='block';};
   document.getElementById('popup-init').style.display='none';
   photoEl.insertBefore(newImg, photoEl.firstChild);
-
   const total = d.dist.s5+d.dist.s4+d.dist.s3+d.dist.neg;
   const mPctArr  = d.mBook.map(v=>v!=null&&v>0?pct(v):'-');
   const mRevArr  = d.mRev.map(v=>v!=null&&v>0?pct(v):'-');
   const mVisArr  = d.mVisits.map(v=>v!=null&&v>0?num(v):'-');
   const mSatArr  = d.mSat.map(v=>v!=null?fmt(v,2):'-');
-
   document.getElementById('popup-kpis').innerHTML=`
     <div class="popup-kpi">
       <div class="popup-kpi-label">총 방문수</div>
@@ -1209,7 +1132,6 @@ function openPopup(d) {
       <div class="popup-kpi-label">별점 분포</div>
       <div style="position:relative;height:110px;margin-top:8px"><canvas id="popup-hist-chart"></canvas></div>
     </div>`;
-
   if (window._popupHistChart) window._popupHistChart.destroy();
   setTimeout(()=>{
     const hCtx=document.getElementById('popup-hist-chart');
@@ -1231,7 +1153,6 @@ function openPopup(d) {
             suggestedMax:Math.max(d.dist.s5,d.dist.s4,d.dist.s3,d.dist.neg)*1.35}}}
     });
   },50);
-
   if (popupServiceChart) popupServiceChart.destroy();
   const svc=SERVICE_BY_DESIGNER[d.id]||{};
   const svcLabels=Object.keys(SERVICE_TOTAL);
@@ -1245,143 +1166,155 @@ function openPopup(d) {
         tooltip:{backgroundColor:'#1a1d28',borderColor:'#2c2f45',borderWidth:1,titleColor:'#e8eaf2',bodyColor:'#8b8fb8',
           callbacks:{label:ctx=>` ${ctx.label}: ${ctx.raw}건 (${svcTotal?Math.round(ctx.raw/svcTotal*100):0}%)`}}}}
   });
-
   document.getElementById('popup-overlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
-
 function closePopup(e) {
   if(e.target===document.getElementById('popup-overlay')) {
     document.getElementById('popup-overlay').classList.remove('open');
     document.body.style.overflow='';
   }
 }
-
 // ═══════════════════════════════════════════
-
 // ═══════════════════════════════════════════
 // DATA ← 매달 여기만 교체
 // ═══════════════════════════════════════════
 const _DATA = {
   meta: {
-    period: "2026.01 — 2026.05",
-    subtitle: "헤어살롱 디자이너 성과 현황 · 2026 Q1~5월",
-    months: ["1월", "2월", "3월", "4월", "5월"]
+    period: "2026.01 — 2026.06",
+    subtitle: "헤어살롱 디자이너 성과 현황 · 2026 Q1~6월",
+    months: ["1월", "2월", "3월", "4월", "5월", "6월"]
   },
-
   designers: [
     {
       id: "아크 김도희", name: "김도희", branch: "아크", branchFull: "아크점",
-      sat: 4.88, satResp: 254,
-      mSat:  [4.96, 4.86, 4.77, 4.91, 4.90],
-      mResp: [27,   36,   39,   80,   72],
-      bookRate: 0.851, mBook: [0.904, 0.768, 0.814, 0.905, 0.862],
-      revRate:  0.419, mRev:  [0.317, 0.438, 0.468, 0.411, 0.462],
-      totalVisits: 975, mVisits: [189, 169, 188, 219, 210],
-      totalCust:   771, mCust:   [181, 160, 173, 198, 170],
-      dist: {s5: 212, s4: 17, s3: 3, neg: 1}
+      sat: 4.90, satResp: 321,
+      mSat:  [4.96, 4.86, 4.77, 4.91, 4.90, 4.96],
+      mResp: [27,   36,   39,   80,   72,   67],
+      bookRate: 0.842, mBook: [0.904, 0.768, 0.814, 0.905, 0.862, 0.799],
+      revRate:  0.359, mRev:  [0.317, 0.438, 0.468, 0.411, 0.462, 0.060],
+      totalVisits: 1210, mVisits: [189, 169, 188, 219, 210, 235],
+      totalCust:   992, mCust:   [181, 160, 173, 198, 170, 221],
+      dist: {s5: 277, s4: 18, s3: 4, neg: 1}
     },
     {
       id: "아크 오주예", name: "오주예", branch: "아크", branchFull: "아크점",
-      sat: 4.86, satResp: 305,
-      mSat:  [4.91, 4.91, 4.76, 4.87, 4.88],
-      mResp: [47,   44,   51,   83,   80],
-      bookRate: 0.801, mBook: [0.930, 0.725, 0.782, 0.758, 0.810],
-      revRate:  0.438, mRev:  [0.335, 0.500, 0.503, 0.395, 0.458],
-      totalVisits: 983, mVisits: [212, 174, 197, 200, 200],
-      totalCust:   762, mCust:   [200, 160, 174, 179, 181],
-      dist: {s5: 249, s4: 16, s3: 1, neg: 4}
+      sat: 4.89, satResp: 397,
+      mSat:  [4.91, 4.91, 4.76, 4.87, 4.88, 4.99],
+      mResp: [47,   44,   51,   83,   80,   92],
+      bookRate: 0.802, mBook: [0.930, 0.725, 0.782, 0.758, 0.810, 0.806],
+      revRate:  0.377, mRev:  [0.335, 0.500, 0.503, 0.395, 0.458, 0.068],
+      totalVisits: 1220, mVisits: [212, 174, 197, 200, 200, 237],
+      totalCust:   983, mCust:   [200, 160, 174, 179, 181, 221],
+      dist: {s5: 340, s4: 17, s3: 1, neg: 4}
     },
     {
-      id: "아크 김수빈", name: "김수빈", branch: "아크", branchFull: "아크점",
-      sat: 4.95, satResp: 279,
-      mSat:  [4.92, 4.95, 4.93, 4.97, 4.96],
-      mResp: [38,   39,   59,   73,   70],
-      bookRate: 0.849, mBook: [0.960, 0.650, 0.868, 0.661, 0.905],
-      revRate:  0.712, mRev:  [0.684, 0.787, 0.700, 0.000, 0.688],
-      totalVisits: 993, mVisits: [237, 169, 237, 160, 190],
-      totalCust:   603, mCust:   [190, 138, 196, 151, 167],
-      dist: {s5: 255, s4: 14, s3: 0, neg: 0}
+      id: "아크 김수빈", name: "김수빈", branch: "한타", branchFull: "한타점",
+      sat: 4.96, satResp: 381,
+      mSat:  [4.92, 4.95, 4.93, 4.97, 4.96, 5.00],
+      mResp: [38,   39,   59,   73,   70,   102],
+      bookRate: 0.809, mBook: [0.960, 0.650, 0.868, 0.661, 0.905, 0.810],
+      revRate:  0.500, mRev:  [0.684, 0.787, 0.700, 0.000, 0.688, 0.139],
+      totalVisits: 1231, mVisits: [237, 169, 237, 160, 190, 238],
+      totalCust:   808, mCust:   [190, 138, 196, 151, 167, 205],
+      dist: {s5: 357, s4: 14, s3: 0, neg: 0}
     },
     {
       id: "신논현 김상희", name: "김상희", branch: "신논현", branchFull: "신논현점",
-      sat: 4.96, satResp: 301,
-      mSat:  [5.00, 5.00, 4.92, 4.92, 4.97],
-      mResp: [36,   45,   40,   95,   85],
-      bookRate: 0.891, mBook: [0.887, 0.664, 0.752, 0.888, 0.965],
-      revRate:  0.633, mRev:  [0.269, 0.645, 0.627, 0.693, 0.732],
-      totalVisits: 1341, mVisits: [219, 312, 396, 254, 260],
-      totalCust:    762, mCust:   [188, 132, 160, 208, 214],
-      dist: {s5: 272, s4: 7, s3: 3, neg: 0}
+      sat: 4.97, satResp: 389,
+      mSat:  [5.00, 5.00, 4.92, 4.92, 4.97, 4.99],
+      mResp: [36,   45,   40,   95,   85,   88],
+      bookRate: 0.808, mBook: [0.887, 0.664, 0.752, 0.888, 0.965, 0.694],
+      revRate:  0.516, mRev:  [0.269, 0.645, 0.627, 0.693, 0.732, 0.132],
+      totalVisits: 1545, mVisits: [219, 312, 396, 254, 260, 204],
+      totalCust:    939, mCust:   [188, 132, 160, 208, 214, 177],
+      dist: {s5: 359, s4: 8, s3: 3, neg: 0}
     },
     {
       id: "신논현 이나연", name: "이나연", branch: "신논현", branchFull: "신논현점",
-      sat: 4.95, satResp: 319,
-      mSat:  [4.95, 4.88, 4.90, 4.98, 4.99],
-      mResp: [37,   42,   60,   92,   88],
-      bookRate: 0.951, mBook: [1.000, 0.740, 0.861, 0.901, 0.952],
-      revRate:  0.502, mRev:  [0.119, 0.531, 0.464, 0.638, 0.758],
-      totalVisits: 1248, mVisits: [210, 342, 422, 218, 220],
-      totalCust:    825, mCust:   [197, 156, 191, 189, 196],
-      dist: {s5: 289, s4: 13, s3: 0, neg: 1}
+      sat: 4.95, satResp: 410,
+      mSat:  [4.95, 4.88, 4.90, 4.98, 4.99, 4.96],
+      mResp: [37,   42,   60,   92,   88,   91],
+      bookRate: 0.877, mBook: [1.000, 0.740, 0.861, 0.901, 0.952, 0.806],
+      revRate:  0.432, mRev:  [0.119, 0.531, 0.464, 0.638, 0.758, 0.082],
+      totalVisits: 1468, mVisits: [210, 342, 422, 218, 220, 220],
+      totalCust:    1027, mCust:  [197, 156, 191, 189, 196, 202],
+      dist: {s5: 377, s4: 15, s3: 1, neg: 1}
     },
     {
       id: "신논현 송영호", name: "송영호", branch: "신논현", branchFull: "신논현점",
-      sat: 4.85, satResp: 225,
-      mSat:  [4.70, 4.74, 4.89, 4.92, 4.93],
-      mResp: [20,   39,   36,   65,   65],
-      bookRate: 0.899, mBook: [0.957, 0.758, 0.897, 0.926, 0.957],
-      revRate:  0.488, mRev:  [0.070, 0.478, 0.436, 0.607, 0.649],
-      totalVisits: 1263, mVisits: [200, 399, 440, 224, 220],
-      totalCust:    857, mCust:   [193, 161, 201, 201, 208],
-      dist: {s5: 179, s4: 17, s3: 4, neg: 2}
+      sat: 4.89, satResp: 303,
+      mSat:  [4.70, 4.74, 4.89, 4.92, 4.93, 4.99],
+      mResp: [20,   39,   36,   65,   65,   78],
+      bookRate: 0.893, mBook: [0.957, 0.758, 0.897, 0.926, 0.957, 0.861],
+      revRate:  0.388, mRev:  [0.070, 0.478, 0.436, 0.607, 0.649, 0.085],
+      totalVisits: 1498, mVisits: [200, 399, 440, 224, 220, 235],
+      totalCust:    1072, mCust:  [193, 161, 201, 201, 208, 215],
+      dist: {s5: 256, s4: 18, s3: 4, neg: 2}
+    },
+    {
+      id: "한타 방혜리", name: "방혜리", branch: "한타", branchFull: "한타점",
+      sat: 4.60, satResp: 10,
+      mSat:  [null, null, null, null, null, 4.60],
+      mResp: [0,    0,    0,    0,    0,    10],
+      bookRate: 0.246, mBook: [null, null, null, null, null, 0.246],
+      revRate:  0.032, mRev:  [null, null, null, null, null, 0.032],
+      totalVisits: 62, mVisits: [0, 0, 0, 0, 0, 62],
+      totalCust:   60, mCust:   [0, 0, 0, 0, 0, 60],
+      dist: {s5: 9, s4: 0, s3: 0, neg: 1}
+    },
+    {
+      id: "한타 전혜진", name: "전혜진", branch: "한타", branchFull: "한타점",
+      sat: 4.95, satResp: 38,
+      mSat:  [null, null, null, null, null, 4.95],
+      mResp: [0,    0,    0,    0,    0,    38],
+      bookRate: 0.595, mBook: [null, null, null, null, null, 0.595],
+      revRate:  0.033, mRev:  [null, null, null, null, null, 0.033],
+      totalVisits: 150, mVisits: [0, 0, 0, 0, 0, 150],
+      totalCust:   145, mCust:   [0, 0, 0, 0, 0, 145],
+      dist: {s5: 37, s4: 0, s3: 1, neg: 0}
     }
   ],
-
   serviceTotal: {
-    "커트": 3378, "커트+펌": 1508, "클리닉": 1341,
-    "샴푸/세팅드라이": 982, "커트+염색": 639, "염색": 399, "펌": 214, "기타": 5
+    "커트": 4280, "커트+펌": 1780, "클리닉": 1341,
+    "샴푸/세팅드라이": 1124, "커트+염색": 769, "염색": 495, "펌": 253, "기타": 5
   },
-
   serviceByDesigner: {
-    "아크 김도희":   {"커트": 201, "커트+펌": 138, "클리닉": 118, "샴푸/세팅드라이": 101, "커트+염색": 53, "염색": 40, "펌": 25, "기타": 0},
-    "아크 오주예":   {"커트": 271, "커트+펌": 113, "클리닉": 118, "샴푸/세팅드라이": 105, "커트+염색": 48, "염색": 40, "펌": 23, "기타": 0},
-    "아크 김수빈":   {"커트": 402, "커트+펌": 140, "클리닉": 91,  "샴푸/세팅드라이": 61,  "커트+염색": 70, "염색": 10, "펌": 4,  "기타": 0},
-    "신논현 김상희": {"커트": 316, "커트+펌": 124, "클리닉": 84,  "샴푸/세팅드라이": 57,  "커트+염색": 69, "염색": 35, "펌": 13, "기타": 5},
-    "신논현 이나연": {"커트": 318, "커트+펌": 141, "클리닉": 93,  "샴푸/세팅드라이": 76,  "커트+염색": 55, "염색": 36, "펌": 8,  "기타": 0},
-    "신논현 송영호": {"커트": 289, "커트+펌": 118, "클리닉": 125, "샴푸/세팅드라이": 74,  "커트+염색": 50, "염색": 41, "펌": 18, "기타": 0}
+    "아크 김도희":   {"커트": 339, "커트+펌": 167, "클리닉": 118, "샴푸/세팅드라이": 126, "커트+염색": 76, "염색": 52, "펌": 33, "기타": 0},
+    "아크 오주예":   {"커트": 406, "커트+펌": 152, "클리닉": 118, "샴푸/세팅드라이": 129, "커트+염색": 67, "염색": 55, "펌": 28, "기타": 0},
+    "아크 김수빈":   {"커트": 552, "커트+펌": 182, "클리닉": 91,  "샴푸/세팅드라이": 73,  "커트+염색": 93, "염색": 18, "펌": 7,  "기타": 0},
+    "신논현 김상희": {"커트": 439, "커트+펌": 158, "클리닉": 84,  "샴푸/세팅드라이": 69,  "커트+염색": 88, "염색": 46, "펌": 18, "기타": 5},
+    "신논현 이나연": {"커트": 435, "커트+펌": 182, "클리닉": 93,  "샴푸/세팅드라이": 100, "커트+염색": 71, "염색": 50, "펌": 16, "기타": 0},
+    "신논현 송영호": {"커트": 420, "커트+펌": 161, "클리닉": 125, "샴푸/세팅드라이": 96,  "커트+염색": 66, "염색": 60, "펌": 22, "기타": 0},
+    "한타 방혜리":   {"커트": 34, "커트+펌": 12, "클리닉": 0, "샴푸/세팅드라이": 8, "커트+염색": 1, "염색": 5, "펌": 2, "기타": 0},
+    "한타 전혜진":   {"커트": 74, "커트+펌": 32, "클리닉": 0, "샴푸/세팅드라이": 15, "커트+염색": 13, "염색": 12, "펌": 4, "기타": 0}
   },
-
   reviews: {
     5: [
-      {designer: "김상희", text: "상희님은 압도적으로 최고이십니다. 이전의 상태를 다 기억하고 계셔주다보니 넘 좋아요! 5월에도 항상 완벽하게 해주셔서 정말 감사해요."},
-      {designer: "이나연", text: "5월에도 역시 이나연님! 머리 특성을 너무 잘 파악하고 계셔서 따로 설명 안 해도 딱 원하는 스타일로 해주세요. 매번 감사합니다."},
-      {designer: "김수빈", text: "이번에 처음 파마를 맡겼는데 상담부터 시술까지 너무 꼼꼼하게 해주셨어요. 결과도 너무 마음에 들고 주변 반응도 좋아서 너무 행복해요!"},
-      {designer: "김도희", text: "항상 바쁠 텐데 여유 있게 상담해주시고 시술 중에도 계속 체크해주셔서 감사해요. 이번 커트도 정말 만족스럽습니다."},
-      {designer: "오주예", text: "주예님 덕분에 5월도 기분 좋게 지내고 있어요! 제 두피 상태까지 꼼꼼히 봐주시고 클리닉 추천해주셔서 덕분에 두피도 건강해졌어요."},
-      {designer: "송영호", text: "영호님 5월에도 최고였어요. 바쁜데도 꼼꼼하게 봐주시고 드라이까지 완벽하게 마무리해주셨어요. 다음 달에도 또 올게요!"}
+      {designer: "김도희", text: "항상 편안한 분위기로 맞아주시고, 시술도 꼼꼼하게 해주셔서 믿고 맡길 수 있습니다. 작은 부분까지 세심하게 신경 써주시는 덕분에 매번 만족스럽게 변신하고 돌아가요. 도희님 실력이 워낙 좋으신 덕분에 시간도 절약하고 기분 전환도 할 수 있는 사내 최고의 복지 중 하나라고 생각합니다!"},
+      {designer: "오주예", text: "주예님 모든 과정과 하나하나 세심하고 친절하게 챙겨주셔서 감동이었습니다. 두피 마사지 덕분에 열났던 두피가 시원해지고, 머리가 맑아져서 일에 더 집중할 수 있을 거 같아요. 커트도 대충하지 않으시고, 최대한 원하는 모양으로 해주시려는게 너무 좋았어용 최고!"},
+      {designer: "김수빈", text: "제가 놓쳐서 늦었음에도 시술을 꼼꼼히 해주셔서 너무 감사했습니다. 전에 커트한것도 기억하셔서 물어봐주셔서 너무 좋은 경험이였어요."},
+      {designer: "김상희", text: "너무 잘해주셨어요!! 컷트도 섬세하게 기존 머리 질감에 맞추어 잘 해주셨고 염색도 기존 색에 잘 맞추어 주셔서 너무 만족스러워요~! 지금까지 머리해주신 디자이너분들 중에 제일 맘에들어요!!"},
+      {designer: "이나연", text: "늘 항상 친절하고 이전 미용 시술을 다 기억해주시면서 머리 이쁘게 해주셔서 감사드립니다!"},
+      {designer: "송영호", text: "시술 모두 디자이너님께 받았는데 정말 친절하세요. 또 시술 받고 싶어요!"},
+      {designer: "전혜진", text: "펌 신청했는데 샴푸, 앞머리컷, 드라이까지 다 해주셨어서 노곤노곤 잘 쉬다 온 기분이에요. 펌도 잘 말아주셨습니다. 한타 헤어살롱은 처음 왔는데 너무 만족해용."},
+      {designer: "방혜리", text: "세심하게 해주셔서 만족했어요!! 머리 세팅도 꼼꼼히 봐주셔서 업무로 경황이 없던 중에 기분이 좋아졌습니다 감사합니다 ㅎㅎ"}
     ],
-    4: [
-      {designer: "이나연", text: "샴푸가 시원하고 좋았는데 이번 커트는 원하던 것보다 살짝 짧아졌어요. 그래도 전체적으로 만족합니다."},
-      {designer: "김도희", text: "상담도 친절하고 커트도 마음에 들어요! 다음에도 또 예약할게요."},
-      {designer: "김수빈", text: "친절하고 스타일에 맞게 잘해 주셨습니다. 다음엔 파마도 도전해볼게요."},
-      {designer: "김상희", text: "전반적으로 만족스러웠어요. 다만 대기가 조금 길었습니다."}
-    ],
+    4: [],
     3: [
-      {designer: "송영호", text: "커트는 잘 해주셨는데 마무리 드라이가 조금 아쉬웠어요. 좀 더 볼륨감 있게 해주셨으면 좋겠어요."}
+      {designer: "김도희", text: "스타일링 추천해주시고 신경 많이 써주셨어요! 그런데 커트는 아쉬웠어요. 요청 드린 것보다 길이가 많이 잘렸어요."},
+      {designer: "이나연", text: "샴푸는 잘해주셨는데 드라이를 말리기만 하신거같아요. 앞머리가 있는데 스타일링이 조금 아쉬웠습니다."}
     ],
-    2: [
-      {designer: "오주예", text: "이번에는 원하는 스타일과 조금 달랐어요. 사진을 보여드렸는데 결과물이 많이 달라서 아쉬웠습니다."}
-    ],
-    1: []
+    2: [],
+    1: [
+      {designer: "방혜리", text: "옆머리 숱을 너무 많이 치셔서 눈을 찌르고 불편합니다. 지저분하게 잔머리처럼 생겨버렸는데 관리도 어렵고 너무 속상해요."}
+    ]
   }
 };
-
 // ═══════════════════════════════════════════
 // 현재 선택 월 상태 (null = 전체 누적)
 // ═══════════════════════════════════════════
 let selectedMonthIdx = null; // null=전체, 0~N=해당월 인덱스
-
 // 월별 단일 데이터 추출 헬퍼
 function getViewData() {
   if (selectedMonthIdx === null) {
@@ -1398,7 +1331,6 @@ function getViewData() {
   }
   const idx = selectedMonthIdx;
   const mLabel = MONTHS[idx];
-
   // 디자이너별 해당 월 데이터로 재구성
   const designers = DESIGNERS.map(d => ({
     ...d,
@@ -1416,7 +1348,6 @@ function getViewData() {
     mVisits: d.mVisits.slice(0, idx+1),
     mCust:   d.mCust.slice(0, idx+1),
   }));
-
   return {
     designers,
     serviceTotal: SERVICE_TOTAL,       // 시술 메뉴는 월별 분리 없음
@@ -1427,32 +1358,26 @@ function getViewData() {
     isMonthly: true,
   };
 }
-
 // 드롭다운 변경 핸들러
 function onPeriodChange(val) {
   selectedMonthIdx = val === 'all' ? null : parseInt(val);
   const vd = getViewData();
   const badge = document.getElementById('period-mode-badge');
-
   // 배지 업데이트
   badge.textContent = vd.isMonthly ? `${MONTHS[selectedMonthIdx]} 단독` : '누적';
   badge.className   = vd.isMonthly ? 'period-mode-badge monthly' : 'period-mode-badge';
-
   // 임시로 전역 교체 후 렌더
   const origDesigners  = DESIGNERS;
   const origReviews    = REVIEWS;
   const origMonths     = MONTHS;
-
   DESIGNERS = vd.designers;
   REVIEWS   = vd.reviews;
   MONTHS    = vd.months;
-
   // 기존 차트 destroy
   // 기존 차트 모두 destroy
   Object.values(Chart.instances).forEach(c => { try { c.destroy(); } catch(e){} });
   if (window._popupHistChart) { window._popupHistChart.destroy(); window._popupHistChart = null; }
   if (window.popupServiceChart) { window.popupServiceChart.destroy(); window.popupServiceChart = null; }
-
   renderCards();
   updateKPI();
   renderRanking();
@@ -1461,19 +1386,16 @@ function onPeriodChange(val) {
   renderServiceChart();
   renderHistogram();
   renderReviews();
-
   // kpi-sub 라벨
   const kpiSubLabel = vd.isMonthly
     ? `${MONTHS[MONTHS.length-1]} 기준`
     : `최근 ${_DATA.meta.months.length}개월간`;
   document.querySelectorAll('.kpi-sub').forEach(el => el.textContent = kpiSubLabel);
-
   // 전역 복원 (원본은 유지)
   DESIGNERS = origDesigners;
   REVIEWS   = origReviews;
   MONTHS    = origMonths;
 }
-
 // ═══════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════
@@ -1482,10 +1404,8 @@ SERVICE_TOTAL       = _DATA.serviceTotal;
 SERVICE_BY_DESIGNER = _DATA.serviceByDesigner;
 REVIEWS             = _DATA.reviews;
 MONTHS              = _DATA.meta.months;
-
 // 월별 리뷰 분리 저장 (reviews_by_month 있으면 사용, 없으면 전체 공유)
 const REVIEWS_BY_MONTH = _DATA.reviewsByMonth || MONTHS.map(() => _DATA.reviews);
-
 // 드롭다운 옵션 동적 생성
 (function buildDropdown() {
   const sel = document.getElementById('period-select');
@@ -1496,9 +1416,7 @@ const REVIEWS_BY_MONTH = _DATA.reviewsByMonth || MONTHS.map(() => _DATA.reviews)
     sel.appendChild(opt);
   });
 })();
-
 document.querySelector('.logo-sub').textContent = _DATA.meta.subtitle;
-
 renderCards();
 updateKPI();
 renderRanking();
